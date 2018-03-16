@@ -1,0 +1,94 @@
+%%
+%% Author: nikolas
+%% 11.03.18
+%%
+
+% Preamble
+\documentclass[11pt]{article}
+
+% Packages
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\n}{\newline}
+\renewcommand{\refname}{Referenzen}
+
+\newtheorem{theorem}{Satz}
+
+% Headline
+\title{Distanzerhaltende Approximation von Kantenzügen}
+\author{Nikolas Klug}
+
+
+% Document
+\begin{document}
+    \maketitle
+
+    \begin{abstract}
+        asdf
+    \end{abstract}
+
+    \section{Einführung und Definitionen}
+    \label{sec:intro}
+
+    Sei $d\geq1$ und $p_1, p_2, \mathellipsis, p_n$ ein Pfad $P$, dessen Knoten alle in $\R^{d}$ liegen.
+    Ein solcher Pfad kann mitunter eine hohe Zahl von Knoten besitzen, die sehr nah beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw.\ die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter Einhaltung der Länge approximieren.
+    Art der Approximationen:
+    - Flächenerhaltende Approximation + Anwendungen\n
+    - Distanzerhaltende Approximatioin + Anwendungen\n
+    - tolerance zone, infinite beam, uniform measure\textellipsis\n
+    (- Vor- und Nachteile)
+
+
+    Seien $u, v \in \R^d$, dann definieren wir $|uv|$ als den euklidischen Abstand
+    (bzw.\ als die $L2-Norm$) dieser beiden Punkte.
+    Sind $v_i, v_j \in P$ dann sei $\delta(v_i, v_j) \coloneqq \sum\limits_{i=1}^{n-1}{|v_i
+    v_{i+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$
+
+    - Definition t-distanzerhaltend\n
+    - Definition t-distanzerhaltende Approximation\n
+    - Definition MVPS\n
+    - Definition MDPS\n
+
+    Beispiel Bild
+
+    \section{Exakte Algorithmen für MVPS und MDPS}
+    \label{sec:exact}
+    
+    Zu Beginn betrachten wir zwei einfache exakte Algorithmen.
+    
+    Sei wieder $d\geq1$, $t>1$ und $P = (p_1, p_2, \mathellipsis, p_n)$ ein Pfad in $\R^d$. Sei weiter $P^*$ die Menge der t-distanzerhaltende Approximationen mit der geringsten Knotenzahl.
+    Wir konstruieren jetzt den gerichteten Graphen $G_t = (V,E_t)$, wobei V genau aus den Knoten des Pfades $P$ besteht und 
+    $E_t = \{(p_i, p_j) \in V\times V|\ i < j \text{ und } (p_i,p_j)\ \text{ist t-distanzerhaltend}\}$. $E_t$ ist also gerade die Menge aller t-distanzerhaltenden Kanten zwischen Knoten aus $V$. Zunächst beobachten wir, dass jede t-distanzerhaltende Approximation von $P$ einem Pfad in $G_t$ entspricht, da $G_t$ alle t-distanzerhaltenden Kanten zwischen Knoten von $P$ enthält. Andererseits ist auch jeder Pfad $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_k})$ mit $1 = i_1 < i_2 < \mathellipsis < i_k = n$ in $G_t$ eine t-distanzerhaltende Approximation von $P$, da nur t-distanzerhaltende Kanten verwendet werden. Daraus folgt, dass auch $P^*$ in $G_t$ liegt. Jetzt müssen wir also nur noch ein Element aus $P^*$ ermitteln. Das ist leicht: Wir führen eine Breitensuche in $G_t$ mit Startknoten $p_1$ durch, bei der wir jeden Knoten mit der Nummer des Knotens beschriften, von dem aus er zum ersten Mal entdeckt wurde. Am Ende lesen wir diese Beschriftung bei $p_n$ beginnend solange aus, bis wir $p_1$ erreichen. Der dadurch enstandene Pfad ist dann aufgrund der Eigenschaften der Breitensuche in $P^*$. 
+    Nun betrachten wir noch die Laufzeit: Die Konstruktion von $G_t$ gelingt uns in $O(n^2)$, da wir für maximal $n^2$ Kanten überprüfen müssen, ob diese t-distanzerhaltend sind. Aus  \cite{hagerup}
+
+    - Exakter Algorithmuns MVPS: Satz, Beweis\n
+    - Exakter Algorithmus MDPS: Satz, Beweis
+
+
+    \section{Heuristische Algorithmen}
+    \label{sec:heuristic}
+
+    \subsection{Well-separated Pair Decomposition}
+    \label{subsec:wspd}
+
+    Definition und evtl.\ Lemmata
+
+    \subsection{Algorithmus für das MVPS}
+    \label{subsec:mvps}
+    
+    \subsection{Algorithmus für das MDPS}
+    \label{subsec:mdps}
+    Heuristischer Algorithmus aus Paper mit allen Erklärungen
+
+    \section{Fazit}
+    \label{sec:fazit}
+
+    \bibliography{main}
+    \bibliographystyle{plain}
+
+\end{document}
