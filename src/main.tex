@@ -14,6 +14,7 @@
 \usepackage{amssymb}
 \usepackage{amsthm}
 \usepackage{mathtools}
+\usepackage{enumitem}
 %\usepackage{hyperref} % Makes citations clickable
 
 \newcommand{\R}{\mathbb{R}}
@@ -24,8 +25,7 @@
 
 \newtheorem{theorem}{Satz}[section]
 \newtheorem{lemma}[theorem]{Lemma}
-
-
+\newtheorem{definition}[theorem]{Definition}
 
 % Headline
 \title{Distanzerhaltende Approximation von Kantenzügen}
@@ -101,8 +101,20 @@
 
     \subsection{Well-separated Pair Decomposition}
     \label{subsec:wspd}
+    
+    \begin{definition}[well-separated]
+    	Sei $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten im $\R^d$. $A$ und $B$ heißen well-separated with respect to $s$, falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, wobei $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
+    \end{definition}
+    
+    \begin{definition}[well-separated pair decomposition]
+    	Sei $S \subseteq \R^d$ und $s > 0$. Eine Folge $(A_i, B_i)_{1 \leq i \leq m}$ von nicht-leeren Teilmengen von S ist genau dann eine well-separated pair decompositon (WSPD), wenn gilt:
+    	\begin{enumerate}[label={(\arabic*)}]
+    		\item $A_i \cap B_i = \emptyset$
+    		\item Für alle $p, q \in S$ gibt es genau einen Index $1 \leq i \leq m$, sodass entweder $p \in A_i$ und $q \in B_i$ oder $q \in A_i$ und $p \in B_i$.
+    		\item $A_i$ und $B_i$ sind well-separated with respect to $s$
+    	\end{enumerate}
+    \end{definition}
 
-    Definition und evtl.\ Lemmata
 
     \subsection{Algorithmus für das MVPS}
     \label{subsec:mvps}
