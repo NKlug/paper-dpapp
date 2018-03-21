@@ -43,7 +43,7 @@
     \section{Einführung und Definitionen}
     \label{sec:intro}
 
-    Sei $d\geq1$ und $p_1, p_2, \mathellipsis, p_n$ ein Pfad $P$, dessen Knoten alle in $\R^{d}$ liegen.
+    Sei $d\geq1$ und $p_1, p_2, \mathellipsis, p_n$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
     Ein solcher Pfad kann mitunter eine hohe Zahl von Knoten besitzen, die sehr nah beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw.\ die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter Einhaltung der Länge approximieren.
     Art der Approximationen:
     - Flächenerhaltende Approximation + Anwendungen\n
@@ -87,13 +87,13 @@
 		Die Kantenmenge $E_t$ ist eine Teilmenge von $E_{t'}$, da alle Kanten, die $t$-distanzerhaltend sind, auch $t'$-distanzerhaltend sind. Somit ist jede $t$-distanzerhaltende Approximation auch eine $t'$-distanzererhaltende Approximation, es folgt also $\kappa_t \geq \kappa_{t'}$.
 	\end{proof}
 	
-	Da $G_t$ maximal $O(n^2)$ Kanten enthält, gibt es eine endliche Zahl von $t$-Werten. Wir müssen also nur noch aus diesen Werten den geringsten Wert $t^*$ ermitteln, der gerade noch k Knoten oder weniger hat. Dazu definieren wir zunächst für $1\leq i < j \leq n$ $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$, also als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. Wir wissen, dass $t^* \in M$, da die gesuchte Approximation eine Kante mit maximalen $t$-Wert hat, und $M$ gerade alle diese enthält. Wegen Lemma \ref{lem:kappa} wissen wir, das sich die $\kappa_t$ umgekehrt proportional zu den $t$-Werten verhalten. Sortieren wir jetzt $M$ zu $M'$, können wir in $M'$ nach dem $t*$ suchen. Dazu verwenden wir eine Binärsuche, bei der wir jeweils für den aktuell betrachteten $t$-Wert das MVPS lösen. Da $M$ $O(n^2)$ Elemente enthält, können wir $M$ nach \cite{hagerup} in $O(n^2\log n^2)=O(n^2\log n)$ sortieren.
-	Die Binärsuche dauert bekanntermaßen $O(\log n)$ und mit Satz \ref{theo:mvpsex} ergibt sich auch dafür eine Laufzeit von $O(n^2\log n)$. Wir halten fest:
+	Da $G_t$ maximal $O(n^2)$ Kanten enthält, gibt es eine endliche Zahl von $t$-Werten. Wir müssen also nur noch aus diesen Werten den geringsten Wert $t^*$ ermitteln, der gerade noch k Knoten oder weniger hat. Dazu definieren wir zunächst für $1\leq i < j \leq n$ $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$, also als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. Wir wissen, dass $t^* \in M$, da die gesuchte Approximation eine Kante mit maximalen $t$-Wert hat, und $M$ gerade alle diese enthält. Wegen Lemma \ref{lem:kappa} wissen wir, das sich die $\kappa_t$ umgekehrt proportional zu den $t$-Werten verhalten. Sortieren wir jetzt $M$ zu $M'$, können wir in $M'$ nach $t^*$ suchen. Da $M$ $O(n^2)$ Elemente enthält, können wir $M$ nach \cite{hagerup} in $O(n^2\log n^2)=O(n^2\log n)$ sortieren. Für die Suche verwenden wir eine Binärsuche, bei der wir jeweils für den aktuell betrachteten $t$-Wert das MVPS lösen und dann abhängig vom Ergebnis entweder im rechten oder linken Teilbereich weitersuchen. 
+	Eine gewöhnliche Binärsuche dauert bekanntermaßen $O(\log n)$ und mit Satz \ref{theo:mvpsex} ergibt sich auch hier eine Laufzeit von $O(n^2\log n)$. Wir halten fest:
 	\begin{theorem}
 		Das Minimum Dilation Path Simplification Problem kann für Pfade mit n Knoten in $O(n^2 \log n)$ gelöst werden.
 	\end{theorem}
 	
-	Damit beschließen wir das Kapitel über exakte Algorithmen für das MVPS- und das MDPS-Problem und wenden uns approximativen zu.
+	Damit beschließen wir das Kapitel über exakte Algorithmen für das MVPS- und das MDPS-Problem und wenden uns approximativen Lösungen zu.
 
     \section{Approximative Algorithmen}
     \label{sec:approximative}
@@ -106,15 +106,31 @@
     	Sei $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten im $\R^d$. $A$ und $B$ heißen well-separated with respect to $s$, falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, wobei $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
     \end{definition}
     
+    Das folgende Lemma hält zwei wichtige Eigenschaften von zwei well-separated Mengen $A$ und $B$ fest.
+    \begin{lemma}
+		Seien $a, a' \in A$ und $b, b' \in B$. Dann gilt:
+		\begin{enumerate}[label={(\arabic*)}]
+			\item $|ab| \leq \frac{2}{s}\cdot|a'b'|$
+			\item \[|a'b'| \leq (1+\frac{4}{s})\cdot|ab|\]
+		\end{enumerate}
+    \end{lemma}
+    
     \begin{definition}[well-separated pair decomposition]
-    	Sei $S \subseteq \R^d$ und $s > 0$. Eine Folge $(A_i, B_i)_{1 \leq i \leq m}$ von nicht-leeren Teilmengen von S ist genau dann eine well-separated pair decompositon (WSPD), wenn gilt:
-    	\begin{enumerate}[label={(\arabic*)}]
+    	Sei $S \subseteq \R^d$ und $s > 0$. Eine Folge $(A_i, B_i)_{1 \leq i \leq m}$ von nicht-leeren Teilmengen von S ist genau dann eine \emph{well-separated pair decompositon (WSPD)}, wenn gilt:
+    	\begin{enumerate}[label={(\arabic*)}, itemsep=0mm]
     		\item $A_i \cap B_i = \emptyset$
     		\item Für alle $p, q \in S$ gibt es genau einen Index $1 \leq i \leq m$, sodass entweder $p \in A_i$ und $q \in B_i$ oder $q \in A_i$ und $p \in B_i$.
     		\item $A_i$ und $B_i$ sind well-separated with respect to $s$
     	\end{enumerate}
     \end{definition}
+	
+	\noindent	$m$ nennen wir dabei die \emph{Größe} der WSPD.
 
+	Die WSPD bildet eine wichtige Grundlage für die beiden Algorithmen, die wir im Folgenden betrachten werden. \textellipsis haben gezeigt, dass man eine WSPD der Größe $m = O(n)$ in $O(n\log n)$ Zeit berechnen kann. Dabei wird zunächst ein sogenannter \textit{Fair Split Tree} berechnet, aus dem dann in $O(s^dn)$ Zeit eine WSPD erstellt werden kann. Wir werden sehen, dass es für unseren Anwendungsfall genügt, eine WSPD für Mengen von Punkten aus $\R$ zu erstellen. Für diesen 1-dimensionalen Fall kann der Fair Split Tree mit Hilfe eines einfachen Algorithmus berechnet werden.
+	
+	Sei $S'$ eine endliche Teilmenge von $\R$ und $|S'| = n$. Wir können davon ausgehen, dass uns diese Menge sortiert in einem Array $S[1..n]$ vorliegt und werden später sehen, dass das bei unserem Algorithmus auch tatsächlich der Fall ist. ABBILDUNG X stellt einen Algorithmus dar, der diesen Split Tree $T$ erstellt. Bei $T$ handelt es sich um einen Binärbaum, an dessen Blättern die Werte von $S$ in von links nach rechts aufsteigend sortierter Reihenfolge gespeichert sind. Für jeden inneren Knoten speichern wir zusätzlich das Intervall in dem die Blätter des von ihm induzierten Teilbaumes liegen.
+	Da $T$ $n$ Blätter hat, erstellen wir $O(n)$ Knoten. Dabei müssen wir aber in ZEILE 88 jedesmal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
+	Betrachten wir jetzt zwei innere Knoten $p$ und $q$ von T. Seien $[i, j]$ und $[k, l]$ die Intervalle, die wir mit $p$ und $q$ gespeichert haben. 
 
     \subsection{Algorithmus für das MVPS}
     \label{subsec:mvps}
