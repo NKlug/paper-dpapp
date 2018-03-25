@@ -128,7 +128,7 @@
     	\begin{enumerate}[label={(\arabic*)}, itemsep=0mm]
     		\item $A_i \cap B_i = \emptyset$
     		\item Für alle $p, q \in S$ gibt es genau einen Index $1 \leq i \leq m$, sodass entweder $p \in A_i$ und $q \in B_i$ oder $q \in A_i$ und $p \in B_i$.
-    		\item $A_i$ und $B_i$ sind well-separated with respect to $s$
+    		\item $A_i$ und $B_i$ sind in Bezug zu s wohl-separiert $s$
     	\end{enumerate}
     \end{definition}
 	
@@ -161,19 +161,27 @@
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
 		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$. Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
 		
-		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilkantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Mit LEMMA XX.1 folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Desweiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
+		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Mit LEMMA XX.1 folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
 		
 		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen LEMMA XX.1 $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
 	\end{proof}
 	
-	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad mit der gleichen Zahl von Knoten in $H$ entspricht. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation etwas länger sein kann, als gewünscht.
+	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad mit der gleichen Zahl von Knoten in $H$ entspricht. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil länger sein kann, als gewünscht.
 	
 	\begin{theorem}
 		\label{theo:H2Approx}
-		Jeder Pfad $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_[k-1]}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation von $P$.
+		Jeder Pfad $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
 	\end{theorem}
 	\begin{proof}
+		Sei wieder $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
+		Da $x_1$ in $A_{i_1}$, können wir als ersten Knoten von $Q$ $q_1 = p_1$ wählen.
 		
+		Nehmen wir an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ zu dem Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt haben, sodass $y_1 (= x_1) \in A_{i_1}$ und für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$. Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y_{l+1} \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach der Konstruktion von $H$ nicht leer ist. Dann fügen wir das zu $y_{l+1}$ gehörende $q_{l+1}$ zum Kantenzug hinzu und erhalten $(q_1, \mathellipsis, q_l, q_l+1)$.
+		
+		Nehmen wir an, dass wir bereits $(A_{i_1}, \mathellipsis, A_{i_k-1})$ bereits zu $(q_1, \mathellipsis, q_{k-1})$ konvertiert haben. Nach Voraussetzung ist $x_n \in B_{k-1}$. Wir wählen dann $q_k = p_n$ und fügen $q_k$ zum Pfad $Q$ hinzu. 
+		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Pfad $Q$ mit gleich vielen Knoten umwandeln kann. Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
+		
+		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit LEMMA XX.2 folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ also $(1+\epsilon)t$-distanzerhaltend ist.
 	\end{proof}
     
     \subsection{Algorithmus für das MDPS}
