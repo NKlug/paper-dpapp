@@ -23,6 +23,8 @@
 \renewcommand{\baselinestretch}{1.15}
 \renewcommand{\proofname}{\Beweis}
 
+\setenumerate{label=(\arabic*),itemsep=0mm}
+
 \newtheorem{theorem}{Satz}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
@@ -110,9 +112,9 @@
     Das folgende Lemma hält zwei wichtige Eigenschaften von zwei wohl-separierten Mengen $A$ und $B$ fest.
     \begin{lemma}
 		Seien $a, a' \in A$ und $b, b' \in B$. Dann gilt:
-		\begin{enumerate}[label={(\arabic*)}]
-			\item \[|aa'| \leq \frac{2}{s}\cdot|a'b'|\]
-			\item \[|a'b'| \leq (1+\frac{4}{s})\cdot|ab|\]
+		\begin{enumerate}
+			\item $\displaystyle |aa'| \leq \frac{2}{s}\cdot|a'b'|$
+			\item $\displaystyle |a'b'| \leq (1+\frac{4}{s})\cdot|ab|$
 		\end{enumerate}
     \end{lemma}
     \begin{proof}
@@ -143,17 +145,36 @@
 	Der in ABBILDUNG XX dargestellte Algorithmus berechnet dann aus dem fairen Split-Tree eine WSPD. Wie XY und ZA gezeigt haben, läuft ALG in $O(s\cdot n)$. Der Beweis ist allerdings sehr langwierig und kompliziert, sodass wir hier darauf verzichten, ihn explizit aufzuführen. Insgesamt erhalten wir für das Erstellen der WSPD eine Gesamtlaufzeit von $O(n\log n + s\cdot n).$
     \subsection{Algorithmus für das MVPS}
     \label{subsec:mvps}
-    \textellipsis
+    \textellipsis Wir nennen das paar $(A_i, B_i)$ (t, epsilon)-distanzerh. falls \textellipsis
     Zur Erinnerung: Die Mengen $A_i$ und $B_i$ enthalten die Elemente $x_k = \delta(p_1, p_k)$.
-    Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$. Dabei sind die Knoten von H genau die $2m$ Mengen $A_i$ und $B_i$ und die Kanten sind wie folgt definiert:
+    Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$. Dabei sind die Knoten von $H$ genau die $2m$ Mengen $A_i$ und $B_i$ und die Kanten sind wie folgt definiert:
     \begin{enumerate}
     	\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $x_n \in B_i$
-    	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kannte, wenn $(A_i, B_i)$ $t$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$
+    	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kannte, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$
     \end{enumerate}
 
 	\begin{theorem}
-		Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält
+		\label{theo:Approx2H}
+		Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält
 	\end{theorem}
+	\begin{proof}
+		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
+		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$. Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
+		
+		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilkantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Mit LEMMA XX.1 folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Desweiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
+		
+		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen LEMMA XX.1 $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
+	\end{proof}
+	
+	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad mit der gleichen Zahl von Knoten in $H$ entspricht. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation etwas länger sein kann, als gewünscht.
+	
+	\begin{theorem}
+		\label{theo:H2Approx}
+		Jeder Pfad $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_[k-1]}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation von $P$.
+	\end{theorem}
+	\begin{proof}
+		
+	\end{proof}
     
     \subsection{Algorithmus für das MDPS}
     \label{subsec:mdps}
