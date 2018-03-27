@@ -211,6 +211,7 @@
     \[s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon}\]
     
     \begin{lemma}
+    	\label{lem:tepsilon}
     	Seien $p, p', q, q' \in P$ wie in Lemma \ref{lem:stranget}. Dann gilt
     	\begin{enumerate}
     		\item Ist $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
@@ -220,7 +221,8 @@
     \begin{proof}
     	Zu 1.
     \end{proof}
-    \textellipsis Wir nennen das Paar $(A_i, B_i)$ (t, epsilon)-distanzerh. falls \textellipsis
+    Seien für alle $1 \leq i \leq m$ $a_i$ und $b_i$ zwei feste Elemente aus $A_i$ und $B_i$. Seien weiter $x_i$ und $y_i$ die Elemente von $P$, für die $a = \delta(p_1, x_i)$ und $b = \delta(p_1, y_i)$. Wir nennen im Folgenden die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls jeweils $(x_i, y_i)$ $(1 + \frac{\epsilon }{3})t$-distanzerhaltend ist.
+    
     Zur Erinnerung: Die Mengen $A_i$ und $B_i$ enthalten die Elemente $x_k = \delta(p_1, p_k)$.
     Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$. Dabei sind die Knoten von $H$ genau die $2m$ Mengen $A_i$ und $B_i$ und die Kanten sind wie folgt definiert:
     \begin{enumerate}
