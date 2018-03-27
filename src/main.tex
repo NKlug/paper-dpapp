@@ -111,6 +111,7 @@
     
     Das folgende Lemma hält zwei wichtige Eigenschaften von zwei wohl-separierten Mengen $A$ und $B$ fest.
     \begin{lemma}
+    	\label{lem:wellsep}
 		Seien $a, a' \in A$ und $b, b' \in B$. Dann gilt:
 		\begin{enumerate}
 			\item $\displaystyle |aa'| \leq \frac{2}{s}\cdot|a'b'|$
@@ -124,11 +125,11 @@
     
     \begin{definition}[well-separated pair decomposition]
     	\label{def:wspd}
-    	Sei $S \subseteq \R^d$ und $s > 0$. Eine Folge $(A_i, B_i)_{1 \leq i \leq m}$ von nicht-leeren Teilmengen von S ist genau dann eine \emph{well-separated pair decompositon (WSPD)}, wenn gilt:
+    	Sei $S \subseteq \R^d$ und $s > 0$. Eine Folge $(A_i, B_i)_{1 \leq i \leq m}$ von nicht-leeren Teilmengen von S ist genau dann eine \emph{Zerlegung in wohl-separierte Paare (engl. well-separated pair decomposition; WSPD)}, wenn gilt:
     	\begin{enumerate}[label={(\arabic*)}, itemsep=0mm]
     		\item $A_i \cap B_i = \emptyset$
     		\item Für alle $p, q \in S$ gibt es genau einen Index $1 \leq i \leq m$, sodass entweder $p \in A_i$ und $q \in B_i$ oder $q \in A_i$ und $p \in B_i$.
-    		\item $A_i$ und $B_i$ sind in Bezug zu s wohl-separiert $s$
+    		\item $A_i$ und $B_i$ sind wohl-separiert in Bezug zu $s$
     	\end{enumerate}
     \end{definition}
 	
@@ -158,7 +159,21 @@
     \begin{proof}
     	\begin{align*}
 	    	\delta(p', q') &= |x'y'| 
-	    	\\ &\leq (1 + \frac{4}{s})|xy|
+	    	\\ &\leq (1 + \frac{4}{s})\cdot|xy| & \text{(Lemma \ref{lem:wellsep})}
+	    	\\ &= (1 + \frac{4}{s})\cdot\delta(p, q)
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot |pq| & \text{((p,q) ist $t$-distanzerhaltend)}
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot (|pp'| + |p'q'| + |q'q|) & \text{(Dreiecksungleichung in $\R$)}
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\delta(p,p') + |p'q'| + \delta(q', q)) & \text{(Lemma XX Dreiecksungleichung)}
+	    	\\ &= (1 + \frac{4}{s})t\cdot (|xx'| + |p'q'| + |yy'|)
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\frac{2}{s}\cdot|x'y'| + |p'q'| + \frac{2}{s}\cdot|x'y'|) & \text{(Lemma \ref{lem:wellsep})}
+	    	\\ &= (1 + \frac{4}{s})t\cdot (\frac{4}{s}\cdot\delta(p',q') + |p'q'|)
+	    	\\ &= 4(1 + \frac{4}{s})\frac{t}{s}\cdot \delta(p',q') + (1 + \frac{4}{s})t\cdot|p'q'|
+    	\end{align*}
+    	Also ist
+    	\begin{align*}
+	    	\delta(p', q') &\leq 4(1 + \frac{4}{s})\frac{t}{s}\cdot \delta(p',q') + (1 + \frac{4}{s})t\cdot|p'q'|
+	    	\\ \delta(p', q') \cdot (1 - 4(1 + \frac{4}{s})\frac{t}{s}) &\leq (1 + \frac{4}{s})t\cdot|p'q'| \tag*{\llap{\makebox[\linewidth][l]{$\Leftrightarrow$}}}
+	    	\\ \delta(p',q') &\leq t' \cdot |p'q'| \tag*{\llap{\makebox[\linewidth][l]{$\Leftrightarrow$}}}
     	\end{align*}
     \end{proof}
     
