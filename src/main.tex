@@ -53,6 +53,7 @@
     - tolerance zone, infinite beam, uniform measure\textellipsis\n
     (- Vor- und Nachteile)
     
+    Kantenzug, Knoten, Kanten, analog zu Graphen
     "KÜRZESTE" t-distanzerhaltende Approximation
 
     Seien $u, v \in \R^d$, dann definieren wir $|uv|$ als den euklidischen Abstand
@@ -60,20 +61,34 @@
     Sind $v_i, v_j \in P$ dann sei $\delta(v_i, v_j) \coloneqq \sum\limits_{i=1}^{n-1}{|v_i
     v_{i+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$
 
-	\begin{definition}
+	\begin{definition}[$t$-distanzerhaltend]
 		\label{def:t-dist}
 		Sind $p_i, p_j \in P$, dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_{i+1}) \leq t \cdot |p_ip_j|$.
 	\end{definition}
-	
-	\begin{definition}
+	\begin{lemma}
+		\label{lem:triangle}
+		Für alle Knoten $p_i, p_j \in P$ gilt $|p_ip_j| \leq \delta(p_i, p_j)$
+	\end{lemma}
+	\begin{proof}
+		Dies folgt direkt aus der Dreiecksungleichung in $\R$.
+	\end{proof}
+	\begin{definition}[$t$-distanzerhaltende Approximation]
 		\label{def:t-distapp}
 		Ein Kantenzug $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_j})$ ist genau dann eine \emph{$t$-distanzerhaltende Approximation von $P$}, wenn
 		\begin{enumerate}
 			\item $\displaystyle 1 = i_1 < i_2 < \mathellipsis < i_j = n$
-			\item $\displaystyle \text{Für alle } 1 \leq l < j \text{ ist die Kante } (p_{i_l}, p_{i_{l+1}}) \text{ $t$-distanzerhaltend}$
+			\item $\displaystyle \text{Für alle } 1 \leq l < j \text{ ist die Kante } (p_{i_l}, p_{i_{l+1}}) \text{ des Pfades $t$-distanzerhaltend}$
 		\end{enumerate}
 	\end{definition}
+	
+	Wir nennen eine t-distanzerhaltende Approximation eines Pfades am \emph{kürzesten} bzw. eine \emph{Kürzeste}, falls sie die geringst mögliche Zahl an Knoten besitzt.
+	
+	Aus Definition \ref{def:t-distapp} geht direkt hervor, dass falls $1 \leq t < t'$ jede $t$-distanzerhaltende Approximation eines Pfades, auch eine $t'$-distanzerhaltende Approximation dieses Pfades ist. 
 
+	\begin{lemma}
+		\label{lem:approximations}
+		Sei $1 \leq t < t'$
+	\end{lemma}
     - Definition $t$-distanzerhaltend\n
     - Definition $t$-distanzerhaltende Approximation\n
     - Definition MVPS\n
@@ -148,7 +163,7 @@
     	\end{enumerate}
     \end{definition}
 	
-	\noindent	$m$ nennen wir dabei die \emph{Größe} der WSPD.
+	\noindent $m$ nennen wir dabei die \emph{Größe} der WSPD.
 
 	Die WSPD bildet eine wichtige Grundlage für die beiden Algorithmen, die wir im Folgenden betrachten werden. \textellipsis haben gezeigt, dass man eine WSPD der Größe $m = O(n)$ in $O(n\log n)$ Zeit berechnen kann. Dabei wird zunächst ein sogenannter \emph{fairer Split Tree} berechnet, aus dem dann in $O(s^dn)$ Zeit eine WSPD erstellt werden kann. Wir werden sehen, dass es für unseren Anwendungsfall genügt, eine WSPD für Mengen von Punkten aus $\R$ zu erstellen. Für diesen 1-dimensionalen Fall kann der faire Split Tree mit Hilfe eines einfachen Algorithmus berechnet werden.
 	
@@ -174,13 +189,13 @@
     \begin{proof}
     	\begin{align*}
 	    	\delta(p', q') &= |x'y'| 
-	    	\\ &\leq (1 + \frac{4}{s})\cdot|xy| & \text{(Lemma \ref{lem:wellsep})}
+	    	\\ &\leq (1 + \frac{4}{s})\cdot|xy| & \text{(Lemma \ref{lem:wellsep} (2))}
 	    	\\ &= (1 + \frac{4}{s})\cdot\delta(p, q)
 	    	\\ &\leq (1 + \frac{4}{s})t\cdot |pq| & \text{((p,q) ist $t$-distanzerhaltend)}
 	    	\\ &\leq (1 + \frac{4}{s})t\cdot (|pp'| + |p'q'| + |q'q|) & \text{(Dreiecksungleichung in $\R$)}
-	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\delta(p,p') + |p'q'| + \delta(q', q)) & \text{(Lemma XX Dreiecksungleichung)}
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\delta(p,p') + |p'q'| + \delta(q', q)) & \text{(Lemma \ref{lem:triangle})}
 	    	\\ &= (1 + \frac{4}{s})t\cdot (|xx'| + |p'q'| + |yy'|)
-	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\frac{2}{s}\cdot|x'y'| + |p'q'| + \frac{2}{s}\cdot|x'y'|) & \text{(Lemma \ref{lem:wellsep})}
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\frac{2}{s}\cdot|x'y'| + |p'q'| + \frac{2}{s}\cdot|x'y'|) & \text{(Lemma \ref{lem:wellsep} (1))}
 	    	\\ &= (1 + \frac{4}{s})t\cdot (\frac{4}{s}\cdot\delta(p',q') + |p'q'|)
 	    	\\ &= 4(1 + \frac{4}{s})\frac{t}{s}\cdot \delta(p',q') + (1 + \frac{4}{s})t\cdot|p'q'|
     	\end{align*}
