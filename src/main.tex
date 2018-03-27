@@ -60,6 +60,20 @@
     Sind $v_i, v_j \in P$ dann sei $\delta(v_i, v_j) \coloneqq \sum\limits_{i=1}^{n-1}{|v_i
     v_{i+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$
 
+	\begin{definition}
+		\label{def:t-dist}
+		Sind $p_i, p_j \in P$, dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_{i+1}) \leq t \cdot |p_ip_j|$.
+	\end{definition}
+	
+	\begin{definition}
+		\label{def:t-distapp}
+		Ein Kantenzug $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_j})$ ist genau dann eine \emph{$t$-distanzerhaltende Approximation von $P$}, wenn
+		\begin{enumerate}
+			\item $\displaystyle 1 = i_1 < i_2 < \mathellipsis < i_j = n$
+			\item $\displaystyle \text{Für alle } 1 \leq l < j \text{ ist die Kante } (p_{i_l}, p_{i_{l+1}}) \text{ $t$-distanzerhaltend}$
+		\end{enumerate}
+	\end{definition}
+
     - Definition $t$-distanzerhaltend\n
     - Definition $t$-distanzerhaltende Approximation\n
     - Definition MVPS\n
@@ -105,9 +119,9 @@
     \subsection{Well-separated Pair Decomposition}
     \label{subsec:wspd}
     
-    \begin{definition}[well-separated]
+    \begin{definition}[wohl-separiert]
     	\label{def:wellsep}
-    	Sei $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten im $\R^d$. $A$ und $B$ heißen well-separated with respect to $s$, falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, wobei $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
+    	Sei $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten im $\R^d$. $A$ und $B$ heißen wohl-separiert in Bezug zu $s$ (engl. well-separated ), falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, wobei $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
     \end{definition}
     
     Das folgende Lemma hält zwei wichtige Eigenschaften von zwei wohl-separierten Mengen $A$ und $B$ fest.
@@ -194,7 +208,7 @@
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
 		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$. Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
 		
-		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Mit LEMMA XX.1 folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
+		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Aus LEMMA XX.1 folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
 		
 		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen LEMMA XX.1 $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
 	\end{proof}
