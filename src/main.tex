@@ -32,6 +32,7 @@
 
 % Headline
 \title{Distanzerhaltende Approximation von Kantenzügen}
+
 \author{Nikolas Klug}
 
 
@@ -40,7 +41,7 @@
     \maketitle
 
     \begin{abstract}
-        asdf
+        Diese Seminararbeit basiert auf \glqq Distance-preserving approximations of polygonal paths\grqq\ von J. Gudmundsson et al. (\cite{gudmundsson}). Sei $P = (p_1, p_2, \mathellipsis p_n)$ ein Kantenzug und $t \geq 1$. Ein Kantenzug $Q$ approximiert $P$, falls er nur aus Punkten von $P$ besteht und bei dem jede Kante nur um $t$ vom $P$ abweicht. Diese Arbeit stellt exakte und approximative Algorithmen dar, um ein solches $Q$ zu berechnen, sodass entweder $Q$ die minimale Zahl von Knoten besitzt, oder für eine feste Knotenzahl minimales $t$ hat.
     \end{abstract}
 
     \section{Einführung und Definitionen}
@@ -194,7 +195,7 @@
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
 		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$. Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
 		
-		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Aus LEMMA XX.1 folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
+		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Aus Lemma \ref{lem:tepsilon} (1) folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
 		
 		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen LEMMA XX.1 $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
 	\end{proof}
@@ -215,7 +216,7 @@
 		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Pfad $Q$ mit gleich vielen Knoten umwandeln kann. 
 		
 		Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
-		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit LEMMA XX.2 folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ $(1+\epsilon)t$-distanzerhaltend ist.
+		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ $(1+\epsilon)t$-distanzerhaltend ist.
 	\end{proof}
     
     \subsection{Algorithmus für das MDPS}
