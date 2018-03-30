@@ -46,21 +46,21 @@
     \section{Einführung und Definitionen}
     \label{sec:intro}
 
+	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geraden, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. Bei den $p_i$ handelt es sich dabei um Punkte aus dem $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu gerichteten Pfaden in Graphen, werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. Beispielsweise heißen die Punkte des Kantenzuges  auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
+
     Sei $d\geq1$ und $p_1, p_2, \mathellipsis, p_n$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
     Ein solcher Pfad kann mitunter eine hohe Zahl von Knoten besitzen, die sehr nah beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw.\ die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter Einhaltung der Länge approximieren.
     Art der Approximationen:
     - Flächenerhaltende Approximation + Anwendungen\n
-    - Distanzerhaltende Approximatioin + Anwendungen\n
+    - Distanzerhaltende Approximation + Anwendungen\n
     - tolerance zone, infinite beam, uniform measure\textellipsis\n
     (- Vor- und Nachteile)
     
-    Kantenzug, Knoten, Kanten, analog zu Graphen
     "KÜRZESTE" t-distanzerhaltende Approximation
 
-    Seien $u, v \in \R^d$, dann definieren wir $|uv|$ als den euklidischen Abstand
-    (bzw.\ als die $L2-Norm$) dieser beiden Punkte.
-    Sind $v_i, v_j \in P$ dann sei $\delta(v_i, v_j) \coloneqq \sum\limits_{i=1}^{n-1}{|v_i
-    v_{i+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$
+    Seien $u, v \in \R^d$, dann definieren wir $|uv|$ als den euklidischen Abstand dieser beiden Punkte.
+    Sind $p_i, p_j \in P$ dann sei $\delta(p_i, p_j) \coloneqq \sum\limits_{i=1}^{n-1}{|p_i
+    p_{i+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$.
 
 	\begin{definition}[$t$-distanzerhaltend]
 		\label{def:t-dist}
@@ -82,7 +82,9 @@
 		\end{enumerate}
 	\end{definition}
 	
-	Wir nennen eine t-distanzerhaltende Approximation eines Pfades am \emph{kürzesten} bzw. eine \emph{Kürzeste}, falls sie die geringst mögliche Zahl an Knoten besitzt.
+	Wir nennen eine t-distanzerhaltende Approximation eines Pfades am \emph{kürzesten} bzw. eine \emph{kürzeste}, falls sie die geringst mögliche Zahl an Knoten besitzt.
+	
+	Der Quotient $\frac{\delta{p_i, p_j}}{|p_ip_j}$ heißt \emph{Abweichung} vom Pfad.
 	
 	Aus Definition \ref{def:t-distapp} geht direkt hervor, dass falls $1 \leq t < t'$ jede $t$-distanzerhaltende Approximation eines Pfades, auch eine $t'$-distanzerhaltende Approximation dieses Pfades ist. 
 
