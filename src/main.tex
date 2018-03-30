@@ -99,35 +99,8 @@
 
     \section{Exakte Algorithmen für MVPS und MDPS}
     \label{sec:exact}
+    \input{exact_algorithms}
     
-    Zu Beginn betrachten wir zwei einfache exakte Algorithmen.
-    Sei wieder $d\geq1$, $t>1$ und $P = (p_1, p_2, \mathellipsis, p_n)$ ein Pfad in $\R^d$. Sei weiter $P^*$ die Menge der $t$-distanzerhaltenden Approximationen, die die geringste Knotenzahl besitzen.
-    
-    Wir konstruieren jetzt den gerichteten Graphen $G_t = (V,E_t)$, wobei V genau aus den Knoten des Pfades $P$ besteht und 
-    $E_t = \{(p_i, p_j) \in V\times V|\ i < j \text{ und } (p_i,p_j)\ \text{ist $t$-distanzerhaltend}\}$. $E_t$ ist also gerade die Menge aller $t$-distanzerhaltenden Kanten zwischen Knoten aus $V$. Zunächst beobachten wir, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad in $G_t$ entspricht, da $G_t$ alle $t$-distanzerhaltenden Kanten zwischen Knoten von $P$ enthält. Andererseits ist auch jeder Pfad $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_k})$ mit $1 = i_1 < i_2 < \mathellipsis < i_k = n$ in $G_t$ eine $t$-distanzerhaltende Approximation von $P$, da nur $t$-distanzerhaltende Kanten verwendet werden. Daraus folgt, dass auch $P^*$ in $G_t$ liegt. Jetzt müssen wir also nur noch ein Element aus $P^*$ ermitteln. Das ist leicht: Wir führen eine Breitensuche in $G_t$ mit Startknoten $p_1$ durch, bei der wir jeden Knoten mit der Nummer des Knotens beschriften, von dem aus er zum ersten Mal entdeckt wurde. Am Ende lesen wir diese Beschriftung bei $p_n$ beginnend solange aus, bis wir $p_1$ erreichen. Der dadurch enstandene Pfad ist dann aufgrund der Eigenschaften der Breitensuche in $P^*$. 
-    Nun betrachten wir noch die Laufzeit: Die Konstruktion von $G_t$ gelingt uns in $O(n^2)$, da wir für maximal $\binom{n}{2} = O(n^2)$ Kanten überprüfen müssen, ob diese $t$-distanzerhaltend sind. Sei $m$ die Zahl der Kanten in $G_t$, dann wissen wir aus  \cite{hagerup}, dass die Breitensuche $O(n+m)$ Zeit dauert. In unserem Fall ist $O(m) = O(n^2)$, und somit dauert die Breitensuche auch $O(n^2)$. Insbesondere haben wir:
-    \begin{theorem}
-    	\label{theo:mvpsex}
-    	Das Minimum Vertex Path Simplification Problem kann für Pfade mit n Knoten $O(n^2)$ gelöst werden.
-    \end{theorem} 
-    
-    Als nächstes wollen wir uns überlegen, wie man das MDPS-Problem für eine feste Anzahl von Knoten $k$ lösen kann. Sei im Folgenden $\kappa_t$ die geringst mögliche Zahl von Knoten für eine $t$-distanzerhaltende Approximation von $P$.
-	\begin{lemma}
-		\label{lem:kappa}
-		Sind $t, t' \in \R$ und $t < t'$, dann ist $\kappa_t \geq \kappa_{t'}$.
-	\end{lemma}
-	\begin{proof}
-		Wäre $\kappa_{t'} < \kappa_t$, hätte eine kürzeste $t'$-distanzerhaltende Approximation weniger Knoten als eine kürzeste $t$-distanzerhaltende. Aber jede $t$-distanzerhaltende Approximation von $P$ ist nach LEMMA XX auch eine $t'$-distanzerhaltende Approximation. Das ist ein Widerspruch. 
-	\end{proof}
-	
-	Da $G_t$ maximal $O(n^2)$ Kanten enthält, gibt es eine endliche Zahl von $t$-Werten. Wir müssen also nur noch aus diesen Werten den geringsten Wert $t^*$ ermitteln, der gerade noch k Knoten oder weniger hat. Dazu definieren wir zunächst für $1\leq i < j \leq n$ $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$, also als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. Wir wissen, dass $t^* \in M$, da die gesuchte Approximation eine Kante mit maximalen $t$-Wert hat, und $M$ gerade alle diese enthält. Wegen Lemma \ref{lem:kappa} wissen wir, das sich die $\kappa_t$ umgekehrt proportional zu den $t$-Werten verhalten. Sortieren wir jetzt $M$ zu $M'$, können wir in $M'$ nach $t^*$ suchen. Da $M$ $O(n^2)$ Elemente enthält, können wir $M$ nach \cite{hagerup} in $O(n^2\log n^2)=O(n^2\log n)$ sortieren. Für die Suche verwenden wir eine Binärsuche, bei der wir jeweils für den aktuell betrachteten $t$-Wert das MVPS lösen und dann abhängig vom Ergebnis entweder im rechten oder linken Teilbereich weitersuchen. 
-	Eine gewöhnliche Binärsuche dauert bekanntermaßen $O(\log n)$ und mit Satz \ref{theo:mvpsex} ergibt sich auch hier eine Laufzeit von $O(n^2\log n)$. Wir halten fest:
-	\begin{theorem}
-		Das Minimum Dilation Path Simplification Problem kann für Pfade mit n Knoten in $O(n^2 \log n)$ gelöst werden.
-	\end{theorem}
-	
-	Damit beschließen wir das Kapitel über exakte Algorithmen für das MVPS- und das MDPS-Problem und wenden uns approximativen Lösungen zu.
-
     \section{Approximative Algorithmen}
     \label{sec:approximative}
     
@@ -278,12 +251,13 @@
 		Sei wieder $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
 		Da $x_1$ in $A_{i_1}$, können wir als ersten Knoten von $Q$ $q_1 = p_1$ wählen.
 		
-		Nehmen wir an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ zu dem Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt haben, sodass $y_1 (= x_1) \in A_{i_1}$ und für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$. Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y_{l+1} \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach der Konstruktion von $H$ nicht leer ist. Dann fügen wir das zu $y_{l+1}$ gehörende $q_{l+1}$ zum Kantenzug hinzu und erhalten $(q_1, \mathellipsis, q_l, q_l+1)$.
+		Nehmen wir an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ zu dem Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt haben, sodass $y_1 (= x_1) \in A_{i_1}$ und für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$. Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y_{l+1} \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach der Konstruktion von $H$ nicht leer ist. Dann fügen wir das zu $y_{l+1}$ gehörende $q_{l+1}$ zum Kantenzug hinzu und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
 		
 		Nehmen wir an, dass wir bereits $(A_{i_1}, \mathellipsis, A_{i_k-1})$ bereits zu $(q_1, \mathellipsis, q_{k-1})$ konvertiert haben. Nach Voraussetzung ist $x_n \in B_{k-1}$. Wir wählen dann $q_k = p_n$ und fügen $q_k$ zum Pfad $Q$ hinzu. 
-		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Pfad $Q$ mit gleich vielen Knoten umwandeln kann. Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
+		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Pfad $Q$ mit gleich vielen Knoten umwandeln kann. 
 		
-		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit LEMMA XX.2 folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ also $(1+\epsilon)t$-distanzerhaltend ist.
+		Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
+		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit LEMMA XX.2 folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ $(1+\epsilon)t$-distanzerhaltend ist.
 	\end{proof}
     
     \subsection{Algorithmus für das MDPS}
