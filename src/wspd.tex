@@ -1,0 +1,40 @@
+\begin{definition}[wohl-separiert]
+    	\label{def:wellsep}
+    	Sei $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten im $\R^d$. $A$ und $B$ heißen wohl-separiert in Bezug zu $s$ (engl. well-separated), falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, wobei $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
+    \end{definition}
+    
+    Das folgende Lemma hält zwei wichtige Eigenschaften von zwei wohl-separierten Mengen $A$ und $B$ fest.
+    \begin{lemma}
+    	\label{lem:wellsep}
+		Seien $a, a' \in A$ und $b, b' \in B$. Dann gilt:
+		\begin{enumerate}
+			\item $\displaystyle |aa'| \leq \frac{2}{s}\cdot|a'b'|$
+			\item $\displaystyle |a'b'| \leq (1+\frac{4}{s})\cdot|ab|$
+		\end{enumerate}
+    \end{lemma}
+    \begin{proof}
+    	Zu 1. Ist $r$ der Radius von $C_A$ und $C_B$, so gilt $|aa'| \leq 2 \cdot r$. Da $A$ und $B$ wohl-separiert sind, gilt $|a'b'| \geq s \cdot r$, was äquivalent ist zu $r \leq \frac{|a'b'|}{s}$. Durch Einsetzen folgt dann die Behauptung.
+    	Zu 2. Da $A$ und $B$ wohl-separiert in Bezug zu $s$ sind, und $C_A$ und $C_B$ beide denselben Radius $r$ haben, gilt $|a'b'| \leq s \cdot r + 4 \cdot r$. Ausklammern rechts ergibt $(1 + \frac{4}{s}) \cdot s \cdot r$. Da ja auch $s \cdot r \leq |ab|$, folgt durch Einsetzen die Behauptung.
+    \end{proof}
+    
+    \begin{definition}[well-separated pair decomposition]
+    	\label{def:wspd}
+    	Sei $S \subseteq \R^d$ und $s > 0$. Eine Folge $(A_i, B_i)_{1 \leq i \leq m}$ von nicht-leeren Teilmengen von S ist genau dann eine \emph{Zerlegung in wohl-separierte Paare (engl. well-separated pair decomposition; WSPD)}, wenn gilt:
+    	\begin{enumerate}[label={(\arabic*)}, itemsep=0mm]
+    		\item $A_i \cap B_i = \emptyset$
+    		\item Für alle $p, q \in S$ gibt es genau einen Index $1 \leq i \leq m$, sodass entweder $p \in A_i$ und $q \in B_i$ oder $q \in A_i$ und $p \in B_i$.
+    		\item $A_i$ und $B_i$ sind wohl-separiert in Bezug zu $s$
+    	\end{enumerate}
+    \end{definition}
+	
+	\noindent $m$ nennen wir dabei die \emph{Größe} der WSPD.
+
+	Die WSPD bildet eine wichtige Grundlage für die beiden Algorithmen, die wir im Folgenden betrachten werden. \textellipsis haben gezeigt, dass man eine WSPD der Größe $m = O(n)$ in $O(n\log n)$ Zeit berechnen kann. Dabei wird zunächst ein sogenannter \emph{fairer Split Tree} berechnet, aus dem dann in $O(s^dn)$ Zeit eine WSPD erstellt werden kann. Wir werden sehen, dass es für unseren Anwendungsfall genügt, eine WSPD für Mengen von Punkten aus $\R$ zu erstellen. Für diesen 1-dimensionalen Fall kann der faire Split Tree mit Hilfe eines einfachen Algorithmus berechnet werden.
+	
+	Sei $S'$ eine endliche Teilmenge von $\R$ und $|S'| = n$. Wir können davon ausgehen, dass uns diese Menge sortiert in einem Array $S[1..n]$ vorliegt und werden später sehen, dass das bei unserem Algorithmus auch tatsächlich der Fall ist. ABBILDUNG X stellt einen Algorithmus dar, der diesen Split Tree $T$ erstellt. Bei $T$ handelt es sich um einen Binärbaum, an dessen Blättern die Werte von $S$ in von links nach rechts aufsteigend sortierter Reihenfolge gespeichert sind. Für jeden inneren Knoten wird zusätzlich das Intervall in dem die Blätter des von ihm induzierten Teilbaumes liegen gepsiechert.
+	Da $T$ $n$ Blätter hat, erstellen wir $O(n)$ Knoten. Dabei müssen wir aber in ZEILE 88 jedesmal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
+	Betrachten wir jetzt zwei innere Knoten $p$ und $q$ von T. Seien $[i, j]$ und $[k, l]$ die Intervalle, die wir mit $p$ und $q$ gespeichert haben und 
+	\[R \coloneqq \max(i - j, k - l)\]
+	Nach Definition \ref{def:wellsep} sind die beiden Intervalle genau dann wohl-separiert, wenn 
+	\[k - j \geq R \cdot s \text{ oder } i - l \geq R \cdot s \]
+	Der in ABBILDUNG XX dargestellte Algorithmus berechnet dann aus dem fairen Split-Tree eine WSPD. Wie XY und ZA gezeigt haben, läuft ALG in $O(s\cdot n)$ und gibt tatsächlich eine WSPD aus. Der Beweis dafür ist allerdings so langwierig und kompliziert, dass wir hier darauf verzichten, ihn explizit aufzuführen. Interessierte können ihn aber auf SEITE 88 in CITE X nachlesen. Insgesamt erhalten wir für das Erstellen der WSPD eine Gesamtlaufzeit von $O(n\log n + s\cdot n).$
