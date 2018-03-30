@@ -48,24 +48,12 @@
 
 	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geraden, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. Bei den $p_i$ handelt es sich dabei um Punkte aus dem $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu gerichteten Pfaden in Graphen, werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. Beispielsweise heißen die Punkte des Kantenzuges  auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
 
-    Sei $d\geq1$ und $p_1, p_2, \mathellipsis, p_n$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
-    Ein solcher Pfad kann mitunter eine hohe Zahl von Knoten besitzen, die sehr nah beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw.\ die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter Einhaltung der Länge approximieren.
-    Art der Approximationen:
-    - Flächenerhaltende Approximation + Anwendungen\n
-    - Distanzerhaltende Approximation + Anwendungen\n
-    - tolerance zone, infinite beam, uniform measure\textellipsis\n
-    (- Vor- und Nachteile)
-    
-    "KÜRZESTE" t-distanzerhaltende Approximation
-
-    Seien $u, v \in \R^d$, dann definieren wir $|uv|$ als den euklidischen Abstand dieser beiden Punkte.
-    Sind $p_i, p_j \in P$ dann sei $\delta(p_i, p_j) \coloneqq \sum\limits_{i=1}^{n-1}{|p_i
-    p_{i+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$.
-
-	\begin{definition}[$t$-distanzerhaltend]
-		\label{def:t-dist}
-		Sind $p_i, p_j \in P$, dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_{i+1}) \leq t \cdot |p_ip_j|$.
-	\end{definition}
+    Sei $d\geq1$ und $(p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
+    Ein solcher Kantenzug kann mitunter eine hohe Zahl von Knoten besitzen, die sehr dicht beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw. die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter ungefährer Einhaltung der Länge approximieren. Dabei betrachten wir zunächst zwei exakte Algorithmen und später noch zwei approximative, die eine deutliche bessere Laufzeit haben als die exakten. Zunächst müssen wir jedoch einige Grundbegriffe definieren.
+   
+    Seien $u, v \in \R^d$. Wir definieren $|uv|$ als den euklidischen Abstand von $u$ und $v$.
+    Ist $p_i, p_j \in P$, dann ist $\delta(p_i, p_j) \coloneqq \sum\limits_{k=i}^{j-1}{|p_k
+    p_{k+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$.
 	\begin{lemma}
 		\label{lem:triangle}
 		Für alle Knoten $p_i, p_j \in P$ gilt $|p_ip_j| \leq \delta(p_i, p_j)$
@@ -73,9 +61,15 @@
 	\begin{proof}
 		Dies folgt direkt aus der Dreiecksungleichung in $\R$.
 	\end{proof}
+	
+	\begin{definition}[$t$-distanzerhaltend]
+		\label{def:t-dist}
+		Sind $p_i, p_j \in P$, dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_{i+1}) \leq t \cdot |p_ip_j|$.
+	\end{definition}
+
 	\begin{definition}[$t$-distanzerhaltende Approximation]
 		\label{def:t-distapp}
-		Ein Kantenzug $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_j})$ ist genau dann eine \emph{$t$-distanzerhaltende Approximation von $P$}, wenn
+		Ein Kantenzug $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_j})$ ist genau dann eine \emph{$t$-distanzerhaltende Approximation von $P = (p_1, p_2, \mathellipsis, p_n)$}, wenn beide der folgenden Bedingungen gelten.
 		\begin{enumerate}
 			\item $\displaystyle 1 = i_1 < i_2 < \mathellipsis < i_j = n$
 			\item $\displaystyle \text{Für alle } 1 \leq l < j \text{ ist die Kante } (p_{i_l}, p_{i_{l+1}}) \text{ des Pfades $t$-distanzerhaltend}$
@@ -83,19 +77,20 @@
 	\end{definition}
 	
 	Wir nennen eine t-distanzerhaltende Approximation eines Pfades am \emph{kürzesten} bzw. eine \emph{kürzeste}, falls sie die geringst mögliche Zahl an Knoten besitzt.
-	
-	Der Quotient $\frac{\delta{p_i, p_j}}{|p_ip_j}$ heißt \emph{Abweichung} vom Pfad.
-	
-	Aus Definition \ref{def:t-distapp} geht direkt hervor, dass falls $1 \leq t < t'$ jede $t$-distanzerhaltende Approximation eines Pfades, auch eine $t'$-distanzerhaltende Approximation dieses Pfades ist. 
-
+	Der Quotient $\frac{\delta(p_i, p_j)}{|p_ip_j|}$ heißt \emph{Abweichung} vom Pfad.
 	\begin{lemma}
 		\label{lem:approximations}
-		Sei $1 \leq t < t'$
+		Sei $1 \leq t < t'$. Jede $t$-distanzerhaltende Approximation eines Pfades $P$ ist auch eine $t'$-distanzerhaltende Approximation von $P$.
 	\end{lemma}
-    - Definition $t$-distanzerhaltend\n
-    - Definition $t$-distanzerhaltende Approximation\n
-    - Definition MVPS\n
-    - Definition MDPS\n
+	\begin{proof}
+		Dies geht direkt aus Definition \ref{def:t-distapp} hervor.
+	\end{proof}
+	
+	In Zusammenhang mit der distanzerhaltenden Kantenzugapproximation stellen sich im Wesentlichen zwei Probleme:
+	
+	\noindent Das \textbf{Minimum-Vertex-Path-Simplification Problem (MVPS)}: Liegt ein polygonaler Kantenzug $P$ und eine reelle Zahl $t \geq 1$ vor, soll eine kürzeste $t$-distanzerhaltende Approximation von $P$ berechnet werden.
+	
+	\noindent Das \textbf{Minimum-Dilation-Path-Simplification Problem (MDPS)}: Liegt ein polygonaler Kantenzug $P$ und eine natürliche Zahl $k$ vor, soll der kleinste Wert $t$ bestimmt werden, für den eine $t$-distanzerhaltende Approximation mit maximal $k$ Knoten existiert.
 
     Beispiel Bild
 
