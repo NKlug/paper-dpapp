@@ -221,18 +221,17 @@
 		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ $(1+\epsilon)t$-distanzerhaltend ist.
 	\end{proof}
     
-    Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit durchaus $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
+    Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit unter Umständen $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
     
     Im Folgenden Abschnitt werden wir deshalb sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ zu konstruieren.
     
     \subsubsection*{Der Algorithmus}
-    Der Algorithmus besteht aus vier Teilen, von denen wir die ersten drei schon betrachtet haben.
+    Der Algorithmus besteht aus fünf Teilen, von denen wir die ersten drei schon betrachtet haben.
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug.
     \begin{enumerate}
     	\item Berechne $S = (x_1, x_2, \mathellipsis, x_n)$, wobei $x_i = \delta(p_1, p_i)$ für alle $1 \leq i \leq n$
     	\item Berechne aus $S$ den Split Tree $T$ und daraus eine WSPD $\{A_i, B_i\}_{1 \leq i \leq m'}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
     	\item Seien $a_i \in A_i$ und $b_i \in B_i$ für alle $1 \leq i \leq m'$ feste Elemente und seien $\alpha_i$ und  $\beta_i$ die Knoten von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
-    	%\item Führe die unten aufgeführte modifizierte Breitensuche in $T$ durch, um einen kürzesten Weg von einer Menge $A_{i_1}$, die $x_1$ enthält, zu einer Menge $B_{i_{k-1}}$, die $x_n$ enthält, zu bestimmen.
     \end{enumerate}
     
     Der Einfachheit halber beschreiben wir die \glqq ausgedünnte\grqq\ WSPD durch $\{A_i, B_i\}_{1\leq i \leq m}$, wobei $m$ die Zahl der verbleibenden Tupel ist.
@@ -274,11 +273,39 @@
     		Setze $color[k'] = gray$. Falls $k'$ ein A-Knoten ist, setze $dist[k'] = dist[k] + 1$, $parent[k']	= k$ und füge $k'$ in $W$ ein.
     	\end{description}
     	
-    	\item[\textbf{Schritt 4:}] Bereche den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$.
-    	
-    	\item[\textbf{Schritt 5:}] Konvertiere den umgekehrten Pfad $Z$, der den Kriterien von Satz \ref{theo:H2Approx} entspricht, wie im Beweis des selben Satzes zu einer Approximation von $P$.
+    	\item[\textbf{Schritt 4:}] Bereche den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$. Gib den umgekehrten Pfad $Z' = (parent^{k-1}[z], \mathellipsis,, parent[z], z)$ zurück.
     \end{description}
     
+    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. 
+    TODO: Beweis bzw. Beweisskizze
+    
+    Sei $k$ der erste Knoten der Warteschlange. 
+    
+    Dann ist also der letzte Teil des Algorithmus:
+    \begin{enumerate}[start=4]
+    	\item Führe die oben aufgeführte modifizierte Breitensuche in $T$ durch, um einen kürzesten Weg von einer Menge $A_{i_1}$, die $x_1$ enthält, zu einer Menge $B_{i_{k-1}}$, die $x_n$ enthält, zu bestimmen.
+    	\item Konvertiere $Z'$, der den Kriterien von Satz \ref{theo:H2Approx} entspricht, wie im Beweis desselben Satzes zu einer Approximation von $P$.
+    \end{enumerate}
+    
+    Abschließend betrachten wir noch die Laufzeit des Algorithmus. $S$ zu berechnen kostet uns $O(n)$ Zeit. Nach Satz \ref{theo:wspdtime} können wir Teil 2 in $O(n \log n + sn)$ schaffen, und da $O(sn) = O(\frac{t}{\epsilon}\cdot n)$, dauert dieser Teil also $O(n \log n + \frac{t}{\epsilon}n)$. Somit dauert auch Teil 3 $O(\frac{t}{\epsilon}n)$, da wir jedes Tupel der WSPD einmal betrachten. Wie oben gesehen weißt die Breitensuche dieselbe asymptotische Laufzeit auf. 
+    
+    Nun bleibt noch der letzte Teil des Algorithmus. 
+    Um den Pfad in $H$ zu konvertieren, wählen wir wie gezeigt $p_1$ als ersten und $p_n$ als letzten Knoten. 
+    Einer der wichtigen Schritte für die restlichen Knoten besteht darin, ein Element aus $A_{i_{l+1}} \cap B_{i_l}$ auszuwählen. 
+    Da wir wissen, dass der Schnitt nicht leer ist, und $A_{i_{l+1}}$ und $B_{i_l}$ durch Knoten des Baumes repräsentiert werden (nämlich $u_{i_{l+1}}$ und $v_{i_l}$), die wiederum die Blätter in ihrem jeweiligen Unterbaum zusammenfassen, muss entweder $A_{i_{l+1}}\subseteq B_{i_l}$ sein oder umgekehrt. 
+    Also wählen wir zum Beispiel das Minimum des Intervalles, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
+    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den dazugehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalles von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet und Teil 5 des Algorithmus also auch $O(n)$ Zeit.
+    Zusammenfassend können wir festhalten:
+    
+    \begin{theorem}
+    	\label{theo:mvpstime}
+    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der kürzesten t-distanzerhaltenden Approximationen von $P$.
+    	\begin{enumerate}
+    		\item Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
+    		\item Ist weiter für alle verschiedenen $p, q \in P$ $\frac{\delta(p,q)}{|pq|} \leq t$ oder $\frac{\delta(p,q)}{|pq|} > (1 + \epsilon)t$, dann ist $Q$ sogar eine $t$-distanzerhaltende Approximation von $P$ mit $\kappa$ Knoten.
+    	\end{enumerate}
+    	
+    \end{theorem}
     
     \subsection{Algorithmus für das MDPS}
     \label{subsec:mdps}
