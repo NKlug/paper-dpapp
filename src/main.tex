@@ -47,7 +47,7 @@
     \section{Einführung und Definitionen}
     \label{sec:intro}
 
-	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geraden, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. Bei den $p_i$ handelt es sich dabei um Punkte aus dem $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu gerichteten Pfaden in Graphen, werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. Beispielsweise heißen die Punkte des Kantenzuges  auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
+	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geradensegmenten, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. Bei den $p_i$ handelt es sich dabei um Punkte aus dem $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu gerichteten Pfaden in Graphen, werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. Beispielsweise heißen die Punkte des Kantenzuges  auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
 
     Sei $d\geq1$ und $(p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
     Ein solcher Kantenzug kann mitunter eine hohe Zahl von Knoten besitzen, die sehr dicht beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw. die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter ungefährer Einhaltung der Länge approximieren. Dabei betrachten wir zunächst zwei exakte Algorithmen und später noch zwei approximative, die eine deutliche bessere Laufzeit haben als die exakten. Zunächst müssen wir jedoch einige Grundbegriffe definieren.
@@ -218,6 +218,10 @@
 		Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
 		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ $(1+\epsilon)t$-distanzerhaltend ist.
 	\end{proof}
+    
+    Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit durchaus $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
+    
+    Im Folgenden Abschnitt werden wir deshalb sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ zu konstruieren.
     
     \subsection{Algorithmus für das MDPS}
     \label{subsec:mdps}
