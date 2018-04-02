@@ -23,6 +23,7 @@
 \renewcommand{\baselinestretch}{1.15}
 \renewcommand{\proofname}{\Beweis}
 
+\setitemize{itemsep=0mm}
 \setenumerate{label=(\arabic*),itemsep=0mm}
 \allowdisplaybreaks
 
@@ -235,8 +236,49 @@
     \end{enumerate}
     
     Der Einfachheit halber beschreiben wir die \glqq ausgedünnte\grqq\ WSPD durch $\{A_i, B_i\}_{1\leq i \leq m}$, wobei $m$ die Zahl der verbleibenden Tupel ist.
-    Bevor wir zu Schritt (4) kommen, zeigen wir, 
-    Wir nennen die Knoten des Split Trees $T$
+    Bevor wir zu Schritt (4) kommen, zeigen wir zunächst, wie man mit Hilfe eine Breitensuche in $T$ einen kürzesten Pfad in $H$ bestimmen kann.  
+    Für alle $1 \leq i \leq m$ sei $u_i$ der Knoten des Split Trees $T$, der $A_i$ repräsentiert, und $v_i$ derjenige, der $B_i$ repräsentiert. Wir nennen die $u_i$ auch \emph{A-Knoten}. Es ist nicht ausgeschlossen, dass ein Knoten von $T$ mehrere $A_i$ und $B_i$ repräsentiert. Folglich speichert jeder Knoten eine Liste seiner $A_i$ und $B_i$.
+    
+    Die Breitensuche die wir verwenden, zeigt Ähnlichkeiten zu der, die in \cite{hagerup} erklärt wird. Für jeden Knoten $v$ des Baumes $T$ speichern wir dabei drei Variablen:
+    \begin{itemize}
+    	\item $color[v]$, die einen Wert aus $\{white, gray, black\}$ hat.
+    	\item $dist[v]$, die der aktuellen Distanz von einem Knoten $A_i$ in $H$, der $x_1$ enthält, zum Knoten $v$ speichert.
+    	\item $parent[v]$, die den Vater von $w$ im BFS-Wald speichert.
+    \end{itemize}
+    Nehmen wir an, dass die Knoten von $T$ mit den Zahlen $1, 2, ... n'$ benannt sind, können wir $color$, $dist$ und $parent$ zum Beispiel durch drei Arrays der Größe $n'$ realisieren.
+    Die Breitensuche sieht dann so aus:
+    
+    \begin{description}
+    	\item[\textbf{Schritt 1:}] Für alle Knoten $k$ von $T$, setze $color[k] = white$, $dist[k] = \infty$ und $parent[k] = null$.
+    	
+    	\item[\textbf{Schritt 2:}] Initialisiere eine leere Warteschlange $W$ (z.B durch eine verkettete Liste).
+    	Starte bei dem Blatt, dass $x_1$ speichert (dem \glqq linkesten\grqq\ Blatt) und laufe im Baum aufwärts bis zur Wurzel. 
+    	Für alle besichtigten Knoten $k$, tue Folgendes: 
+    	
+		    Setze $color[k] = gray$.
+    		Falls $k$ ein A-Knoten ist, setze $dist[k] = 0$.
+    		Füge $k$ in $W$ ein.
+    		
+    	\item[\textbf{Schritt 3:}] Entferne das erste Element $k$ von $W$. Setze $color[k] = black$.
+    	Für alle $u_i = k$ tue Folgendes:
+    	
+    	Falls $x_n \in B_i$, setze $dist[v_i] = dist[k] + 1$, $parent[v_i] = k$, $z = v_i$ und gehe zu Schritt 4.\n
+    	Falls $x_n \notin B_i$ und $color[v_i] == white$, führe die Schritte 3.1 und 3.2 aus.
+    	\begin{description}
+    		\item[\textbf{Schritt 3.1:}] Starte bei $v_i$ und laufe im Baum aufwärts bis zum ersten nicht weißen Knoten. Für alle besichtigten Knoten $k'$, tue Folgendes:
+    		
+    		Setze $color[k'] = gray$. Falls $k'$ ein A-Knoten ist, setze $dist[k'] = dist[k]+1$, $parent[k'] = k$ und füge $k'$ in $W$ ein.
+    		
+    		\item[\textbf{Schritt 3.2:}] Starte bei $v_i$ und besuche alle Knoten des Teilbaums von $T$, dessen Wuzel $v_i$ ist. Für alle besichtigten Knoten $k'$, tue Folgendes:
+    		
+    		Setze $color[k'] = gray$. Falls $k'$ ein A-Knoten ist, setze $dist[k'] = dist[k] + 1$, $parent[k']	= k$ und füge $k'$ in $W$ ein.
+    	\end{description}
+    	
+    	\item[\textbf{Schritt 4:}] Bereche den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$.
+    	
+    	\item[\textbf{Schritt 5:}] Konvertiere den umgekehrten Pfad $Z$, der den Kriterien von Satz \ref{theo:H2Approx} entspricht, wie im Beweis des selben Satzes zu einer Approximation von $P$.
+    \end{description}
+    
     
     \subsection{Algorithmus für das MDPS}
     \label{subsec:mdps}
