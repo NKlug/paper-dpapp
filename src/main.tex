@@ -111,6 +111,7 @@
     \label{subsec:mvps}
     Nach dem wir jetzt einige Vorarbeit geleistet haben, werden wir in diesem Kapitel sehen, wie man das MVPS-Problem mit Hilfe einer WSPD bis auf ein $\epsilon$ genau approximieren kann - und dass (für festes $t$ und $\epsilon$) in $O(n\log n)$.
     
+    \subsubsection*{Die Theorie}
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Pfades zu betrachten. Diese erhalten wir so: Für alle $1 \leq i \leq n$ ist $x_i = \delta(p_1, p_i)$.
     Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind, als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
     
@@ -197,10 +198,10 @@
 		
 		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Aus Lemma \ref{lem:tepsilon} (1) folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
 		
-		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen LEMMA XX.1 $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
+		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen Lemma \ref{lem:tepsilon} (1) $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
 	\end{proof}
 	
-	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad mit der gleichen Zahl von Knoten in $H$ entspricht. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil länger sein kann, als gewünscht.
+	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad mit der gleichen Zahl von Knoten in $H$ entspricht. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil vom gewünschten $t$-Wert abweichen kann.
 	
 	\begin{theorem}
 		\label{theo:H2Approx}
@@ -222,6 +223,20 @@
     Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit durchaus $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
     
     Im Folgenden Abschnitt werden wir deshalb sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ zu konstruieren.
+    
+    \subsubsection*{Der Algorithmus}
+    Der Algorithmus besteht aus vier Teilen, von denen wir die ersten drei schon betrachtet haben.
+    Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug.
+    \begin{enumerate}
+    	\item Berechne $S = (x_1, x_2, \mathellipsis, x_n)$, wobei $x_i = \delta(p_1, p_i)$ für alle $1 \leq i \leq n$
+    	\item Berechne aus $S$ den Split Tree $T$ und daraus eine WSPD $\{A_i, B_i\}_{1 \leq i \leq m'}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
+    	\item Seien $a_i \in A_i$ und $b_i \in B_i$ für alle $1 \leq i \leq m'$ feste Elemente und seien $\alpha_i$ und  $\beta_i$ die Knoten von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
+    	%\item Führe die unten aufgeführte modifizierte Breitensuche in $T$ durch, um einen kürzesten Weg von einer Menge $A_{i_1}$, die $x_1$ enthält, zu einer Menge $B_{i_{k-1}}$, die $x_n$ enthält, zu bestimmen.
+    \end{enumerate}
+    
+    Der Einfachheit halber beschreiben wir die \glqq ausgedünnte\grqq\ WSPD durch $\{A_i, B_i\}_{1\leq i \leq m}$, wobei $m$ die Zahl der verbleibenden Tupel ist.
+    Bevor wir zu Schritt (4) kommen, zeigen wir, 
+    Wir nennen die Knoten des Split Trees $T$
     
     \subsection{Algorithmus für das MDPS}
     \label{subsec:mdps}
