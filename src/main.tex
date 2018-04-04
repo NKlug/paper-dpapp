@@ -8,6 +8,7 @@
 
 % Packages
 \usepackage{a4wide}
+%\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=3cm]{geometry}
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -244,7 +245,7 @@
     	\item $dist[v]$, die der aktuellen Distanz von einem Knoten $A_i$ in $H$, der $x_1$ enthält, zum Knoten $v$ speichert.
     	\item $parent[v]$, die den Vater von $w$ im BFS-Wald speichert.
     \end{itemize}
-    Nehmen wir an, dass die Knoten von $T$ mit den Zahlen $1, 2, ... n'$ benannt sind, können wir $color$, $dist$ und $parent$ zum Beispiel durch drei Arrays der Größe $n'$ realisieren.
+    Sind die Knoten von $T$ mit den Zahlen $1, 2,\mathellipsis, n'$ benannt sind, können wir $color$, $dist$ und $parent$ zum Beispiel durch drei Arrays der Größe $n'$ realisieren.
     Die Breitensuche sieht dann so aus:
     
     \begin{description}
@@ -268,16 +269,23 @@
     		
     		Setze $color[k'] = gray$. Falls $k'$ ein A-Knoten ist, setze $dist[k'] = dist[k]+1$, $parent[k'] = k$ und füge $k'$ in $W$ ein.
     		
-    		\item[\textbf{Schritt 3.2:}] Starte bei $v_i$ und besuche alle Knoten des Teilbaums von $T$, dessen Wuzel $v_i$ ist. Für alle besichtigten Knoten $k'$, tue Folgendes:
+    		\item[\textbf{Schritt 3.2:}] Starte bei $v_i$ und besuche alle Knoten des Teilbaums von $T$, dessen Wurzel $v_i$ ist. Für alle besichtigten Knoten $k'$, tue Folgendes:
     		
     		Setze $color[k'] = gray$. Falls $k'$ ein A-Knoten ist, setze $dist[k'] = dist[k] + 1$, $parent[k']	= k$ und füge $k'$ in $W$ ein.
     	\end{description}
     	
-    	\item[\textbf{Schritt 4:}] Bereche den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$. Gib den umgekehrten Pfad $Z' = (parent^{k-1}[z], \mathellipsis,, parent[z], z)$ zurück.
+    	\item[\textbf{Schritt 4:}] Berechne den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$. Gib den umgekehrten Pfad $Z' = (parent^{k-1}[z], \mathellipsis,, parent[z], z)$ zurück.
     \end{description}
     
-    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. 
-    TODO: Beweis bzw. Beweisskizze
+    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. Auf einen vollständigen Beweis wollen wir an dieser Stelle verzichten, aber die wichtigsten Punkte skizzieren. Zunächst beobachten wir, dass falls für einen Knoten $k$ $color[k] = white$, alle Knoten im Unterbaum von $k$ weiß sind. Ist $k'$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $k'$ zur Wurzel des Split Trees nicht-weiß.
+    
+    Ist $k$ das erste Element der Warteschlange, so hat es die momentan kleinste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $k$ der aktuell bearbeitete Knoten und $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $A_l$ bearbeitet, werden alle anderen von $A_l$ aus in $H$ erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau diese, die einen nicht-leeren Schnitt mit $B_l$ haben. 
+    
+    Durch die obige Beobachtung ist klar, dass in den Schritten 3.1 und 3.2 alle diese Mengen $A_j$ betrachtet werden. Für jedes $A_j$ wird dann dessen Distanz zu $A_i$ verringert (von $\infty$ auf $d[k]+1$). 
+    
+    Ist jedoch im zu $A_l$ gehörigen $B_l$ bereits $x_n$ enthalten, ist die Breitensuche fertig, da dann bereits ein kürzester Weg von $A_i$ zu $B_l$ bestimmt wurde.
+    
+    Ein genauer, vollständiger Beweis kann unter Verwendung der obigen Beobachtungen analog zum Beweis der Breitensuchen im Informatik III Skript \cite{hagerup} oder zu dem in Cormen et al. \cite{cormen} durchgeführt werden.
     
     Sei $k$ der erste Knoten der Warteschlange. 
     
