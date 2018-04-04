@@ -34,8 +34,10 @@
 
 % Headline
 \title{Distanzerhaltende Approximation von Kantenzügen}
-
 \author{Nikolas Klug}
+\date{Sommersemester 2018
+	\\ Universität Augburg
+	\\ Seminar Algorithmen und Datenstrukturen}
 
 
 % Document
@@ -224,6 +226,18 @@
     
     Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit unter Umständen $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
     
+    Bevor wir uns allerdings dem expliziten Algorithmus zuwenden, zeigen wir noch Kriterien, unter denen ein kürzester Pfad in $H$, der den Kriterien aus Satz \ref{theo:H2Approx} genügt, einer kürzesten $t$-distanzerhaltenden Approximation von $P$ entspricht.
+    
+    \begin{theorem}
+    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein polygonaler Kantenzug in $\R^d$ und $H$ der oben definierte Graph. Sei $R = (A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ ein kürzester Pfad in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$. Gilt für alle $p, q \in P$ mit $p \neq q$ $\frac{\delta(p, q)}{|pq|} \leq t$ oder $\frac{\delta(p, q)}{|pq|} > (1+\epsilon)t$, so entspricht R einer kürzesten $t$-distanzerhaltenden Approximation von $P$.
+    \end{theorem}
+    
+    \begin{proof}
+    	Seien $p, q \in P$, $x = \delta(p_1, p)$ und $y = \delta(p_1, q)$ und $i$ ein solcher Index, dass $x \in A_i$ und $y \in B_i$. 
+    	
+    	Ist $\frac{\delta(p, q)}{|pq|} > (1+\epsilon)t$, so gilt nach Lemma \ref{lem:tepsilon}, dass für alle $a \in A_i$ und $b \in B$ $\delta(a, b) > (1 + \frac{\epsilon}{3})t \cdot |ab|$. Also ist $(A_i, B_i)$ \emph{nicht} $(t, \epsilon)$-distanzerhaltend und es gibt in $H$ keine Kante, die $A_i$ verlässt.
+    \end{proof}
+    
     Im Folgenden Abschnitt werden wir deshalb sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ zu konstruieren.
     
     \subsubsection*{Der Algorithmus}
@@ -277,32 +291,31 @@
     	\item[\textbf{Schritt 4:}] Berechne den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$. Gib den umgekehrten Pfad $Z' = (parent^{k-1}[z], \mathellipsis,, parent[z], z)$ zurück.
     \end{description}
     
-    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. Auf einen vollständigen Beweis wollen wir an dieser Stelle verzichten, aber die wichtigsten Punkte skizzieren. Zunächst beobachten wir, dass falls für einen Knoten $k$ $color[k] = white$, alle Knoten im Unterbaum von $k$ weiß sind. Ist $k'$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $k'$ zur Wurzel des Split Trees nicht-weiß.
+    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. Auf einen vollständigen Beweis wollen wir an dieser Stelle verzichten, aber die wichtigsten Punkte skizzieren. 
     
-    Ist $k$ das erste Element der Warteschlange, so hat es die momentan kleinste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $k$ der aktuell bearbeitete Knoten und $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $A_l$ bearbeitet, werden alle anderen von $A_l$ aus in $H$ erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau diese, die einen nicht-leeren Schnitt mit $B_l$ haben. 
+    Ist $k$ das erste Element der Warteschlange, so hat es die momentan kleinste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $u_l$ bearbeitet, werden alle anderen von $A_l$ aus (in $H$) erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau die, die einen nicht-leeren Schnitt mit $B_l$ haben. 
     
-    Durch die obige Beobachtung ist klar, dass in den Schritten 3.1 und 3.2 alle diese Mengen $A_j$ betrachtet werden. Für jedes $A_j$ wird dann dessen Distanz zu $A_i$ verringert (von $\infty$ auf $d[k]+1$). 
+	Wir können beobachten, dass, falls für einen Knoten $u$ $color[u] = white$, alle Knoten im Unterbaum von $u$ weiß sind. Ist $v$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $v$ zur Wurzel des Split Trees nicht-weiß.
     
-    Ist jedoch im zu $A_l$ gehörigen $B_l$ bereits $x_n$ enthalten, ist die Breitensuche fertig, da dann bereits ein kürzester Weg von $A_i$ zu $B_l$ bestimmt wurde.
+    Dadurch ist klar, dass in den Schritten 3.1 und 3.2 alle Mengen $A_j$ bearbeitet werden, die von $A_l$ aus erreichbar sind.. Für jedes $A_j$ wird dann dessen Distanz zu $A_i$ verringert (nämlich von $\infty$ auf $d[k]+1$). 
     
-    Ein genauer, vollständiger Beweis kann unter Verwendung der obigen Beobachtungen analog zum Beweis der Breitensuchen im Informatik III Skript \cite{hagerup} oder zu dem in Cormen et al. \cite{cormen} durchgeführt werden.
+    Ist jedoch $x_n$ im zu $A_l$ gehörigen $B_l$ bereits enthalten, ist die Breitensuche beendet, da dann bereits ein kürzester Weg von $A_i$ zu $B_l$ bestimmt wurde.
     
-    Sei $k$ der erste Knoten der Warteschlange. 
+    Ein genauer, vollständiger Beweis kann unter Verwendung der obigen Beobachtungen analog zum Beweis der Breitensuchen im Informatik III Skript \cite{hagerup} oder zu dem in Cormen et al. \cite{cormen} durchgeführt werden. Ist $m$ die Kantenzahl in $T$ und $z$ die Knotenzahl, ergibt sich dabei insbesondere die für eine Breitensuche übliche Laufzeit $O(m + z)$. Aber $O(m + z) = O(sn) = O(\frac{t}{\epsilon}n)$. Darum erhalten wir für die Laufzeit der Breitensuche insgesamt $O(\frac{t}{\epsilon}n)$.
     
-    Dann ist also der letzte Teil des Algorithmus:
-    \begin{enumerate}[start=4]
-    	\item Führe die oben aufgeführte modifizierte Breitensuche in $T$ durch, um einen kürzesten Weg von einer Menge $A_{i_1}$, die $x_1$ enthält, zu einer Menge $B_{i_{k-1}}$, die $x_n$ enthält, zu bestimmen.
+    Die letzten beiden Teile des Algorithmus sind dann folgende:
+    \begin{enumerate}[start=4, topsep=4mm]
+    	\item Führe die oben aufgeführte modifizierte Breitensuche in $T$ durch, um einen kürzesten Pfad $Z'$ von einer Menge $A_{i_1}$, die $x_1$ enthält, zu einer Menge $B_{i_{k-1}}$, die $x_n$ enthält, zu bestimmen.
     	\item Konvertiere $Z'$, der den Kriterien von Satz \ref{theo:H2Approx} entspricht, wie im Beweis desselben Satzes zu einer Approximation von $P$.
     \end{enumerate}
-    
     Abschließend betrachten wir noch die Laufzeit des Algorithmus. $S$ zu berechnen kostet uns $O(n)$ Zeit. Nach Satz \ref{theo:wspdtime} können wir Teil 2 in $O(n \log n + sn)$ schaffen, und da $O(sn) = O(\frac{t}{\epsilon}\cdot n)$, dauert dieser Teil also $O(n \log n + \frac{t}{\epsilon}n)$. Somit dauert auch Teil 3 $O(\frac{t}{\epsilon}n)$, da wir jedes Tupel der WSPD einmal betrachten. Wie oben gesehen weißt die Breitensuche dieselbe asymptotische Laufzeit auf. 
     
     Nun bleibt noch der letzte Teil des Algorithmus. 
-    Um den Pfad in $H$ zu konvertieren, wählen wir wie gezeigt $p_1$ als ersten und $p_n$ als letzten Knoten. 
+    Um den Pfad in $H$ zu konvertieren, wählen wir, wie gezeigt, $p_1$ als ersten und $p_n$ als letzten Knoten. 
     Einer der wichtigen Schritte für die restlichen Knoten besteht darin, ein Element aus $A_{i_{l+1}} \cap B_{i_l}$ auszuwählen. 
     Da wir wissen, dass der Schnitt nicht leer ist, und $A_{i_{l+1}}$ und $B_{i_l}$ durch Knoten des Baumes repräsentiert werden (nämlich $u_{i_{l+1}}$ und $v_{i_l}$), die wiederum die Blätter in ihrem jeweiligen Unterbaum zusammenfassen, muss entweder $A_{i_{l+1}}\subseteq B_{i_l}$ sein oder umgekehrt. 
-    Also wählen wir zum Beispiel das Minimum des Intervalles, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
-    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den dazugehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalles von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet und Teil 5 des Algorithmus also auch $O(n)$ Zeit.
+    Also wählen wir zum Beispiel das Minimum $min$ des Intervalls, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
+    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den zu $min$ gehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalls von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet und Teil 5 des Algorithmus also $O(n)$ Zeit.
     Zusammenfassend können wir festhalten:
     
     \begin{theorem}
