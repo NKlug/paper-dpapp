@@ -7,8 +7,8 @@
 \documentclass[11pt]{article}
 
 % Packages
-\usepackage{a4wide}
-%\usepackage[left=2.5cm,right=2.5cm,top=2cm,bottom=3cm]{geometry}
+%\usepackage{a4wide}
+\usepackage[a4paper, margin=2.5cm]{geometry}
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -16,17 +16,21 @@
 \usepackage{amsthm}
 \usepackage{mathtools}
 \usepackage{enumitem}
+\usepackage[plain]{algorithm}
+\usepackage{algorithmic}
 %\usepackage{hyperref} % Makes citations clickable
+
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\n}{\newline}
 \renewcommand{\refname}{Referenzen}
-\renewcommand{\baselinestretch}{1.15}
-\renewcommand{\proofname}{\Beweis}
+\renewcommand{\baselinestretch}{1.15} % line distance
+\renewcommand{\proofname}{\Beweis} % name proofs 'Beweis'
 
-\setitemize{itemsep=0mm}
-\setenumerate{label=(\arabic*),itemsep=0mm}
-\allowdisplaybreaks
+
+\setitemize{itemsep=0mm} % itemize line distance
+\setenumerate{label=(\arabic*),itemsep=0mm} % enumerate labeling and line distance
+\allowdisplaybreaks % make math equations breakable
 
 \newtheorem{theorem}{Satz}[section]
 \newtheorem{lemma}[theorem]{Lemma}
@@ -36,7 +40,7 @@
 \title{Distanzerhaltende Approximation von Kantenzügen}
 \author{Nikolas Klug}
 \date{Sommersemester 2018
-	\\ Universität Augburg
+	\\ Universität Augsburg
 	\\ Seminar Algorithmen und Datenstrukturen}
 
 
@@ -45,7 +49,8 @@
     \maketitle
 
     \begin{abstract}
-        Diese Seminararbeit basiert auf \glqq Distance-preserving approximations of polygonal paths\grqq\ von J. Gudmundsson et al. (\cite{gudmundsson}). Sei $P = (p_1, p_2, \mathellipsis p_n)$ ein Kantenzug und $t \geq 1$. Ein Kantenzug $Q$ approximiert $P$, falls er nur aus Punkten von $P$ besteht und falls dessen Kanten jeweils nur um $t$ vom $P$ abweichen. Diese Arbeit stellt exakte und approximative Algorithmen dar, um $Q$ so zu berechnen, dass $Q$ entweder die minimale Zahl von Knoten besitzt, oder für eine feste Knotenzahl minimales $t$ hat.
+        Diese Seminararbeit basiert auf \glqq Distance-preserving approximations of polygonal paths\grqq\ von J. Gudmundsson et al. (\cite{gudmundsson}). Sei $P = (p_1, p_2, \mathellipsis p_n)$ ein Kantenzug und $t \geq 1$. Ein Kantenzug $Q$ approximiert $P$, falls er nur aus Punkten von $P$ besteht und falls dessen Kanten jeweils nur um $t$ vom $P$ abweichen. Diese Arbeit stellt exakte und approximative Algorithmen dar, um $Q$ so zu berechnen, dass $Q$ entweder die minimale Zahl von Knoten besitzt, oder für eine feste Knotenzahl 
+        minimales $t$ hat.
     \end{abstract}
 
     \section{Einführung und Definitionen}

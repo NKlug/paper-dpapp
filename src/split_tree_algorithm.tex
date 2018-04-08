@@ -1,0 +1,29 @@
+\begin{figure}
+	\centering
+	\begin{minipage}{.8\linewidth}
+		\begin{algorithmic}[H]
+			\STATE \texttt{compute\_split\_tree(i, j)}  \{
+			\begin{ALC@g}
+				\IF{$i = j$}
+					\STATE erstelle neuen Knoten $u$;
+					\STATE speichere das Intervall $[i,i]$ zu $u$;
+					\RETURN $u$
+				\ELSE
+					\STATE $z \coloneqq (S[i] + S[j]) / 2$;
+					\STATE $k \coloneqq \text{Index eines Elementes von } S \text{, sodass } S[k] \leq z < S[k+1]$;
+					\STATE $v \coloneqq \texttt{compute\_split\_tree(i, k)}$;
+					\STATE $w \coloneqq \texttt{compute\_split\_tree(k+1, j)}$;
+					\STATE erstelle neuen Knoten $u$;
+					\STATE speichere das Intervall $[i, j]$ zu $u$;
+					\STATE mache $v$ zum linken Kind von $u$;
+					\STATE mache $w$ zum rechten Kind von $u$;
+					\RETURN $u$
+				\ENDIF
+			\end{ALC@g}
+			\STATE \}
+		\end{algorithmic}
+	\end{minipage}
+	\caption{Algorithmus zum Erstellen eines fairen Split-Trees zu einer gegebenen Menge $S$}
+	\label{fig:splittree}
+\end{figure}
+
