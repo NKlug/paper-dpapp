@@ -26,7 +26,7 @@
 \renewcommand{\refname}{Referenzen}
 \renewcommand{\baselinestretch}{1.15} % line distance
 \renewcommand{\proofname}{\Beweis} % name proofs 'Beweis'
-
+\renewcommand\thefigure{\thesection.\arabic{figure}}    
 
 \setitemize{itemsep=0mm} % itemize line distance
 \setenumerate{label=(\arabic*),itemsep=0mm} % enumerate labeling and line distance
@@ -255,7 +255,7 @@
     \end{enumerate}
     
     Der Einfachheit halber beschreiben wir die \glqq ausgedünnte\grqq\ WSPD durch $\{A_i, B_i\}_{1\leq i \leq m}$, wobei $m$ die Zahl der verbleibenden Tupel ist.
-    Bevor wir zu Schritt (4) kommen, zeigen wir zunächst, wie man mit Hilfe eine Breitensuche in $T$ einen kürzesten Pfad in $H$ bestimmen kann.  
+    Bevor wir zu Schritt (4) kommen, zeigen wir zunächst, wie man mit Hilfe einer c Breitensuche in $T$ einen kürzesten Pfad in $H$ bestimmen kann.  
     Für alle $1 \leq i \leq m$ sei $u_i$ der Knoten des Split Trees $T$, der $A_i$ repräsentiert, und $v_i$ derjenige, der $B_i$ repräsentiert. Wir nennen die $u_i$ auch \emph{A-Knoten}. Es ist nicht ausgeschlossen, dass ein Knoten von $T$ mehrere $A_i$ und $B_i$ repräsentiert. Folglich speichert jeder Knoten eine Liste seiner $A_i$ und $B_i$.
     
     Die Breitensuche die wir verwenden, zeigt Ähnlichkeiten zu der, die in \cite{hagerup} erklärt wird. Für jeden Knoten $v$ des Baumes $T$ speichern wir dabei drei Variablen:
