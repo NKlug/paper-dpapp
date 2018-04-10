@@ -18,6 +18,7 @@
 \usepackage{enumitem}
 \usepackage[plain]{algorithm}
 \usepackage{algorithmic}
+\usepackage{graphicx}
 %\usepackage{hyperref} % Makes citations clickable
 
 
@@ -26,6 +27,7 @@
 \renewcommand{\refname}{Referenzen}
 \renewcommand{\baselinestretch}{1.15} % line distance
 \renewcommand{\proofname}{\Beweis} % name proofs 'Beweis'
+\addto\captionsgerman{\renewcommand{\figurename}{Abb.}} % name figures 'Abb.' (change it for babel)
 
 \setitemize{itemsep=0mm} % itemize line distance
 \setenumerate{label=(\arabic*),itemsep=0mm} % enumerate labeling and line distance
@@ -101,7 +103,13 @@
 	
 	\noindent Das \textbf{Minimum-Dilation-Path-Simplification Problem (MDPS)}: Liegt ein polygonaler Kantenzug $P$ und eine natürliche Zahl $k$ vor, soll der kleinste Wert $t$ bestimmt werden, für den eine $t$-distanzerhaltende Approximation mit maximal $k$ Knoten existiert.
 
-    Beispiel Bild
+    \begin{figure}
+    	\centering
+    	\begin{minipage}{.8\linewidth}
+    		 \includegraphics[scale=0.15]{approximation_example}
+    	\end{minipage}
+    	\caption{(aus \cite{gudmundsson}) Kantenzug mit 430 Punkten (oben) und zwei Approximationen mit 126 bzw. 22 Punkten (Mitte und unten), die aus dem approximativen Algorithmus mit jeweils $\epsilon = 0.5$ und $t = 1.05$ bzw. $t = 1.2$}
+    \end{figure}
 
     \section{Exakte Algorithmen für MVPS und MDPS}
     \label{sec:exact}
