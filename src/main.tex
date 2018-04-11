@@ -130,7 +130,23 @@
     
     \subsection{Algorithmus für das MDPS-Problem}
     \label{subsec:mdps}
-    Heuristischer Algorithmus aus Paper mit allen Erklärungen
+	Ähnlich wie in Kapitel \ref{sec:exact} werden wir jetzt versuchen, mit Hilfe des eben vorgestellten approximativen Algorithmus für das MVPS-Problem eine Lösung des MDPS-Problems zu konstruieren.
+	
+	Sei dazu $k$ die Knotenzahl und $P = (p_1, p_2, \mathellipsis, p_n)$ der Kantenzug, für die wir das MDPS-Problem lösen wollen. 
+	Wie in Kapitel \ref{sec:exact} sei $t^* = min\{t \geq 1 | \kappa_t \leq k\}$ die Lösung des Problems. 
+	Unser Algorithmus basiert im Wesentlichen auf dem folgenden Lemma.
+	
+	\begin{lemma}
+		\label{lem:tstar}
+		Sei $t \geq 1$, $0 < \epsilon < \frac{1}{3}$ und sei $Q$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation, die durch Satz \ref{theo:mvpstime} entstanden ist. Ist $k'$ die Anzahl der Knoten von $Q$, dann gilt:
+		\begin{enumerate}
+			\item Falls $k' \leq k$, dann ist $t^* \leq (1 + \epsilon) \cdot t$
+			\item Falls $k' > k$, dann ist $t^* > t$
+		\end{enumerate}
+	\end{lemma}
+	\begin{proof}
+		Zu 1. Sei $k* \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also $max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}$. Dann gilt auch $t' \leq (1 + \epsilon) \cdot t$. Aus Lemma \ref{lem:kappa} folgt damit, dass $\kappa_{(1 + \epsilon)t} \leq \kappa_{t'}$.
+	\end{proof}
 
     \section{Fazit}
     \label{sec:fazit}
