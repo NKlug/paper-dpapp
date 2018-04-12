@@ -133,7 +133,7 @@
 	Ähnlich wie in Kapitel \ref{sec:exact} werden wir jetzt versuchen, mit Hilfe des eben vorgestellten approximativen Algorithmus für das MVPS-Problem eine Lösung des MDPS-Problems zu konstruieren.
 	
 	Sei dazu $k$ die Knotenzahl und $P = (p_1, p_2, \mathellipsis, p_n)$ der Kantenzug, für die wir das MDPS-Problem lösen wollen. 
-	Wie in Kapitel \ref{sec:exact} sei $t^* = min\{t \geq 1 | \kappa_t \leq k\}$ die Lösung des Problems. 
+	Wie in Kapitel \ref{sec:exact} sei $t^* = min\{t \geq 1\ |\ \kappa_t \leq k\}$ die Lösung des Problems. 
 	Unser Algorithmus basiert im Wesentlichen auf dem folgenden Lemma.
 	
 	\begin{lemma}
@@ -145,10 +145,38 @@
 		\end{enumerate}
 	\end{lemma}
 	\begin{proof}
-		Zu 1. Sei $k* \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also $max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}$. Dann gilt auch $t' \leq (1 + \epsilon) \cdot t$. Aus Lemma \ref{lem:kappa} folgt damit, dass $\kappa_{(1 + \epsilon)t} \leq \kappa_{t'}$.
+		Zu 1. Sei $k' \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also $max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}$. 
+		Dann gilt auch $t' \leq (1 + \epsilon) \cdot t$. 
+		Aus Lemma \ref{lem:kappa} folgt damit, dass $\kappa_{(1 + \epsilon)t} \leq \kappa_{t'}$.
+		Da $\kappa_{t'}$ aber die Knotenzahl einer minimalen $t'$-distanzerhaltenden Approximation ist, muss $\kappa_{t'} \leq k'$ gelten. Zusammen mit der Annahme folgt dann, dass $\kappa_{(1 + \epsilon)t} \leq k$. Wegen Lemma \ref{lem:kappa} muss dann aber $t^* \leq (1 + \epsilon) \cdot t$ gelten.
+		
+		Zu 2. Sei nun $k' > k$. Nach Satz \ref{theo:mvpstime} gilt $k' \leq \kappa_t$. Also ist auch $k < \kappa_t$. Wie oben folgt nun aus Lemma \ref{lem:kappa}, dass $t^* > t$ sein muss, da für $t^*$ ja $\kappa_{t^*} \leq k$ gilt.		
 	\end{proof}
+	
+	\subsubsection*{Eine erste Approximation von $\mathbf{t^*}$}
+	
+	Sei nun $0 < \epsilon < \frac{1}{3}$ fest.
+	Der folgende Algorithmus berechnet eine Annäherung $\tau$ von $t^*$ bis auf einen Faktor von $2$.
+	\begin{description}
+		\item{\textbf{Schritt 1:}} Setze $\tau = 2$.
+		\item{\textbf{Schritt 2:}} Führe den Algorithmus von Satz \ref{theo:mvpstime} aus. Sei $Q$ die dadurch erhaltende Approximation und $k'$ deren Knotenzahl.
+		\item{\textbf{Schritt 3:}} Falls $k' > k$, setze $\tau = 2 \cdot \tau$ und gehe zu Schritt 2.
+		Falls $k' \leq k$, gib $\tau$ zurück.
+	\end{description}
+	
+	Dass nach der Terminierung des Algorithmus $\frac{\tau}{2} < t^* \leq (1 + \epsilon) \cdot \tau$ gilt, folgt direkt aus Lemma \ref{lem:tstar}. 
+	Betrachten wir nun noch die Laufzeit des Algorithmus. 
+	Der im vorangehenden Kapitel vorgestellte Algorithmus zur Lösung des MVPS-Problems berechnet zunächst einen Split-Tree $T$ und erstellt dann daraus zur gegebenen Trennungsrate $s$ eine WSPD. 
+	Da $T$ aber nur vom Eingabe-Kantenzug $P$ abhängt, genügt es, $T$ nur einmal zu berechnen und dann daraus die verschiedenen WSPDs zu erstellen.
+	Bei gegebenem $T$ dauert die Lösung des MVPS-Problems für $t$ und $\epsilon$ mit Satz \ref{theo:mvpstime} dann nur noch $O(\frac{t}{\epsilon}\cdot n)$.
+	Im obigen Algorithmus wird Schritt 2 $O(log \tau)$ mal ausgeführt, da $\tau$ ja bei jeder Iteration verdoppelt wird.
+	Die Laufzeit für die Approximation von $t^*$ bei gegebenem Split-Tree $T$ ist die Folgende:
+	\[
+	O(\sum_{i=1}^{\log \tau} (\frac{2^i}{\epsilon}\cdot n))
+	= O(\frac{\tau}{\epsilon}\cdot n)
+	= O(\frac{t^*}{\epsilon}\cdot n)
+	\]
 
-    \section{Fazit}
     \label{sec:fazit}
 
     \bibliography{main}
