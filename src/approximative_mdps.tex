@@ -1,0 +1,189 @@
+Ähnlich wie in Kapitel \ref{sec:exact} werden wir jetzt versuchen, mit Hilfe des eben vorgestellten approximativen Algorithmus für das MVPS-Problem eine Lösung des MDPS-Problems zu konstruieren.
+	
+Sei dazu $k$ die Knotenzahl und $P = (p_1, p_2, \mathellipsis, p_n)$ der Kantenzug, für die wir das MDPS-Problem lösen wollen. 
+Wie in Kapitel \ref{sec:exact} sei $t^* = \min\{t \geq 1\ |\ \kappa_t \leq k\}$ die Lösung des Problems. 
+Unser Algorithmus basiert im Wesentlichen auf dem folgenden Lemma.
+
+\begin{lemma}
+	\label{lem:tstar}
+	Sei $t \geq 1$, $0 < \epsilon < \frac{1}{3}$ und sei $Q$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation, die durch Satz \ref{theo:mvpstime} entstanden ist. Ist $k'$ die Anzahl der Knoten von $Q$, dann gilt:
+	\begin{enumerate}
+		\item Falls $k' \leq k$, dann ist $t^* \leq (1 + \epsilon) \cdot t$
+		\item Falls $k' > k$, dann ist $t^* > t$
+	\end{enumerate}
+\end{lemma}
+\begin{proof}
+	Zu 1. Sei $k' \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also $max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}$. 
+	Dann gilt auch $t' \leq (1 + \epsilon) \cdot t$. 
+	Aus Lemma \ref{lem:kappa} folgt damit, dass $\kappa_{(1 + \epsilon)t} \leq \kappa_{t'}$.
+	Da $\kappa_{t'}$ aber die Knotenzahl einer minimalen $t'$-distanzerhaltenden Approximation ist, muss $\kappa_{t'} \leq k'$ gelten. Zusammen mit der Annahme folgt dann, dass $\kappa_{(1 + \epsilon)t} \leq k$. Wegen Lemma \ref{lem:kappa} muss dann aber $t^* \leq (1 + \epsilon) \cdot t$ gelten.
+	
+	Zu 2. Sei nun $k' > k$. Nach Satz \ref{theo:mvpstime} gilt $k' \leq \kappa_t$. Also ist auch $k < \kappa_t$. Wie oben folgt nun aus Lemma \ref{lem:kappa}, dass $t^* > t$ sein muss, da für $t^*$ ja $\kappa_{t^*} \leq k$ gilt.		
+\end{proof}
+
+\subsubsection*{Eine erste Approximation von $\mathbf{t^*}$}
+
+Sei nun $0 < \epsilon < \frac{1}{3}$ fest.
+Der folgende Algorithmus berechnet eine Annäherung $\tau$ von $t^*$ bis auf einen Faktor von $2$.
+\begin{description}
+	\item{\textbf{Schritt 1:}} Setze $\tau = 2$.
+	\item{\textbf{Schritt 2:}} Führe den Algorithmus von Satz \ref{theo:mvpstime} aus. Sei $Q$ die dadurch erhaltende Approximation und $k'$ deren Knotenzahl.
+	\item{\textbf{Schritt 3:}} Falls $k' > k$, setze $\tau = 2 \cdot \tau$ und gehe zu Schritt 2.
+	Falls $k' \leq k$, gib $\tau$ zurück.
+\end{description}
+
+Dass nach der Terminierung des Algorithmus 
+\[
+	\label{eq:tau}
+	\frac{\tau}{2} < t^* \leq (1 + \epsilon) \cdot \tau \tag{$\ast$}
+\]
+gilt, folgt direkt aus Lemma \ref{lem:tstar}. 
+Betrachten wir nun noch die Laufzeit des Algorithmus. 
+Der im vorangehenden Kapitel vorgestellte Algorithmus zur Lösung des MVPS-Problems berechnet zunächst einen Split-Tree $T$ und erstellt dann daraus zur gegebenen Trennungsrate $s$ eine WSPD. 
+Da $T$ aber nur vom Eingabe-Kantenzug $P$ abhängt, genügt es, $T$ nur einmal zu berechnen und dann daraus die verschiedenen WSPDs zu erstellen.
+Bei gegebenem $T$ dauert die Lösung des MVPS-Problems für $t$ und $\epsilon$ mit Satz \ref{theo:mvpstime} dann nur noch $O(\frac{t}{\epsilon}\cdot n)$.
+Im obigen Algorithmus wird Schritt 2 $O(log \tau)$ mal ausgeführt, da $\tau$ ja bei jeder Iteration verdoppelt wird.
+Die Laufzeit für die Approximation von $t^*$ bei gegebenem Split-Tree $T$ ist die Folgende:
+\[
+O(\sum_{i=1}^{\log \tau} (\frac{2^i}{\epsilon}\cdot n))
+= O(\frac{\tau}{\epsilon}\cdot n)
+= O(\frac{t^*}{\epsilon}\cdot n)
+\]
+
+\subsubsection*{Eine bessere Approximation von $\mathbf{t^*}$ mit Hilfe von binärer Suche}
+Bevor wir uns einem Algorithmus für eine bessere Approximation von $t^*$ als oben zuwenden, müssen wir zunächst ein dafür essentielles Lemma beweisen.
+
+Sei nun $S = (x_1, x_2, \mathellipsis, x_n)$ wie in Kapitel \ref{subsec:mvps} und $\{A_i, B_i\}_{1 \leq i \leq m}$ eine WSPD mit einer Trennungsrate von 
+\[
+s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon}
+\]
+Seien für alle $1 \leq i \leq m$ $a_i$ und $b_i$ feste Elemente aus $A_i$ bzw. $B_i$ und $\alpha_i$ und $\beta_i$ die Knoten von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$ ist. 
+Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$, dann gilt:
+\begin{lemma}
+	\label{lem:tstartj}
+	Es gibt ein $j$ mit $1 \leq j \leq m$ mit
+	\[
+		\frac{t_j}{1 + \epsilon} \leq t^* \leq (1 + \epsilon) \cdot t_j
+	\]
+\end{lemma}
+\begin{proof}
+	Wie wir gesehen haben, gibt es zwei Knoten $p$ und $q$, für die $t^* = \frac{\delta(p, q)}{|pq|}$. Sei $j$ der Index, sodass $\delta(p_1, p) \in A_j$ und $\delta(p_1, q) \in B_j$. Solch ein Index existiert nach Definition der WSPD. Da $(p, q)$ $t^*$-distanzerhaltend ist und wie im Beweis von Lemma \ref{lem:stranget} $t^* < \frac{s^2}{4s + 16}$, ist $s^2 > 4st^* + 16t^*$. 
+	Aus selbigem Lemma folgt dann, dass $(\alpha_j, \beta_j)$ $t'$-distanzerhaltend ist, wobei
+	\[
+	t' = \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 4(1 + \frac{4}{s})\frac{t^*}{s}}
+	\]
+	Da außerdem wieder $s \geq 4$, ist wegen unserer speziellen Wahl von $s$
+	\[
+	t' \leq \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}
+	\]
+	Zusammen mit (\ref{eq:tau}) folgt daraus, dass 
+	\[
+	s 
+	\enspace\geq\enspace \frac{4 + 8(1 + \epsilon)t^*}{\epsilon} 
+	\quad \Leftrightarrow \quad
+	\frac{(1 + \frac{4}{s})\cdot t^*}{1 - 8 \cdot \frac{t^*}{s}} 
+	\enspace\leq\enspace (1 + \epsilon)\cdot t^*
+	\]
+	Insgesamt ist damit
+	\[
+	t_j 
+	\enspace = \enspace \frac{\delta(\alpha_j, \beta_j)}{|\alpha_j \beta_j|} 
+	\enspace\leq\enspace t' 
+	\enspace\leq\enspace \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}
+	\enspace\leq\enspace (1 + \epsilon)\cdot t^*
+	\]
+	Nun zur zweiten Ungleichung. 
+	Wir wissen jetzt, dass $t_j \leq (1 + \epsilon) \cdot t^*$ ist.
+	Aus der Beobachtung im ersten Teil des Beweises folgt daraus dann, dass $4st_j + 16t_j < s^2$, insbesondere ist damit wieder die Bedingung aus Lemma \ref{lem:stranget} erfüllt.
+	Selbigem Lemma entsprechend ist dann $(p, q)$ $t''$-distanzerhaltend, wobei sich $t''$ ergibt als
+	\[
+	t'' = \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 4 (1 + \frac{4}{s}) \cdot \frac{t_j}{s}}
+	\]
+	Wie oben ist $s \geq 4$, sodass sich der Ausdruck zu 
+	\[
+	t'' = \frac{(1 + \frac{4}{s}\cdot t_j)}{1 - 8 \cdot \frac{t_j}{s}}
+	\]
+	vereinfacht.
+	Da mit (\ref{eq:tau}) $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$ gilt, ist des Weiteren
+	\[
+	s \geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}
+	\]
+	Durch Einsetzen erhalten wir dann $t^* \leq t'' \leq (1 + \epsilon)\cdot t_j$.
+\end{proof}
+
+Nun können wir uns dem eigentlichen Algorithmus zuwenden. Dieser lautet wie folgt:
+
+\begin{description}
+	\item{\textbf{Schritt 1:}} Berechne $\tau$ wie oben als Approximation von $t^*$ bis auf einen Faktor von $2$.
+	\item{\textbf{Schritt 2:}} Erstelle die Liste der $t_i$ für $1 \leq i \leq m$. Setze $t_0 \coloneqq 1$ und sortiere die $t_i$ für $0 \leq i \leq m$.
+	\item{\textbf{Schritt 3:}} Entferne alle Duplikate und die Werte aus der Liste, die größer als $(1 + \epsilon)^2 \tau$ sind.
+	
+	Sei $L$ die übrigbleibende sortierte Liste $1 = t_0 < t_1 < \mathellipsis < t_{m'} \leq (1 + \epsilon)^2\cdot \tau$.
+	\item{\textbf{Schritt 4:}} Führe eine binäre Suche nach $t^*$ in $L$ durch.
+\end{description}
+
+Dass uns eine binäre Suche in $L$ zum gewünschten Ziel führt, ist nicht sofort klar. Deshalb werden wir jetzt zeigen, dass die folgende Invariante während der gesamten Suche erhalten bleibt und die Gelegenheit nutzen, die Suche genauer zu beschreiben.
+
+\begin{lemma}
+	\label{lem:invariantmdps}
+	$l$ und $r$ sind Zahlen mit $0 \leq l < r \leq m'$ und $t_l \leq t^* \leq (1 + \epsilon)\cdot t_r$.
+\end{lemma}
+\begin{proof}
+	Wir unterscheiden drei Fälle:
+	\begin{description}[topsep=0mm, itemsep=0mm]
+		\item[Fall 1:] Sei $l = 0$ und $r = m'$.
+		Wir betrachten das $j$ aus Lemma \ref{lem:tstartj}. 
+		Da für dieses $j$ ja $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \cdot \tau$ gilt, kommt $t_j$ in $L$ vor. 
+		Jetzt gilt aber auch $t_l = 1 
+		\leq t^* 
+		\leq (1 + \epsilon) \cdot t_j 
+		\leq (1 + \epsilon) \cdot t_r 
+		= (1 + \epsilon)^2 \cdot \tau$, sodass in diesem Fall die Invariante erfüllt ist.
+		
+		\item[Fall 2:] Sei $l < r-1$. 
+		Wir wählen $h = \lfloor \frac{l + r}{2} \rfloor$. 
+		Zunächst berechnen wir die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$. 
+		Auf diese können wir Lemma \ref{lem:tstar} anwenden und überprüfen, ob $k' \leq k$ ist.
+		Ist dies der Fall, ist $t^* \leq (1 + \epsilon) \cdot t_h$. 
+		Dann gilt aber $t_l \leq t^* \leq  (1 + \epsilon) \cdot t_h$ und wir können $r \coloneqq h$ setzen. 
+		Sonst ist $t_h < t^* \leq (1 + \epsilon)\cdot t_r$ und wir setzen $l \coloneqq h$.
+		
+		\item[Fall 3:] Sei $l = r - 1$. Dann gilt zunächst $t_l \leq t^* \leq (1 + \epsilon)\cdot t_{l+1}$. 
+		Auch hier berechnen wir zunächst die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$ und überprüfen, ob $k' \leq k$.
+		Ist dies der Fall, folgt aus Lemma \ref{lem:tstar}, dass $t^* \leq (1 + \epsilon)^2 \cdot t_l$ ist. 
+		Somit gilt $t_l \leq t^* \leq (1 + \epsilon)^2 \cdot t_l$ und wir geben $t_l$ zurück.
+		
+		Sonst ist $t^* > (1 + \epsilon)\cdot t_l$. 
+		Jetzt betrachten wir wieder den Index $j$ aus Lemma \ref{lem:tstartj}. 
+		Für das korrespondierende $t_j$ gilt $t_l < \frac{t^*}{1 + \epsilon} \leq t_j$. Also ist $t^* \leq (1 + \epsilon) \cdot t_j$ und aus der Invariante folgt $t_{l+1} \leq t_j$.
+		Da aber auch $\frac{t_j}{1 + \epsilon} \leq t^*$ ist, ergibt sich insgesamt 
+		\[
+		\frac{t_{l+1}}{1 + \epsilon} 
+		\leq \frac{t_j}{1 + \epsilon} 
+		\leq t^* 
+		\leq (1 + \epsilon) \cdot t_{l+1}
+		\]
+		und wir geben $\frac{t_l}{1 + \epsilon}$ zurück.
+	\end{description}
+\end{proof}
+
+Lemma \ref{lem:invariantmdps} bestätigt uns also, dass uns die binäre Suche in $L$ einen solchen Wert $t$ zurückliefert, für den $t \leq t^* \leq (1 + \epsilon)^2 \cdot t$ gilt.
+
+Betrachten wir nun noch die Laufzeit des Algorithmus.
+Zunächst berechnen wir zu einem gegebenen Kantenzug $P$ das Array $S$ in $O(n)$, und als nächstes daraus einen fairen Split-Tree $T$, was, wie wir gesehen haben, in $O(n \log n)$ möglich ist. 
+Die Berechnung von $\tau$ kostet uns dann nur noch $O(\frac{t^*}{\epsilon} \cdot n)$ Zeit. 
+Die WSPD, die als nächstes bestimmt wird, hat eine Größe von $m = O(sn) = O(\frac{\tau}{\epsilon}n) = O(\frac{t^*}{\epsilon}n)$ und die Berechnung kostet dementsprechend auch $O(\frac{t^*}{\epsilon}n)$ Zeit. 
+Da außerdem $m \leq n^2$ ist, kann das Sortieren der $t_i$, die wir aus der WSPD erhalten, bekanntermaßen in $O(m \log m) = O(\frac{t^*}{\epsilon}n \cdot \log n)$ geschehen. 
+Das Aussortieren der unbrauchbaren Werte ist offensichtlich in Linearzeit zu bewerkstelligen. 
+
+Die binärer Suche macht $O(\log m) = O(\log n)$ Iterationen. 
+In jeder dieser Iterationen führen wir mit gegebenem Split-Tree den im Beweis von Satz \ref{theo:mvpstime} angegebenen Algorithmus mit einer Eingabegröße $t_h \leq (1 + \epsilon)^2 \cdot \tau = O(t^*)$ aus. 
+Dies führt uns zu einer Laufzeit von $O(\frac{t^*}{\epsilon}n)$ pro Durchführung, und für die gesamte binäre Suche haben wir $O(\frac{t^*}{\epsilon}n \cdot \log n)$.
+
+Nun können wir noch einen kleinen Trick anwenden: Verwenden wir im gesamten Algorithmus nicht $\epsilon$, sonder stattdessen $\frac{\epsilon}{3}$, erhalten wir als Ergebnis ein $t$ mit $t \leq t^* \leq (1 + \frac{\epsilon}{3})^2 \cdot t \leq (1 + \epsilon)\cdot t$. Das können wir festhalten:
+
+\begin{theorem}
+	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $2 \leq k \leq n$ und $0 < \epsilon < \frac{1}{3}$. 
+	Sei weiter $t^*$ die kleinste Zahl $t$, für die eine $t$-distanzerhaltende Approximation von $P$ mit maximal $k$ Knoten existiert.
+	Dann können wir in in $O(\frac{t^*}{\epsilon}n \cdot \log n))$ eine Zahl $t$ berechnen, für die $t \leq t^* \leq (1 + \epsilon)\cdot t$ ist.
+\end{theorem}
