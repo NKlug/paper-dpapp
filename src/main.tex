@@ -321,16 +321,7 @@
 	\section{Fazit}
     \label{sec:fazit}
     
-    Wir haben uns damit befasst, einen gegebenen Kantenzug $P$ so zu approximieren, dass die Länge der Approximation nur um einen bestimmten Faktor $t$ von der von $P$ abweicht. 
-    Im Rahmen dieser Zielsetzung haben wir zwei Probleme betrachtet: Die Minimierung der Knotenzahl der Approximation bei gegebenem $t$ (MVPS) und die Minimierung von $t$ bei gegebener Knotenzahl (MDPS).
-    Dazu haben wir zunächst einen exakten Algorithmus für das MVPS-Problem betrachtet, der eine Laufzeit von $O(n^2)$ aufwies, und anschließen daraus einen exakten Algorithmus für das MDPS-Problem konstruiert, dessen Ausführung $O(n^2 \log n)$ Zeit kostet.
- 
-    Die danach vorgestellten approximativen Algorithmen wiesen dagegen eine deutlich bessere Laufzeit auf.
-    Das MVPS-Problem können wir dabei bis auf ein $\epsilon$ genau in $O(n \log n + \frac{t}{\epsilon}n)$ lösen.
-    Auch hier haben wir dieses Ergebnis verwendet, um daraus einen - diesmal approximativen - Algorithmus für das MDPS-Problem zu konstruieren. Dieser wies eine asymptotische Laufzeit von $O(\frac{t^*}{\epsilon}n \cdot \log n)$ auf, wobei $t^*$ die exakte Lösung ist.
-    
-    Die Autoren des Artikels \cite{gudmundsson}, auf dem diese Arbeit beruht, zeigten 2006 in einem Experiment, dass die Laufzeit der approximativen Algorithmen nicht nur asymptotisch, sondern auch praktisch die der exakten Algorithmen deutlich unterbietet.
-    So gelang die exakte Lösung des MVPS-Problems für einen Kantenzug mit $20.000$ Punkten und einer Abweichung $t = 1.1$ in etwa 97 Sekunden, während der approximative Algorithmus für das selbe $t$ und $\epsilon = 0.05$ nur 7.2 Sekunden brauchte.
+	\input{conclusion}
 
     \bibliography{main}
     \bibliographystyle{plain}
