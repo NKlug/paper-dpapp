@@ -37,6 +37,7 @@
 \newtheorem{theorem}{Satz}[section]
 \newtheorem{lemma}[theorem]{Lemma}
 \newtheorem{definition}[theorem]{Definition}
+\newtheorem{corollary}[theorem]{Korollar}
 
 % Headline
 \title{Distanzerhaltende Approximation von Kantenzügen}
@@ -90,14 +91,11 @@
 	
 	Wir nennen eine t-distanzerhaltende Approximation eines Pfades am \emph{kürzesten} bzw. eine \emph{kürzeste}, falls sie die geringst mögliche Zahl an Knoten besitzt.
 	Der Quotient $\frac{\delta(p_i, p_j)}{|p_ip_j|}$ heißt \emph{Abweichung} vom Pfad.
-	\begin{lemma}
-		\label{lem:approximations}
-		Sei $1 \leq t < t'$. Jede $t$-distanzerhaltende Approximation eines Pfades $P$ ist auch eine $t'$-distanzerhaltende Approximation von $P$.
-	\end{lemma}
-	\begin{proof}
-		Dies geht direkt aus Definition \ref{def:t-distapp} hervor.
-	\end{proof}
-	
+	\begin{corollary}
+		\label{cor:approximations}
+		Sei $1 \leq t < t'$. Dann ist jede $t$-distanzerhaltende Approximation eines Pfades $P$ auch eine $t'$-distanzerhaltende Approximation von $P$.
+	\end{corollary}
+
 	In Zusammenhang mit der distanzerhaltenden Kantenzugapproximation stellen sich im Wesentlichen zwei Probleme:
 	
 	\noindent Das \textbf{Minimum-Vertex-Path-Simplification Problem (MVPS)}: Liegt ein polygonaler Kantenzug $P$ und eine reelle Zahl $t \geq 1$ vor, soll eine kürzeste $t$-distanzerhaltende Approximation von $P$ berechnet werden.
