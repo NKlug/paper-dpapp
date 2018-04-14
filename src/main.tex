@@ -299,6 +299,21 @@
 	
 	Lemma \ref{lem:invariantmdps} bestätigt uns also, dass uns die binäre Suche in $L$ einen solchen Wert $t$ zurückliefert, für den $t \leq t^* \leq (1 + \epsilon)^2 \cdot t$ gilt.
 	
+	Betrachten wir nun noch die Laufzeit des Algorithmus.
+	Zunächst berechnen wir zu einem gegebenen Kantenzug $P$ das Array $S$ in $O(n)$, und als nächstes daraus einen fairen Split-Tree $T$, was, wie wir gesehen haben, in $O(n \log n)$ möglich ist. 
+	Die Berechnung von $\tau$ kostet uns dann nur noch $O(\frac{t^*}{\epsilon} \cdot n)$ Zeit. 
+	Die WSPD, die als nächstes bestimmt wird, hat eine Größe von $m = O(sn) = O(\frac{\tau}{\epsilon}n) = O(\frac{t^*}{\epsilon}n)$ und die Berechnung kostet dementsprechend auch $O(\frac{t^*}{\epsilon}n)$ Zeit. 
+	Da außerdem $m \leq n^2$ ist, kann das Sortieren der $t_i$, die wir aus der WSPD erhalten, bekanntermaßen in $O(m \log m) = O(\frac{t^*}{\epsilon}n \cdot \log n)$ geschehen. 
+	Das Aussortieren der unbrauchbaren Werte ist offensichtlich in Linearzeit zu bewerkstelligen. 
+	
+	Die binärer Suche macht $O(\log m) = O(\log n)$ Iterationen. 
+	In jeder dieser Iterationen führen wir mit gegebenem Split-Tree den im Beweis von Satz \ref{theo:mvpstime} angegebenen Algorithmus mit einer Eingabegröße $t_h \leq (1 + \epsilon)^2 \cdot \tau = O(t^*)$ aus. 
+	Dies führt uns zu einer Laufzeit von $O(\frac{t^*}{\epsilon}n)$ pro Durchführung, und für die gesamte binäre Suche haben wir $O(\frac{t^*}{\epsilon}n \cdot \log n)$.
+	
+	Nun können wir noch einen kleinen Trick anwenden: Verwenden wir im gesamten Algorithmus nicht $\epsilon$, sonder stattdessen $\frac{\epsilon}{3}$, erhalten wir als Ergebnis ein $t$ mit $t \leq t^* \leq (1 + \frac{\epsilon}{3})^2 \cdot t \leq (1 + \epsilon)\cdot t$. Das können wir festhalten:
+	
+	
+	
 	\section{Fazit}
     \label{sec:fazit}
 
