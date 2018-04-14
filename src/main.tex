@@ -312,10 +312,16 @@
 	
 	Nun können wir noch einen kleinen Trick anwenden: Verwenden wir im gesamten Algorithmus nicht $\epsilon$, sonder stattdessen $\frac{\epsilon}{3}$, erhalten wir als Ergebnis ein $t$ mit $t \leq t^* \leq (1 + \frac{\epsilon}{3})^2 \cdot t \leq (1 + \epsilon)\cdot t$. Das können wir festhalten:
 	
-	
+	\begin{theorem}
+		Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $2 \leq k \leq n$ und $0 < \epsilon < \frac{1}{3}$. 
+		Sei weiter $t^*$ die kleinste Zahl $t$, für die eine $t$-distanzerhaltende Approximation von $P$ mit maximal $k$ Knoten existiert.
+		Dann können wir in in $O(\frac{t^*}{\epsilon}n \cdot \log n))$ eine Zahl $t$ berechnen, für die $t \leq t^* \leq (1 + \epsilon)\cdot t$ ist.
+	\end{theorem}
 	
 	\section{Fazit}
     \label{sec:fazit}
+    
+    
 
     \bibliography{main}
     \bibliographystyle{plain}
