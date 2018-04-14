@@ -243,6 +243,17 @@
 	
 	Nun können wir uns dem eigentlichen Algorithmus zuwenden. Dieser lautet wie folgt:
 	
+	\begin{description}
+		\item{\textbf{Schritt 1:}} Berechne $\tau$ wie oben als Approximation von $t^*$ bis auf einen Faktor von $2$.
+		\item{\textbf{Schritt 2:}} Erstelle die Liste der $t_i$ für $1 \leq i \leq m$. Setze $t_0 \coloneqq 1$ und sortiere die $t_i$ für $0 \leq i \leq m$.
+		\item{\textbf{Schritt 3:}} Entferne alle Duplikate und die Werte aus der Liste, die größer als $(1 + \epsilon)^2 \tau$ sind.
+		
+		Sei $1 = t_0 < t_1 < \mathellipsis < t_{m'} \leq (1 + \epsilon)^2\cdot \tau$ die übrigbleibende sortierte Liste.
+		\item{\textbf{Schritt 4:}} Führe eine binäre Suche nach $t^*$ in dieser Liste durch.
+	\end{description}
+	
+	Dass uns die binäre Suche zum gewünschten Ziel führt, ist nicht sofort klar. Deshalb werden wir jetzt zeigen, dass die Folgende Invariante während der gesamten Suche erhalten bleibt.
+	
 	
 	\section{Fazit}
     \label{sec:fazit}
