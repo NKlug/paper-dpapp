@@ -234,7 +234,7 @@
 		t'' = \frac{(1 + \frac{4}{s}\cdot t_j)}{1 - 8 \cdot \frac{t_j}{s}}
 		\]
 		vereinfacht.
-		Da mit \ref{eq:tau} $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$ gilt, ist des Weiteren
+		Da mit (\ref{eq:tau}) $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$ gilt, ist des Weiteren
 		\[
 		s \geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}
 		\]
@@ -248,18 +248,56 @@
 		\item{\textbf{Schritt 2:}} Erstelle die Liste der $t_i$ für $1 \leq i \leq m$. Setze $t_0 \coloneqq 1$ und sortiere die $t_i$ für $0 \leq i \leq m$.
 		\item{\textbf{Schritt 3:}} Entferne alle Duplikate und die Werte aus der Liste, die größer als $(1 + \epsilon)^2 \tau$ sind.
 		
-		Sei $1 = t_0 < t_1 < \mathellipsis < t_{m'} \leq (1 + \epsilon)^2\cdot \tau$ die übrigbleibende sortierte Liste.
-		\item{\textbf{Schritt 4:}} Führe eine binäre Suche nach $t^*$ in dieser Liste durch.
+		Sei $L$ die übrigbleibende sortierte Liste $1 = t_0 < t_1 < \mathellipsis < t_{m'} \leq (1 + \epsilon)^2\cdot \tau$.
+		\item{\textbf{Schritt 4:}} Führe eine binäre Suche nach $t^*$ in $L$ durch.
 	\end{description}
 	
-	Dass uns die binäre Suche zum gewünschten Ziel führt, ist nicht sofort klar. Deshalb werden wir jetzt zeigen, dass die folgende Invariante während der gesamten Suche erhalten bleibt.
+	Dass uns eine binäre Suche in $L$ zum gewünschten Ziel führt, ist nicht sofort klar. Deshalb werden wir jetzt zeigen, dass die folgende Invariante während der gesamten Suche erhalten bleibt und die Gelegenheit nutzen, die Suche genauer zu beschreiben.
 	
 	\begin{lemma}
+		\label{lem:invariantmdps}
 		$l$ und $r$ sind Zahlen mit $0 \leq l < r \leq m'$ und $t_l \leq t^* \leq (1 + \epsilon)\cdot t_r$.
 	\end{lemma}
 	\begin{proof}
-		
+		Wir unterscheiden drei Fälle:
+		\begin{description}[topsep=0mm, itemsep=0mm]
+			\item[Fall 1:] Sei $l = 0$ und $r = m'$.
+			Wir betrachten das $j$ aus Lemma \ref{lem:tstartj}. 
+			Da für dieses $j$ ja $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \cdot \tau$ gilt, kommt $t_j$ in $L$ vor. 
+			Jetzt gilt aber auch $t_l = 1 
+			\leq t^* 
+			\leq (1 + \epsilon) \cdot t_j 
+			\leq (1 + \epsilon) \cdot t_r 
+			= (1 + \epsilon)^2 \cdot \tau$, sodass in diesem Fall die Invariante erfüllt ist.
+			
+			\item[Fall 2:] Sei $l < r-1$. 
+			Wir wählen $h = \lfloor \frac{l + r}{2} \rfloor$. 
+			Zunächst berechnen wir die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$. 
+			Auf diese können wir Lemma \ref{lem:tstar} anwenden und überprüfen, ob $k' \leq k$ ist.
+			Ist dies der Fall, ist $t^* \leq (1 + \epsilon) \cdot t_h$. 
+			Dann gilt aber $t_l \leq t^* \leq  (1 + \epsilon) \cdot t_h$ und wir können $r \coloneqq h$ setzen. 
+			Sonst ist $t_h < t^* \leq (1 + \epsilon)\cdot t_r$ und wir setzen $l \coloneqq h$.
+			
+			\item[Fall 3:] Sei $l = r - 1$. Dann gilt zunächst $t_l \leq t^* \leq (1 + \epsilon)\cdot t_{l+1}$. 
+			Auch hier berechnen wir zunächst die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$ und überprüfen, ob $k' \leq k$.
+			Ist dies der Fall, folgt aus Lemma \ref{lem:tstar}, dass $t^* \leq (1 + \epsilon)^2 \cdot t_l$ ist. 
+			Somit gilt $t_l \leq t^* \leq (1 + \epsilon)^2 \cdot t_l$ und wir geben $t_l$ zurück.
+			
+			Sonst ist $t^* > (1 + \epsilon)\cdot t_l$. 
+			Jetzt betrachten wir wieder den Index $j$ aus Lemma \ref{lem:tstartj}. 
+			Für das korrespondierende $t_j$ gilt $t_l < \frac{t^*}{1 + \epsilon} \leq t_j$. Also ist $t^* \leq (1 + \epsilon) \cdot t_j$ und aus der Invariante folgt $t_{l+1} \leq t_j$.
+			Da aber auch $\frac{t_j}{1 + \epsilon} \leq t^*$ ist, ergibt sich insgesamt 
+			\[
+			\frac{t_{l+1}}{1 + \epsilon} 
+			\leq \frac{t_j}{1 + \epsilon} 
+			\leq t^* 
+			\leq (1 + \epsilon) \cdot t_{l+1}
+			\]
+			und wir geben $\frac{t_l}{1 + \epsilon}$ zurück.
+		\end{description}
 	\end{proof}
+	
+	Lemma \ref{lem:invariantmdps} bestätigt uns also, dass uns die binäre Suche in $L$ einen solchen Wert $t$ zurückliefert, für den $t \leq t^* \leq (1 + \epsilon)^2 \cdot t$ gilt.
 	
 	\section{Fazit}
     \label{sec:fazit}
