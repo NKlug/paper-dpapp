@@ -183,6 +183,8 @@
 	\]
 	
 	\subsubsection*{Eine bessere Approximation von $\mathbf{t^*}$ mit Hilfe von binärer Suche}
+	Bevor wir uns einem Algorithmus für eine bessere Approximation von $t^*$ als oben zuwenden, müssen wir zunächst ein dafür essentielles Lemma beweisen.
+	
 	Sei nun $S = (x_1, x_2, \mathellipsis, x_n)$ wie in Kapitel \ref{subsec:mvps} und $\{A_i, B_i\}_{1 \leq i \leq m}$ eine WSPD mit einer Trennungsrate von 
 	\[
 	s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon}
@@ -238,8 +240,11 @@
 		\[
 		s \geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}
 		\]
-		Durch Einsetzen erhalten wir dann $t^* \leq t'' \leq (1 + \epsilon) t_j$.
+		Durch Einsetzen erhalten wir dann $t^* \leq t'' \leq (1 + \epsilon)\cdot t_j$.
 	\end{proof}
+	
+	Nun können wir uns dem eigentlichen Algorithmus zuwenden. Dieser lautet wie folgt:
+	
 	
 	\section{Fazit}
     \label{sec:fazit}
