@@ -2,7 +2,7 @@
     
     \subsubsection*{Die Theorie}
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Pfades zu betrachten. Diese erhalten wir so: Für alle $1 \leq i \leq n$ ist $x_i = \delta(p_1, p_i)$.
-    Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind, als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
+    Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind, als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
     
     \begin{lemma}
     	\label{lem:stranget}
@@ -137,13 +137,13 @@
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug.
     \begin{enumerate}
     	\item Berechne $S = (x_1, x_2, \mathellipsis, x_n)$, wobei $x_i = \delta(p_1, p_i)$ für alle $1 \leq i \leq n$
-    	\item Berechne aus $S$ den Split Tree $T$ und daraus eine WSPD $\{A_i, B_i\}_{1 \leq i \leq m'}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
+    	\item Berechne aus $S$ den Split-Tree $T$ und daraus eine WSPD $\{A_i, B_i\}_{1 \leq i \leq m'}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
     	\item Seien $a_i \in A_i$ und $b_i \in B_i$ für alle $1 \leq i \leq m'$ feste Elemente und seien $\alpha_i$ und  $\beta_i$ die Knoten von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
     \end{enumerate}
     
     Der Einfachheit halber beschreiben wir die \glqq ausgedünnte\grqq\ WSPD durch $\{A_i, B_i\}_{1\leq i \leq m}$, wobei $m$ die Zahl der verbleibenden Tupel ist.
     Bevor wir zu Schritt (4) kommen, zeigen wir zunächst, wie man mit Hilfe einer c Breitensuche in $T$ einen kürzesten Pfad in $H$ bestimmen kann.  
-    Für alle $1 \leq i \leq m$ sei $u_i$ der Knoten des Split Trees $T$, der $A_i$ repräsentiert, und $v_i$ derjenige, der $B_i$ repräsentiert. Wir nennen die $u_i$ auch \emph{A-Knoten}. Es ist nicht ausgeschlossen, dass ein Knoten von $T$ mehrere $A_i$ und $B_i$ repräsentiert. Folglich speichert jeder Knoten eine Liste seiner $A_i$ und $B_i$.
+    Für alle $1 \leq i \leq m$ sei $u_i$ der Knoten des Split-Trees $T$, der $A_i$ repräsentiert, und $v_i$ derjenige, der $B_i$ repräsentiert. Wir nennen die $u_i$ auch \emph{A-Knoten}. Es ist nicht ausgeschlossen, dass ein Knoten von $T$ mehrere $A_i$ und $B_i$ repräsentiert. Folglich speichert jeder Knoten eine Liste seiner $A_i$ und $B_i$.
     
     Die Breitensuche die wir verwenden, zeigt Ähnlichkeiten zu der, die in \cite{hagerup} erklärt wird. Für jeden Knoten $v$ des Baumes $T$ speichern wir dabei drei Variablen:
     \begin{itemize}
@@ -187,7 +187,7 @@
     
     Ist $k$ das erste Element der Warteschlange, so hat es die momentan geringste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $u_l$ bearbeitet, werden alle anderen von $A_l$ aus (in $H$) erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau die, die einen nicht-leeren Schnitt mit $B_l$ haben. 
     
-	Wir können beobachten, dass, falls für einen Knoten $u$ $color[u] = white$, alle Knoten im Unterbaum von $u$ weiß sind. Ist $v$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $v$ zur Wurzel des Split Trees nicht-weiß.
+	Wir können beobachten, dass, falls für einen Knoten $u$ $color[u] = white$, alle Knoten im Unterbaum von $u$ weiß sind. Ist $v$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $v$ zur Wurzel des Split-Trees nicht-weiß.
     
     Dadurch ist klar, dass in den Schritten 3.1 und 3.2 alle Mengen $A_j$ bearbeitet werden, die von $A_l$ aus erreichbar sind.. Für jedes $A_j$ wird dann dessen Distanz zu $A_i$ verringert (nämlich von $\infty$ auf $d[k]+1$). 
     
