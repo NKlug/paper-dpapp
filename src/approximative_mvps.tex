@@ -185,7 +185,7 @@
     
     Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. Auf einen vollständigen Beweis wollen wir an dieser Stelle verzichten, aber die wichtigsten Punkte skizzieren. 
     
-    Ist $k$ das erste Element der Warteschlange, so hat es die momentan kleinste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $u_l$ bearbeitet, werden alle anderen von $A_l$ aus (in $H$) erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau die, die einen nicht-leeren Schnitt mit $B_l$ haben. 
+    Ist $k$ das erste Element der Warteschlange, so hat es die momentan geringste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $u_l$ bearbeitet, werden alle anderen von $A_l$ aus (in $H$) erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau die, die einen nicht-leeren Schnitt mit $B_l$ haben. 
     
 	Wir können beobachten, dass, falls für einen Knoten $u$ $color[u] = white$, alle Knoten im Unterbaum von $u$ weiß sind. Ist $v$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $v$ zur Wurzel des Split Trees nicht-weiß.
     
