@@ -25,7 +25,6 @@
 
 \newcommand{\R}{\mathbb{R}}
 \newcommand{\n}{\newline}
-\renewcommand{\refname}{Referenzen}
 \renewcommand{\baselinestretch}{1.15} % line distance
 \renewcommand{\proofname}{\Beweis} % name proofs 'Beweis'
 \addto\captionsgerman{\renewcommand{\figurename}{Abb.}} % name figures 'Abb.' (change it for babel)
@@ -53,18 +52,36 @@
     \maketitle
 
     \begin{abstract}
-        Diese Seminararbeit basiert auf \glqq Distance-preserving approximations of polygonal paths\grqq\ von J. Gudmundsson et al. (\cite{gudmundsson}). Sei $P = (p_1, p_2, \mathellipsis p_n)$ ein Kantenzug und $t \geq 1$. Ein Kantenzug $Q$ approximiert $P$, falls er nur aus Punkten von $P$ besteht und falls dessen Kanten jeweils nur um $t$ vom $P$ abweichen. Diese Arbeit stellt exakte und approximative Algorithmen dar, um $Q$ so zu berechnen, dass $Q$ entweder die minimale Zahl von Knoten besitzt, oder für eine feste Knotenzahl 
+        Diese Seminararbeit basiert auf \glqq Distance-preserving approximations of polygonal paths\grqq\ von J. Gudmundsson et al. (\cite{gudmundsson}). Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug und $t \geq 1$. Ein Kantenzug $Q$ approximiert $P$, falls er nur aus Punkten von $P$ besteht und falls dessen Kanten jeweils nur um $t$ vom $P$ abweichen. Diese Arbeit stellt exakte und approximative Algorithmen dar, um $Q$ so zu berechnen, dass $Q$ entweder die minimale Zahl von Knoten besitzt, oder für eine feste Knotenzahl 
         minimales $t$ hat.
     \end{abstract}
 
     \section{Einführung und Definitionen}
     \label{sec:intro}
 
-	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geradensegmenten, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. Bei den $p_i$ handelt es sich dabei um Punkte aus dem $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu gerichteten Pfaden in Graphen, werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. Beispielsweise heißen die Punkte des Kantenzuges  auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
+	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geradensegmenten, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. 
+	Bei den $p_i$ handelt es sich dabei um Punkte aus $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu Pfaden in (gerichteten) Graphen, werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. 
+	Beispielsweise heißen die Punkte des Kantenzuges auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
+	In anderen Vorlesungen und Fachbüchern werden und wurden die Begriffe Kantenzug und Pfad teilweise synonym verwendet, wir wollen diese hier aber - der besseren Verständlichkeit wegen -  klar unterscheiden.
 
-    Sei $d\geq1$ und $(p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
-    Ein solcher Kantenzug kann mitunter eine hohe Zahl von Knoten besitzen, die sehr dicht beieinander liegen und leicht durch deutlich weniger Kanten approximiert werden können, wobei sich wichtige Parameter nicht stark ändern. In der Fachliteratur werden dabei zahlreiche Kriterien aufgeführt, einige davon sind die Fläche, die der Pfad einschließt und die Distanz bzw. die Länge des Pfades. In dieser Arbeit soll es um Algorithmen gehen, die einen solchen Pfad unter ungefährer Einhaltung der Länge approximieren. Dabei betrachten wir zunächst zwei exakte Algorithmen und später noch zwei approximative, die eine deutliche bessere Laufzeit haben als die exakten. Zunächst müssen wir jedoch einige Grundbegriffe definieren.
+    Sei nun $d\geq1$ und $(p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
+    Ein solcher Kantenzug kann mitunter eine hohe Zahl von Knoten besitzen, von denen die meisten für die Anwendung uninteressant sind. 
+    Hier ist es vorteilhaft, diesen Kantenzug durch einen ähnlichen Kantenzug mit deutlich weniger Kanten (und somit auch Knoten) zu approximieren, wobei sich wichtige Parameter allerdings nicht stark ändern. 
+    In der Fachliteratur werden dabei zahlreiche verschiedene Parameter aufgeführt, die bei der Approximation erhalten werden sollen, einige davon sind die Fläche \cite{bose}, die der Pfad einschließt und die Distanz bzw. die Länge des Pfades \cite{gudmundsson}. 
+    
+    Ein Anwendungsszenario der Kantenzugapproximation liegt zum Beispiel bei der Erstellung und Vereinfachung von Karten. 
+    Dort trifft man ständig auf polygonale Kantenzüge im \mbox{zwei-,} selten auch dreidimensionalen Raum: Straßen, Küstenlinien, Höhenlinien, Stadtumrisse und Landesgrenzen sind nur einige Beispiele. 
+    Leider sind in den meisten Fällen nicht alle Landesgrenzen so einfach darzustellen wie die Grenze zwischen Libyen und Ägypten; betrachtet man die Weltkarte, fällt auf, dass die meisten Grenzen sogar sehr komplizierte Formen annehmen, die aus Tausenden, wenn nicht Zehntausenden, einzelnen Punkten bestehen.
+    Möchte man nun eine Karte erstellen, ist klar, dass es im Allgemeinen nicht möglich und auch nicht wünschenswert ist, alle Punkte darzustellen. 
+    Genau an dieser Stelle liegt eine Anwendung der Kantenapproximation: Die Landesgrenze wird durch einen Kantenzug approximiert, der aus deutlich weniger Punkten besteht, ohne dass sich ein wichtiger Parameter ändert, wie zum Beispiel die Länge.
+    
+    In dieser Arbeit soll es um Algorithmen gehen, die einen polygonalen Kantenzug unter ungefährer Einhaltung der Länge approximieren. 
+    Dabei betrachten wir zunächst zwei exakte Algorithmen und später noch zwei approximative, die eine deutliche bessere Laufzeit aufweisen als die exakten. 
+    
+    Bevor wir uns den Algorithmen zuwenden, müssen wir jedoch einige Grundbegriffe definieren.
    
+   \subsection{Definitionen}
+   \label{subsec:def}
     Seien $u, v \in \R^d$. Wir definieren $|uv|$ als den euklidischen Abstand von $u$ und $v$.
     Ist $p_i, p_j \in P$, dann ist $\delta(p_i, p_j) \coloneqq \sum\limits_{k=i}^{j-1}{|p_k
     p_{k+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$.
