@@ -10,7 +10,7 @@
     	\[t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}\]
     \end{lemma}
     \begin{proof}
-    	Wegen unserer speziellen Wahl von $t$ ist der Nenner von $t'$ immer positiv, und genauso der Zähler.
+    	Wegen unserer speziellen Wahl von $t$ ist der Nenner von $t'$ immer positiv, und genauso der Zähler. Dann können wir rechnen:
     	\begin{align*}
 	    	\delta(p', q') &= |x'y'| 
 	    	\\ &\leq (1 + \frac{4}{s})\cdot|xy| & \text{(Lemma \ref{lem:wellsep} (2))}
@@ -111,16 +111,23 @@
     
     Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit unter Umständen $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
     
-    Bevor wir uns allerdings dem expliziten Algorithmus zuwenden, zeigen wir noch Kriterien, unter denen ein kürzester Pfad in $H$, der den Kriterien aus Satz \ref{theo:H2Approx} genügt, einer kürzesten $t$-distanzerhaltenden Approximation von $P$ entspricht.
+    Bevor wir uns allerdings dem expliziten Algorithmus zuwenden, betrachten wir noch Kriterien, unter denen ein kürzester Pfad in $H$, der den Kriterien aus Satz \ref{theo:H2Approx} genügt, einer kürzesten $t$-distanzerhaltenden Approximation von $P$ entspricht.
     
     \begin{theorem}
-    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein polygonaler Kantenzug in $\R^d$ und $H$ der oben definierte Graph. Sei $R = (A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ ein kürzester Pfad in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$. Gilt für alle $p, q \in P$ mit $p \neq q$ $\frac{\delta(p, q)}{|pq|} \leq t$ oder $\frac{\delta(p, q)}{|pq|} > (1+\epsilon)t$, so entspricht R einer kürzesten $t$-distanzerhaltenden Approximation von $P$.
+    	\label{theo:tcriteria}
+    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein polygonaler Kantenzug in $\R^d$ und $H$ der oben definierte Graph. Sei $R = (A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ ein kürzester Pfad in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$. Gilt für alle $p, q \in P$ mit $p \neq q$ $\frac{\delta(p, q)}{|pq|} \leq t$ oder $\frac{\delta(p, q)}{|pq|} > (1+\epsilon)t$, dann entspricht $R$ einer kürzesten $t$-distanzerhaltenden Approximation von $P$.
     \end{theorem}
     
     \begin{proof}
     	Seien $p, q \in P$, $x = \delta(p_1, p)$ und $y = \delta(p_1, q)$ und $i$ ein solcher Index, dass $x \in A_i$ und $y \in B_i$. 
     	
-    	Ist $\frac{\delta(p, q)}{|pq|} > (1+\epsilon)t$, so gilt nach Lemma \ref{lem:tepsilon}, dass für alle $a \in A_i$ und $b \in B$ $\delta(a, b) > (1 + \frac{\epsilon}{3})t \cdot |ab|$. Also ist $(A_i, B_i)$ \emph{nicht} $(t, \epsilon)$-distanzerhaltend und es gibt in $H$ keine Kante, die $A_i$ verlässt.
+    	Ist $\frac{\delta(p, q)}{|pq|} > (1+\epsilon)t$, so gilt nach Lemma \ref{lem:tepsilon}, dass für alle $a \in A_i$ und $b \in B$ $\delta(a, b) > (1 + \frac{\epsilon}{3})t \cdot |ab| > t$. 
+    	Also ist $(A_i, B_i)$ \emph{nicht} $(t, \epsilon)$-distanzerhaltend und es gibt in $H$ keine Kante, die $A_i$ verlässt. 
+    	
+    	Folglich existieren in $H$ nur Kanten $(A_i, A_j)$, sodass für alle Elemente $a_i \in A_i$ und $a_j \in A_j$ die zugehörigen Knoten des Kantenzugs $t$-distanzerhaltend sind.
+    	Analoges gilt für die Kanten $(A_i, B_i)$ in $H$.
+    	Insgesamt sind also alle in der Approximation auftretenden Kanten $t$-distanzerhaltend.
+    	
     \end{proof}
     
     Im Folgenden Abschnitt werden wir deshalb sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ zu konstruieren.
