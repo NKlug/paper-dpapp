@@ -20,6 +20,7 @@
    
    \subsection{Definitionen}
    \label{subsec:def}
+   
     Seien $u, v \in \R^d$. Wir definieren $|uv|$ als den euklidischen Abstand von $u$ und $v$.
     Ist $p_i, p_j \in P$, dann ist $\delta(p_i, p_j) \coloneqq \sum\limits_{k=i}^{j-1}{|p_k
     p_{k+1}|}$, also der euklidische Abstand dieser beiden Punkte entlang des Pfades $P$.
@@ -30,7 +31,7 @@
 	\begin{proof}
 		Die Strecke zwischen zwei Punkten in $\R^d$ ist immer die kürzeste Verbindung dieser beiden Punkte.
 	\end{proof}
-	Bis jetzt haben wir nur über distanzerhaltende Approximationen eines Kantenzugs geredet, ohne  festzulegen, was distanzerhaltend überhaupt bedeutet. Eine Kante ist distanzerhaltend, wenn ihre Länge nur um einen bestimmten Faktor von der Länge des Pfade abweicht, genauer:
+	Bis jetzt haben wir nur über distanzerhaltende Approximationen eines Kantenzugs geredet, ohne  festzulegen, was distanzerhaltend überhaupt bedeutet. Wir nennen eine Kante distanzerhaltend, wenn ihre Länge nur um einen bestimmten Faktor von der Länge des Pfade abweicht. Genauer:
 	\begin{definition}[$t$-distanzerhaltend]
 		\label{def:t-dist}
 		Sind $p_i, p_j \in P$, dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_{i+1}) \leq t \cdot |p_ip_j|$.
@@ -48,7 +49,7 @@
 	\end{definition}
 	
 	Wir nennen eine t-distanzerhaltende Approximation eines Pfades \emph{minimal} bzw. eine \emph{minimale}, falls sie die geringst mögliche Zahl an Knoten besitzt.
-	Der Quotient $\frac{\delta(p_i, p_j)}{|p_ip_j|}$ heißt \emph{Abweichung} vom Pfad.
+	Der Quotient $\frac{\delta(p_i, p_j)}{|p_ip_j|}$ heißt \emph{Abweichung} vom Kantenzug.
 	\begin{corollary}
 		\label{cor:approximations}
 		Sei $1 \leq t < t'$. Dann ist jede $t$-distanzerhaltende Approximation eines Pfades $P$ auch eine $t'$-distanzerhaltende Approximation von $P$.
