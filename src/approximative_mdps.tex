@@ -13,10 +13,13 @@ Unser Algorithmus basiert im Wesentlichen auf dem folgenden Lemma.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
-	Zu 1. Sei $k' \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also $max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}$. 
+	Zu 1. Sei $k' \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also 
+	\[
+	\max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}
+	\] 
 	Dann gilt auch $t' \leq (1 + \epsilon) \cdot t$. 
 	Aus Lemma \ref{lem:kappa} folgt damit, dass $\kappa_{(1 + \epsilon)t} \leq \kappa_{t'}$.
-	Da $\kappa_{t'}$ aber die Knotenzahl einer minimalen $t'$-distanzerhaltenden Approximation ist, muss $\kappa_{t'} \leq k'$ gelten. Zusammen mit der Annahme folgt dann, dass $\kappa_{(1 + \epsilon)t} \leq k$. Wegen Lemma \ref{lem:kappa} muss dann aber $t^* \leq (1 + \epsilon) \cdot t$ gelten.
+	Da $\kappa_{t'}$ aber die Knotenzahl einer minimalen $t'$-distanzerhaltenden Approximation ist, muss $\kappa_{t'} \leq k'$ gelten. Zusammen mit der Annahme folgt dann $\kappa_{(1 + \epsilon)t} \leq k$. Wegen Lemma \ref{lem:kappa} muss dann aber $t^* \leq (1 + \epsilon) \cdot t$ gelten.
 	
 	Zu 2. Sei nun $k' > k$. Nach Satz \ref{theo:mvpstime} gilt $k' \leq \kappa_t$. Also ist auch $k < \kappa_t$. Wie oben folgt nun aus Lemma \ref{lem:kappa}, dass $t^* > t$ sein muss, da für $t^*$ ja $\kappa_{t^*} \leq k$ gilt.		
 \end{proof}
@@ -42,8 +45,8 @@ Betrachten wir nun noch die Laufzeit des Algorithmus.
 Der im vorangehenden Kapitel vorgestellte Algorithmus zur Lösung des MVPS-Problems berechnet zunächst einen Split-Tree $T$ und erstellt dann daraus zur gegebenen Trennungsrate $s$ eine WSPD. 
 Da $T$ aber nur vom Eingabe-Kantenzug $P$ abhängt, genügt es, $T$ nur einmal zu berechnen und dann daraus die verschiedenen WSPDs zu erstellen.
 Bei gegebenem $T$ dauert die Lösung des MVPS-Problems für $t$ und $\epsilon$ mit Satz \ref{theo:mvpstime} dann nur noch $O(\frac{t}{\epsilon}\cdot n)$.
-Im obigen Algorithmus wird Schritt 2 $O(log \tau)$ mal ausgeführt, da $\tau$ ja bei jeder Iteration verdoppelt wird.
-Die Laufzeit für die Approximation von $t^*$ bei gegebenem Split-Tree $T$ ist die Folgende:
+Im obigen Algorithmus wird Schritt 2 $O(\log \tau)$ mal ausgeführt, da $\tau$ ja bei jeder Iteration verdoppelt wird.
+Die Laufzeit für die Approximation von $t^*$ bei gegebenem Split-Tree $T$ ist damit die Folgende:
 \[
 O(\sum_{i=1}^{\log \tau} (\frac{2^i}{\epsilon}\cdot n))
 = O(\frac{\tau}{\epsilon}\cdot n)
@@ -92,7 +95,9 @@ Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$, dann gilt:
 	\enspace\leq\enspace \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}
 	\enspace\leq\enspace (1 + \epsilon)\cdot t^*
 	\]
-	Nun zur zweiten Ungleichung. 
+	Damit ist die erste Ungleichung bewiesen.
+	
+	Nun zur Zweiten. 
 	Wir wissen jetzt, dass $t_j \leq (1 + \epsilon) \cdot t^*$ ist.
 	Aus der Beobachtung im ersten Teil des Beweises folgt daraus dann, dass $4st_j + 16t_j < s^2$, insbesondere ist damit wieder die Bedingung aus Lemma \ref{lem:stranget} erfüllt.
 	Selbigem Lemma entsprechend ist dann $(p, q)$ $t''$-distanzerhaltend, wobei sich $t''$ ergibt als
@@ -131,7 +136,8 @@ Dass uns eine binäre Suche in $L$ zum gewünschten Ziel führt, ist nicht sofor
 \begin{proof}
 	Wir unterscheiden drei Fälle:
 	\begin{description}[topsep=0mm, itemsep=0mm]
-		\item[Fall 1:] Sei $l = 0$ und $r = m'$.
+		\item{Fall 1:} $l = 0$ und $r = m'$
+		
 		Wir betrachten das $j$ aus Lemma \ref{lem:tstartj}. 
 		Da für dieses $j$ ja $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \cdot \tau$ gilt, kommt $t_j$ in $L$ vor. 
 		Jetzt gilt aber auch $t_l = 1 
@@ -140,7 +146,8 @@ Dass uns eine binäre Suche in $L$ zum gewünschten Ziel führt, ist nicht sofor
 		\leq (1 + \epsilon) \cdot t_r 
 		= (1 + \epsilon)^2 \cdot \tau$, sodass in diesem Fall die Invariante erfüllt ist.
 		
-		\item[Fall 2:] Sei $l < r-1$. 
+		\item{Fall 2:} 
+		$l < r-1$
 		Wir wählen $h = \lfloor \frac{l + r}{2} \rfloor$. 
 		Zunächst berechnen wir die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$. 
 		Auf diese können wir Lemma \ref{lem:tstar} anwenden und überprüfen, ob $k' \leq k$ ist.
@@ -148,7 +155,9 @@ Dass uns eine binäre Suche in $L$ zum gewünschten Ziel führt, ist nicht sofor
 		Dann gilt aber $t_l \leq t^* \leq  (1 + \epsilon) \cdot t_h$ und wir können $r \coloneqq h$ setzen. 
 		Sonst ist $t_h < t^* \leq (1 + \epsilon)\cdot t_r$ und wir setzen $l \coloneqq h$.
 		
-		\item[Fall 3:] Sei $l = r - 1$. Dann gilt zunächst $t_l \leq t^* \leq (1 + \epsilon)\cdot t_{l+1}$. 
+		\item{Fall 3:} $l = r - 1$
+		
+		Dann gilt zunächst $t_l \leq t^* \leq (1 + \epsilon)\cdot t_{l+1}$. 
 		Auch hier berechnen wir zunächst die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$ und überprüfen, ob $k' \leq k$.
 		Ist dies der Fall, folgt aus Lemma \ref{lem:tstar}, dass $t^* \leq (1 + \epsilon)^2 \cdot t_l$ ist. 
 		Somit gilt $t_l \leq t^* \leq (1 + \epsilon)^2 \cdot t_l$ und wir geben $t_l$ zurück.
