@@ -3,16 +3,15 @@
 	Beispielsweise heißen die Punkte des Kantenzuges auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
 	In anderen Vorlesungen und Fachbüchern werden und wurden die Begriffe Kantenzug und Pfad teilweise synonym verwendet, wir wollen diese hier aber - der besseren Verständlichkeit wegen -  klar unterscheiden.
 
-    Sei nun $d\geq1$ und $(p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug $P$, dessen Knoten alle in $\R^{d}$ liegen.
-    Ein solcher Kantenzug kann mitunter eine hohe Zahl von Knoten besitzen, von denen die meisten für die Anwendung uninteressant sind. 
+    In der Realität kann ein solcher Kantenzug mitunter eine hohe Zahl von Knoten besitzen, von denen die meisten für die Anwendung uninteressant sind. 
     Hier ist es vorteilhaft, diesen Kantenzug durch einen ähnlichen Kantenzug mit deutlich weniger Kanten (und somit auch Knoten) zu approximieren, wobei sich wichtige Parameter allerdings nicht stark ändern. 
     In der Fachliteratur werden dabei zahlreiche verschiedene Parameter aufgeführt, die bei der Approximation erhalten werden sollen, einige davon sind die Fläche \cite{bose}, die der Pfad einschließt und die Distanz bzw. die Länge des Pfades \cite{gudmundsson}. 
     
     Ein Anwendungsszenario der Kantenzugapproximation liegt zum Beispiel bei der Erstellung und Vereinfachung von Karten. 
     Dort trifft man ständig auf polygonale Kantenzüge im \mbox{zwei-,} selten auch dreidimensionalen Raum: Straßen, Küstenlinien, Höhenlinien, Stadtumrisse und Landesgrenzen sind nur einige Beispiele. 
-    Leider sind in den meisten Fällen nicht alle dieser Kantenzüge so einfach darzustellen wie die Grenze zwischen Libyen und Ägypten; betrachtet man die Weltkarte, fällt auf, dass die meisten Grenzen sogar sehr komplizierte Formen annehmen, die aus Tausenden, wenn nicht Zehntausenden, einzelnen Punkten bestehen.
-    Möchte man nun eine Karte erstellen, ist klar, dass es im Allgemeinen nicht möglich und auch nicht wünschenswert ist, alle Punkte darzustellen. 
-    Genau an dieser Stelle liegt eine Anwendung der Kantenapproximation: Die Landesgrenze bzw. die anderen oben aufgeführten Beispiele werden durch einen Kantenzug approximiert, der aus deutlich weniger Punkten besteht, ohne dass sich ein wichtiger Parameter ändert, wie zum Beispiel die Länge.
+    Leider sind in den meisten Fällen nicht alle dieser Kantenzüge so einfach darzustellen wie beispielsweise die Grenze zwischen Libyen und Ägypten; betrachtet man die Weltkarte, fällt auf, dass die meisten Grenzen sogar sehr komplizierte Formen annehmen, die aus Tausenden, wenn nicht Zehntausenden, einzelnen Punkten bestehen.
+    Möchte man nun eine Karte erstellen, ist klar, dass es im Allgemeinen nicht möglich und auch nicht wünschenswert ist, alle dieser Punkte darzustellen. 
+    Genau an dieser Stelle liegt eine Anwendung der Kantenzugapproximation: Die Landesgrenze bzw. die anderen oben aufgeführten Beispiele werden durch einen Kantenzug approximiert, der aus deutlich weniger Punkten besteht, ohne dass sich ein wichtiger Parameter ändert, wie zum Beispiel die Länge.
     
     In dieser Arbeit soll es um Algorithmen gehen, die einen polygonalen Kantenzug unter ungefährer Einhaltung der Länge approximieren. 
     Dabei betrachten wir zunächst zwei exakte Algorithmen und später noch zwei approximative, die eine deutliche bessere Laufzeit aufweisen als die exakten. 
