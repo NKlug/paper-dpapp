@@ -1,13 +1,18 @@
- Nach dem wir jetzt einige Vorarbeit geleistet haben, werden wir in diesem Kapitel sehen, wie man das MVPS-Problem mit Hilfe einer WSPD bis auf ein $\epsilon$ genau approximieren kann - und dass (für festes $t$ und $\epsilon$) in $O(n\log n)$.
+ Nach dem wir jetzt einige Vorarbeit geleistet haben, werden wir in diesem Kapitel sehen, wie man das MVPS-Problem mit Hilfe einer WSPD bis auf ein $\epsilon$ genau approximieren kann - und dass (für festes $t$ und $\epsilon$) in $O(n\log n)$ Zeit.
     
     \subsubsection*{Die Theorie}
-    Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Pfades zu betrachten. Diese erhalten wir so: Für alle $1 \leq i \leq n$ ist $x_i = \delta(p_1, p_i)$.
+    Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. 
+    Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Kantenzugs zu betrachten. 
+    Diese erhalten wir, indem wir für alle $1 \leq i \leq n$ $x_i = \delta(p_1, p_i)$ setzen.
     Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind, als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
     
     \begin{lemma}
     	\label{lem:stranget}
-    	Seien $p, p', q, q' \in P$ und sei $i$ ein solcher Index, dass für $x = \delta(p_1, p)$, $x' = \delta(p_1, p')$, $y = \delta(p_1, q)$ und $y' = \delta(p_1, q')$ $x, x' \in A_i$ und $y, y' \in B_i$ sind. Ist weiter $1 \leq t < \frac{s^2}{4s + 16}$ und ist das Tupel $(p, q)$ $t$-distanzerhaltend, dass ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ gegeben ist durch 
-    	\[t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}\]
+    	Seien $p, p', q, q' \in P$ und sei $i$ ein solcher Index, dass für $x = \delta(p_1, p)$, $x' = \delta(p_1, p')$, $y = \delta(p_1, q)$ und $y' = \delta(p_1, q')$ $x, x' \in A_i$ und $y, y' \in B_i$ sind. 
+    	Ist weiter $1 \leq t < \frac{s^2}{4s + 16}$ und ist das Tupel $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ gegeben ist durch 
+    	\[
+    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}
+    	\]
     \end{lemma}
     \begin{proof}
     	Wegen unserer speziellen Wahl von $t$ ist der Nenner von $t'$ immer positiv, und genauso der Zähler. Dann können wir rechnen:
@@ -33,7 +38,7 @@
     
     Sei jetzt $0 < \epsilon < \frac{1}{3}$ und $1 \leq t$. Sei 
     \[s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon}\]
-    Durch diese Wahl von $s$ ist die Einschränkung $t < \frac{s^2}{4s + 16}$ von Lemma \ref{lem:stranget} für alle $t > 1$ erfüllt.
+    Durch diese Wahl von $s$ ist die Einschränkung $t < \frac{s^2}{4s + 16}$ von Lemma \ref{lem:stranget} für alle $t \geq 1$ erfüllt.
     
     \begin{lemma}
     	\label{lem:tepsilon}
@@ -44,10 +49,22 @@
     	\end{enumerate}
     \end{lemma}
     \begin{proof}
-    	Zu 1. Sei $(p, q)$ $t$-distanzerhaltend. Dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ in Lemma \ref{lem:stranget} gegeben ist. Da die Einschränkung $1 \leq t < \frac{s^2}{4s + 16}$ aus selbigem Lemma immer noch gilt, ist $0 < s^2 - 4st - 16t$. Daraus folgt, dass $s \geq 4t \geq 4$ ist. Es ergibt sich damit und durch unsere spezielle Wahl von s 
-    	\[t' \leq \frac{(1 + \frac{4}{s})t}{1 - 8 \frac{t}{s}} = (1+ \frac{\epsilon}{3})t\]
-    	Zu 2. Sei $(p, q)$ $(1+ \frac{\epsilon}{3})t$-distanzerhaltend. Dann ist $(p', q')$ $t''$-distanzerhaltend, wobei sich $t''$ aus Lemma \ref{lem:stranget} ergibt als 
-    	\[t'' = \frac{(1+\frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 4(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})\frac{t}{s}}\]
+    	Zu 1. Sei $(p, q)$ $t$-distanzerhaltend. 
+    	Dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ in Lemma \ref{lem:stranget} gegeben ist. 
+    	Da die Einschränkung $1 \leq t < \frac{s^2}{4s + 16}$ aus selbigem Lemma immer noch gilt, ist $0 < s^2 - 4st - 16t$. 
+    	Daraus folgt, dass $s \geq 4t \geq 4$ ist. Es ergibt sich damit und durch unsere spezielle Wahl von s 
+    	\[
+    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}} 
+    	\leq \frac{(1 + \frac{4}{s})t}{1 - 8 \frac{t}{s}} 
+    	= (1+ \frac{\epsilon}{3})t
+    	\]
+    	
+    	Zu 2. 
+    	Sei $(p, q)$ $(1+ \frac{\epsilon}{3})t$-distanzerhaltend. 
+    	Dann ist $(p', q')$ $t''$-distanzerhaltend, wobei sich $t''$ aus Lemma \ref{lem:stranget} ergibt als 
+    	\[
+    	t'' = \frac{(1+\frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 4(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})\frac{t}{s}}
+    	\]
     	Da $1 < \epsilon < \frac{1}{3}$, ist
     	\[
 	    	s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon} \geq \frac{4 (1 + \frac{\epsilon}{3})t}{\epsilon}
@@ -68,10 +85,12 @@
 	    	\enspace=\enspace (1 + \frac{\epsilon}{3})^2\cdot t \enspace\leq\enspace (1 + \epsilon)\cdot t
     	\]
     \end{proof}
-    Seien für alle $1 \leq i \leq m$ $a_i$ und $b_i$ zwei feste Elemente aus $A_i$ und $B_i$. Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Wir nennen im Folgenden die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls jeweils $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon }{3})t$-distanzerhaltend ist.
     
-    Zur Erinnerung: Die Mengen $A_i$ und $B_i$ enthalten die Elemente $x_k = \delta(p_1, p_k)$.
-    Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$. Dabei sind die Knoten von $H$ genau die $2m$ Mengen $A_i$ und $B_i$ und die Kanten sind wie folgt definiert:
+    Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$ und zeigen dann, dass jede Approximation von $P$ einem Pfad in $H$ entspricht.
+    
+    Seien dafür für alle $1 \leq i \leq m$ $a_i$ und $b_i$ zwei feste Elemente aus $A_i$ und $B_i$. Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Wir nennen im Folgenden die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls jeweils $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon }{3})t$-distanzerhaltend ist.
+    
+    Die Knoten von $H$ sind genau die $2m$ Mengen $A_i$ und $B_i$, und die Kanten sind wie folgt definiert:
     \begin{enumerate}
     	\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $x_n \in B_i$
     	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kannte, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$
@@ -85,12 +104,22 @@
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
 		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$. Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
 		
-		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. Solch ein Index existiert nach Definition der WSPD. Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. Aus Lemma \ref{lem:tepsilon} (1) folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. Es folgt, dass $(A_{i_l}, A_{i_l+1})$ eine Kante in $H$ ist. Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
+		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. 
+		Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. 
+		Solch ein Index existiert nach Definition der WSPD und ist eindeutig. 
+		Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. 
+		Aus Lemma \ref{lem:tepsilon} (1) folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. 
+		Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. 
+		Also ist $(A_{i_l}, A_{i_{l+1}})$ eine Kante in $H$ und wir wählen $A_{i_{l+1}}$ als nächsten Knoten. 
+		Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ in $H$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
 		
-		Nehmen wir an, dass wir bereits $(q_1, \mathellipsis, q_l, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen Lemma \ref{lem:tepsilon} (1) $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
+		Nehmen wir an, dass wir bereits $(q_1, q_2, \mathellipsis, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. 
+		Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. 
+		Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen Lemma \ref{lem:tepsilon} (1) $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. 
+		Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
 	\end{proof}
 	
-	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad mit der gleichen Zahl von Knoten in $H$ entspricht. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil vom gewünschten $t$-Wert abweichen kann.
+	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad in $H$ entspricht, der dieselbe Zahl von Knoten hat. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil vom gewünschten $t$-Wert abweichen kann.
 	
 	\begin{theorem}
 		\label{theo:H2Approx}
@@ -100,16 +129,19 @@
 		Sei wieder $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
 		Da $x_1$ in $A_{i_1}$, können wir als ersten Knoten von $Q$ $q_1 = p_1$ wählen.
 		
-		Nehmen wir an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ zu dem Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt haben, sodass $y_1 (= x_1) \in A_{i_1}$ und für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$. Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y_{l+1} \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach der Konstruktion von $H$ nicht leer ist. Dann fügen wir das zu $y_{l+1}$ gehörende $q_{l+1}$ zum Kantenzug hinzu und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
+		Nehmen wir an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt haben, sodass $y_1\ (= x_1) \in A_{i_1}$ und für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$. 
+		Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y_{l+1} \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach der Konstruktion von $H$ nicht leer ist. Dann fügen wir das zu $y_{l+1}$ gehörende $q_{l+1}$ zum Kantenzug hinzu und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
 		
-		Nehmen wir an, dass wir bereits $(A_{i_1}, \mathellipsis, A_{i_k-1})$ bereits zu $(q_1, \mathellipsis, q_{k-1})$ konvertiert haben. Nach Voraussetzung ist $x_n \in B_{k-1}$. Wir wählen dann $q_k = p_n$ und fügen $q_k$ zum Pfad $Q$ hinzu. 
-		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Pfad $Q$ mit gleich vielen Knoten umwandeln kann. 
+		Nehmen wir an, dass wir bereits $(A_{i_1}, \mathellipsis, A_{i_k-1})$ bereits zu $(q_1, \mathellipsis, q_{k-1})$ konvertiert haben. Nach Voraussetzung ist $x_n \in B_{k-1}$. Wir wählen dann $q_k = p_n$ und fügen $q_k$ zum Kantenzug $Q$ hinzu. 
+		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Kantenzug $Q$ mit gleich vielen Knoten umwandeln kann. 
 		
 		Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
-		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Pfad $Q$ $(1+\epsilon)t$-distanzerhaltend ist.
+		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Kantenzug $Q$ eine $(1+\epsilon)t$-distanzerhaltende Approximation von $P$ ist.
 	\end{proof}
     
-    Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche zur Lösung des SSSP-Problems aus. Das Problem daran ist aber, dass $H$ $2m = O(n)$ Knoten hat und somit unter Umständen $O(n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
+    Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: 
+    Wir konstruieren einfach den Graphen $H$ und führen darin eine Breitensuche aus, um einen kürzesten Pfad zu bestimmen. 
+    Das Problem daran ist aber, dass $H$ $2m = O(sn)$ Knoten hat und somit unter Umständen $O(s^2n^2)$ Kanten besitzen kann, was wir uns aber nicht erlauben können, wenn wir eine bessere Laufzeit als die des exakten Algorithmus anstreben.
     
     Bevor wir uns allerdings dem expliziten Algorithmus zuwenden, betrachten wir noch Kriterien, unter denen ein kürzester Pfad in $H$, der den Kriterien aus Satz \ref{theo:H2Approx} genügt, einer kürzesten $t$-distanzerhaltenden Approximation von $P$ entspricht.
     
@@ -130,11 +162,12 @@
     	
     \end{proof}
     
-    Im Folgenden Abschnitt werden wir deshalb sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ zu konstruieren.
+    Im folgenden Abschnitt werden wir sehen, wie man einen kürzesten Pfad in $H$ finden kann, ohne $H$ vollständig zu konstruieren.
     
     \subsubsection*{Der Algorithmus}
-    Der Algorithmus besteht aus fünf Teilen, von denen wir die ersten drei schon betrachtet haben.
-    Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug.
+    Der Algorithmus besteht aus fünf Teilen, von denen wir die ersten drei im Prinzip schon betrachtet haben.
+    Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug. 
+    Die ersten drei Teile sind folgende:
     \begin{enumerate}
     	\item Berechne $S = (x_1, x_2, \mathellipsis, x_n)$, wobei $x_i = \delta(p_1, p_i)$ für alle $1 \leq i \leq n$
     	\item Berechne aus $S$ den Split-Tree $T$ und daraus eine WSPD $\{A_i, B_i\}_{1 \leq i \leq m'}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
@@ -142,7 +175,8 @@
     \end{enumerate}
     
     Der Einfachheit halber beschreiben wir die \glqq ausgedünnte\grqq\ WSPD durch $\{A_i, B_i\}_{1\leq i \leq m}$, wobei $m$ die Zahl der verbleibenden Tupel ist.
-    Bevor wir zu Schritt (4) kommen, zeigen wir zunächst, wie man mit Hilfe einer c Breitensuche in $T$ einen kürzesten Pfad in $H$ bestimmen kann.  
+    Bevor wir zu Schritt (4) kommen, zeigen wir zunächst, wie man mit Hilfe einer Breitensuche in $T$ einen kürzesten Pfad in $H$ bestimmen kann.  
+    
     Für alle $1 \leq i \leq m$ sei $u_i$ der Knoten des Split-Trees $T$, der $A_i$ repräsentiert, und $v_i$ derjenige, der $B_i$ repräsentiert. Wir nennen die $u_i$ auch \emph{A-Knoten}. Es ist nicht ausgeschlossen, dass ein Knoten von $T$ mehrere $A_i$ und $B_i$ repräsentiert. Folglich speichert jeder Knoten eine Liste seiner $A_i$ und $B_i$.
     
     Die Breitensuche die wir verwenden, zeigt Ähnlichkeiten zu der, die in \cite{hagerup} erklärt wird. Für jeden Knoten $v$ des Baumes $T$ speichern wir dabei drei Variablen:
@@ -183,36 +217,43 @@
     	\item[\textbf{Schritt 4:}] Berechne den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$. Gib den umgekehrten Pfad $Z' = (parent^{k-1}[z], \mathellipsis,, parent[z], z)$ zurück.
     \end{description}
     
-    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. Auf einen vollständigen Beweis wollen wir an dieser Stelle verzichten, aber die wichtigsten Punkte skizzieren. 
+    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. 
+    Auf einen vollständigen Beweis wollen wir an dieser Stelle zwar verzichten, aber die wichtigsten Punkte skizzieren. 
     
     Ist $k$ das erste Element der Warteschlange, so hat es die momentan geringste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $u_l$ bearbeitet, werden alle anderen von $A_l$ aus (in $H$) erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau die, die einen nicht-leeren Schnitt mit $B_l$ haben. 
     
-	Wir können beobachten, dass, falls für einen Knoten $u$ $color[u] = white$, alle Knoten im Unterbaum von $u$ weiß sind. Ist $v$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $v$ zur Wurzel des Split-Trees nicht-weiß.
+	Wir können beobachten, dass falls ein Knoten $u$ weiß ist, auch alle Knoten im Unterbaum von $u$ weiß sind. Ist $v$ der erste nicht-weiße Knoten, der in Schritt 3.1 erreicht wird, sind alle Knoten auf dem Pfad von $v$ zur Wurzel des Split-Trees nicht-weiß.
     
-    Dadurch ist klar, dass in den Schritten 3.1 und 3.2 alle Mengen $A_j$ bearbeitet werden, die von $A_l$ aus erreichbar sind.. Für jedes $A_j$ wird dann dessen Distanz zu $A_i$ verringert (nämlich von $\infty$ auf $d[k]+1$). 
+    Dadurch ist klar, dass in den Schritten 3.1 und 3.2 alle Mengen $A_j$ bearbeitet werden, die von $A_l$ aus erreichbar sind.
+    Für jedes $A_j$ wird dann dessen Distanz zu $A_i$ verringert (nämlich von $\infty$ auf $d[k]+1$). 
     
     Ist jedoch $x_n$ im zu $A_l$ gehörigen $B_l$ bereits enthalten, ist die Breitensuche beendet, da dann bereits ein kürzester Weg von $A_i$ zu $B_l$ bestimmt wurde.
     
-    Ein genauer, vollständiger Beweis kann unter Verwendung der obigen Beobachtungen analog zum Beweis der Breitensuchen im Informatik III Skript \cite{hagerup} oder zu dem in Cormen et al. \cite{cormen} durchgeführt werden. Ist $m$ die Kantenzahl in $T$ und $z$ die Knotenzahl, ergibt sich dabei insbesondere die für eine Breitensuche übliche Laufzeit $O(m + z)$. Aber $O(m + z) = O(sn) = O(\frac{t}{\epsilon}n)$. Darum erhalten wir für die Laufzeit der Breitensuche insgesamt $O(\frac{t}{\epsilon}n)$.
+    Ein genauer, vollständiger Beweis kann unter Verwendung der obigen Beobachtungen analog zum Beweis der Breitensuche im Informatik III Skript \cite{hagerup} oder zu dem in Cormen et al. \cite{cormen} durchgeführt werden. 
+    Ist $m$ die Kantenzahl in $T$ und $z$ die Knotenzahl, ergibt sich dabei insbesondere die für eine Breitensuche übliche Laufzeit $O(m + z)$. 
+    Aber $O(m + z) = O(sn) = O(\frac{t}{\epsilon}n)$. Darum erhalten wir für die Laufzeit der Breitensuche insgesamt $O(\frac{t}{\epsilon}n)$.
     
     Die letzten beiden Teile des Algorithmus sind dann folgende:
     \begin{enumerate}[start=4, topsep=4mm]
     	\item Führe die oben aufgeführte modifizierte Breitensuche in $T$ durch, um einen kürzesten Pfad $Z'$ von einer Menge $A_{i_1}$, die $x_1$ enthält, zu einer Menge $B_{i_{k-1}}$, die $x_n$ enthält, zu bestimmen.
     	\item Konvertiere $Z'$, der den Kriterien von Satz \ref{theo:H2Approx} entspricht, wie im Beweis desselben Satzes zu einer Approximation von $P$.
     \end{enumerate}
-    Abschließend betrachten wir noch die Laufzeit des Algorithmus. $S$ zu berechnen kostet uns $O(n)$ Zeit. Nach Satz \ref{theo:wspdtime} können wir Teil 2 in $O(n \log n + sn)$ schaffen, und da $O(sn) = O(\frac{t}{\epsilon}\cdot n)$, dauert dieser Teil also $O(n \log n + \frac{t}{\epsilon}n)$. Somit dauert auch Teil 3 $O(\frac{t}{\epsilon}n)$, da wir jedes Tupel der WSPD einmal betrachten. Wie oben gesehen weißt die Breitensuche dieselbe asymptotische Laufzeit auf. 
+    Abschließend betrachten wir noch die Laufzeit des Algorithmus. $S$ zu berechnen kostet uns $O(n)$ Zeit. 
+    Nach Satz \ref{theo:wspdtime} können wir Teil 2 in $O(n \log n + sn)$ schaffen, und da $O(sn) = O(\frac{t}{\epsilon}\cdot n)$, dauert dieser Teil also $O(n \log n + \frac{t}{\epsilon}n)$. 
+    Somit dauert auch Teil 3 $O(\frac{t}{\epsilon}n)$, da wir jedes Tupel der WSPD einmal betrachten. 
+    Wie oben gesehen, weißt die Breitensuche dieselbe asymptotische Laufzeit auf. 
     
     Nun bleibt noch der letzte Teil des Algorithmus. 
     Um den Pfad in $H$ zu konvertieren, wählen wir, wie gezeigt, $p_1$ als ersten und $p_n$ als letzten Knoten. 
     Einer der wichtigen Schritte für die restlichen Knoten besteht darin, ein Element aus $A_{i_{l+1}} \cap B_{i_l}$ auszuwählen. 
     Da wir wissen, dass der Schnitt nicht leer ist, und $A_{i_{l+1}}$ und $B_{i_l}$ durch Knoten des Baumes repräsentiert werden (nämlich $u_{i_{l+1}}$ und $v_{i_l}$), die wiederum die Blätter in ihrem jeweiligen Unterbaum zusammenfassen, muss entweder $A_{i_{l+1}}\subseteq B_{i_l}$ sein oder umgekehrt. 
-    Also wählen wir zum Beispiel das Minimum $min$ des Intervalls, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
-    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den zu $min$ gehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalls von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet und Teil 5 des Algorithmus also $O(n)$ Zeit.
+    Also wählen wir zum Beispiel das Minimum $\mu$ des Intervalls, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
+    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den zu $\mu$ gehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalls von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet und Teil 5 des Algorithmus also $O(\frac{t}{\epsilon}n)$ Zeit.
     Zusammenfassend können wir festhalten:
     
     \begin{theorem}
     	\label{theo:mvpstime}
-    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der kürzesten t-distanzerhaltenden Approximationen von $P$.
+    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der minimalen t-distanzerhaltenden Approximationen von $P$.
     	\begin{enumerate}
     		\item Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
     		\item Ist weiter für alle verschiedenen $p, q \in P$ $\frac{\delta(p,q)}{|pq|} \leq t$ oder $\frac{\delta(p,q)}{|pq|} > (1 + \epsilon)t$, dann ist $Q$ sogar eine $t$-distanzerhaltende Approximation von $P$ mit $\kappa$ Knoten.
