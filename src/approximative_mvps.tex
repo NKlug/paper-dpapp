@@ -3,7 +3,7 @@
     \subsubsection*{Die Theorie}
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. 
     Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Kantenzugs zu betrachten. 
-    Diese erhalten wir, indem wir für alle $1 \leq i \leq n$ $x_i = \delta(p_1, p_i)$ setzen.
+    Diese erhalten wir, indem wir $x_i = \delta(p_1, p_i)$ setzen (für alle $1 \leq i \leq n$).
     Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind, als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
     
     \begin{lemma}
@@ -11,7 +11,7 @@
     	Seien $p, p', q, q' \in P$ und sei $i$ ein solcher Index, dass für $x = \delta(p_1, p)$, $x' = \delta(p_1, p')$, $y = \delta(p_1, q)$ und $y' = \delta(p_1, q')$ $x, x' \in A_i$ und $y, y' \in B_i$ sind. 
     	Ist weiter $1 \leq t < \frac{s^2}{4s + 16}$ und ist das Tupel $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ gegeben ist durch 
     	\[
-    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}
+    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}\quad.
     	\]
     \end{lemma}
     \begin{proof}
@@ -38,7 +38,7 @@
     
     Sei jetzt $0 < \epsilon < \frac{1}{3}$ und $1 \leq t$. Sei 
     \[s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon}\]
-    Durch diese Wahl von $s$ ist die Einschränkung $t < \frac{s^2}{4s + 16}$ von Lemma \ref{lem:stranget} für alle $t \geq 1$ erfüllt.
+    Durch diese Wahl von $s$ ist die Einschränkung $t < \frac{s^2}{4s + 16}$ aus Lemma \ref{lem:stranget} für alle $t \geq 1$ erfüllt.
     
     \begin{lemma}
     	\label{lem:tepsilon}
@@ -88,7 +88,8 @@
     
     Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$ und zeigen dann, dass jede Approximation von $P$ einem Pfad in $H$ entspricht.
     
-    Seien dafür für alle $1 \leq i \leq m$ $a_i$ und $b_i$ zwei feste Elemente aus $A_i$ und $B_i$. Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Wir nennen im Folgenden die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls jeweils $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon }{3})t$-distanzerhaltend ist.
+    Seien dafür $a_i$ und $b_i$ zwei beliebige, aber feste Elemente aus $A_i$ und $B_i$ (für alle $1 \leq i \leq m$). 
+    Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Wir nennen im Folgenden die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls jeweils $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon }{3})t$-distanzerhaltend ist.
     
     Die Knoten von $H$ sind genau die $2m$ Mengen $A_i$ und $B_i$, und die Kanten sind wie folgt definiert:
     \begin{enumerate}
@@ -101,8 +102,11 @@
 		Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält
 	\end{theorem}
 	\begin{proof}
+		Wir werden nun induktiv $Q$ zu einem Pfad in $H$ konvertieren.
+		
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
-		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$. Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
+		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ gilt.
+		Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
 		
 		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. 
 		Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. 
@@ -200,7 +204,7 @@
     		Füge $k$ in $W$ ein.
     		
     	\item[\textbf{Schritt 3:}] Entferne das erste Element $k$ von $W$. Setze $color[k] = black$.
-    	Für alle $u_i = k$ tue Folgendes:
+    	Für alle $i$ mit $u_i = k$ (also für alle mit $k$ gespeicherten Mengen $A_i$) tue Folgendes:
     	
     	Falls $x_n \in B_i$, setze $dist[v_i] = dist[k] + 1$, $parent[v_i] = k$, $z = v_i$ und gehe zu Schritt 4.\n
     	Falls $x_n \notin B_i$ und $color[v_i] == white$, führe die Schritte 3.1 und 3.2 aus.
@@ -246,9 +250,9 @@
     Nun bleibt noch der letzte Teil des Algorithmus. 
     Um den Pfad in $H$ zu konvertieren, wählen wir, wie gezeigt, $p_1$ als ersten und $p_n$ als letzten Knoten. 
     Einer der wichtigen Schritte für die restlichen Knoten besteht darin, ein Element aus $A_{i_{l+1}} \cap B_{i_l}$ auszuwählen. 
-    Da wir wissen, dass der Schnitt nicht leer ist, und $A_{i_{l+1}}$ und $B_{i_l}$ durch Knoten des Baumes repräsentiert werden (nämlich $u_{i_{l+1}}$ und $v_{i_l}$), die wiederum die Blätter in ihrem jeweiligen Unterbaum zusammenfassen, muss entweder $A_{i_{l+1}}\subseteq B_{i_l}$ sein oder umgekehrt. 
+    Da wir wissen, dass der Schnitt nicht leer ist und $A_{i_{l+1}}$ und $B_{i_l}$ durch Knoten des Baumes repräsentiert werden (nämlich $u_{i_{l+1}}$ und $v_{i_l}$), die wiederum die Blätter in ihrem jeweiligen Unterbaum zusammenfassen, muss entweder $A_{i_{l+1}}\subseteq B_{i_l}$ sein oder umgekehrt. 
     Also wählen wir zum Beispiel das Minimum $\mu$ des Intervalls, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
-    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den zu $\mu$ gehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalls von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet und Teil 5 des Algorithmus also $O(\frac{t}{\epsilon}n)$ Zeit.
+    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den zu $\mu$ gehörigen Knoten als nächsten. Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalls von $v_{i_l}$ wählen. Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit, insgesamt kostet Teil 5 des Algorithmus also $O(\frac{t}{\epsilon}n)$ Zeit.
     Zusammenfassend können wir festhalten:
     
     \begin{theorem}

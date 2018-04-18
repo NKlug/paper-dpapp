@@ -20,7 +20,7 @@
 	
 	Da $G_t$ maximal $O(n^2)$ Kanten enthält, gibt es eine endliche Zahl von $t$-Werten. 
 	Wir müssen also nur noch aus diesen Werten den geringsten Wert $t^*$ ermitteln, für den eine $t^*$-distanzerhaltende Approximation existiert, die gerade noch k Knoten oder weniger hat. 
-	Dazu definieren wir zunächst für $1\leq i < j \leq n$ $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$, also als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. 
+	Dazu definieren wir zunächst $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$ für $1\leq i < j \leq n$ als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. 
 	Wir wissen, dass $t^* \in M$, da die gesuchte Approximation eine Kante mit maximalen $t$-Wert hat, und $M$ gerade alle diese enthält. 
 	Aus Lemma \ref{lem:kappa} wissen wir außerdem, das sich die $\kappa_t$ umgekehrt proportional zu den $t$-Werten verhalten. 
 	Sortieren wir jetzt $M$ zu $M'$, können wir in $M'$ nach $t^*$ suchen. Da $M$ $O(n^2)$ Elemente enthält, können wir $M$ bekanntermaßen (siehe \cite{hagerup}) in $O(n^2\log n^2)=O(n^2\log n)$ sortieren. 

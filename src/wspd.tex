@@ -2,9 +2,10 @@
    	\label{def:wellsep}
    	Seien $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten in $\R^d$. 
    	$A$ und $B$ heißen \emph{wohl-separiert in Bezug zu $s$} (engl. well-separated), falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, sodass $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
+
+	$s$ ist dabei die \emph{Trennungsrate} der Mengen $A$ und $B$.
 \end{definition}
 
-$s$ nennen wir dabei die \emph{Trennungsrate} der beiden Mengen $A$ und $B$.
 Das folgende Lemma hält zwei wichtige Eigenschaften von zwei in Bezug zu $s$ wohl-separierten Mengen $A$ und $B$ fest.
 \begin{lemma}
    	\label{lem:wellsep}
@@ -44,9 +45,9 @@ Für diesen eindimensionalen Fall kann der faire Split-Tree mit Hilfe eines einf
 Sei $S$ nun eine endliche Teilmenge von $\R$ und $|S| = n$. 
 Wir können davon ausgehen, dass uns diese Menge sortiert in einem Array $S[1..n]$ vorliegt und werden später sehen, dass das bei unserem Algorithmus auch tatsächlich der Fall ist. 
 Sei $T$ der Split-Tree, der durch das Ausführen von \texttt{compute\_split\_tree(1, n)} entstanden ist.
-Bei $T$ handelt es sich um einen Binärbaum, dessen Blättern die Werte von $S$ in von links nach rechts aufsteigend sortierter Reihenfolge speichern. 
+Bei $T$ handelt es sich um einen Binärbaum, dessen Blätter die Werte von $S$ in von links nach rechts aufsteigend sortierter Reihenfolge speichern. 
 Für jeden inneren Knoten, also für jeden Knoten, der kein Blatt ist, wird zusätzlich das Intervall, in dem die Blattwerte des von ihm induzierten Teilbaumes liegen, gespeichert.
-Die Wurzel speichert also zum Beispiel das Intervall $(1, n)$, und das $i$-te Blatt das Intervall $(i, i)$.
+Die Wurzel speichert also zum Beispiel das Intervall $(1, n)$ und das $i$-te Blatt das Intervall $(i, i)$.
 Da $T$ $n$ Blätter hat, erstellen wir insgesamt $O(n)$ Knoten. 
 Dabei müssen wir aber für die Bestimmung von $k$ jedes mal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. 
 Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
@@ -62,10 +63,10 @@ S[k] - S[j] \geq R \cdot s \text{ oder } S[i] - S[l] \geq R \cdot s
 \input{wspd_algorithm}
 
 Der in Abbildung \ref{fig:wspd} dargestellte Algorithmus berechnet dann aus dem eben erstellten fairen Split-Tree $T$ eine WSPD.
-Betrachten wir diesen doch etwas genauer.
+Betrachten wir diesen nun etwas genauer.
  
-Beim Aufruf von \texttt{compute\_wspd(T, s)} werden für jeden Knoten $k$ dessen linke und rechte Kindknoten $u$ und $v$ betrachtet, und dann \texttt{find\_pairs(u, v)} aufgerufen. 
-Da die Elemente von $S$ in den Blättern gespeichert sind, ist klar, dass die der linke Kindknoten $u$ und der rechte $v$ disjunkte Teilmengen von $S$ repräsentieren. 
+Beim Aufruf von \texttt{compute\_wspd(T, s)} werden für jeden Knoten $k$ dessen Kindknoten $u$ und $v$ betrachtet, und dann \texttt{find\_pairs(u, v)} aufgerufen. 
+Da die Elemente von $S$ in den Blättern gespeichert sind, ist klar, dass der linke Kindknoten $u$ und der rechte $v$ disjunkte Teilmengen von $S$ repräsentieren. 
 Somit ist Forderung (1) der WSPD erfüllt. \texttt{find\_pairs(u, v)} überprüft, ob die mit $u$ und $v$ gespeicherten Intervalle $S_u$ und $S_v$ wohl-separiert sind; ist dies der Fall, speichern wir mit $u$, dass seine Blätter das Element $A_i$ einer WSPD bilden, und mit $v$, dass seine Kinder das Element $B_i$ darstellen. 
 Sind die Intervalle nicht wohl-separiert, steigen wir solange in Richtung des größeren Intervalls im Baum herab, bis wir auf zwei wohl-separierte Intervalle treffen. 
 Wir sehen also, dass die erste und die dritte Forderung der Definition der WSPD durch den Algorithmus erfüllt werden. 
