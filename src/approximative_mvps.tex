@@ -4,14 +4,14 @@
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. 
     Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Kantenzugs zu betrachten. 
     Diese erhalten wir, indem wir $x_i = \delta(p_1, p_i)$ setzen (für alle $1 \leq i \leq n$).
-    Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind, als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
+    Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
     
     \begin{lemma}
     	\label{lem:stranget}
     	Seien $p, p', q, q' \in P$ und sei $i$ ein solcher Index, dass für $x = \delta(p_1, p)$, $x' = \delta(p_1, p')$, $y = \delta(p_1, q)$ und $y' = \delta(p_1, q')$ $x, x' \in A_i$ und $y, y' \in B_i$ sind. 
     	Ist weiter $1 \leq t < \frac{s^2}{4s + 16}$ und ist das Tupel $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ gegeben ist durch 
     	\[
-    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}\quad.
+    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}.
     	\]
     \end{lemma}
     \begin{proof}
@@ -93,13 +93,13 @@
     
     Die Knoten von $H$ sind genau die $2m$ Mengen $A_i$ und $B_i$, und die Kanten sind wie folgt definiert:
     \begin{enumerate}
-    	\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $x_n \in B_i$
-    	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kannte, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$
+    	\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $x_n \in B_i$.
+    	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kannte, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
     \end{enumerate}
 
 	\begin{theorem}
 		\label{theo:Approx2H}
-		Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält
+		Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält.
 	\end{theorem}
 	\begin{proof}
 		Wir werden nun induktiv $Q$ zu einem Pfad in $H$ konvertieren.
@@ -221,7 +221,7 @@
     	\item[\textbf{Schritt 4:}] Berechne den Pfad $Z = (z, parent[z], parent[parent[z]], parent^3[z],  \mathellipsis, parent^{k-1}[z])$, wobei $k = dist[z] + 1$. Gib den umgekehrten Pfad $Z' = (parent^{k-1}[z], \mathellipsis,, parent[z], z)$ zurück.
     \end{description}
     
-    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort klar. 
+    Dass diese Breitensuche einen kürzesten Pfad in $H$ zurückgibt, ist nicht sofort erkennbar. 
     Auf einen vollständigen Beweis wollen wir an dieser Stelle zwar verzichten, aber die wichtigsten Punkte skizzieren. 
     
     Ist $k$ das erste Element der Warteschlange, so hat es die momentan geringste Distanz zu einer Menge $A_i$, die $x_1$ enthält. Sei $A_l$ eine Menge, für die $u_l = k$ gilt. Wird jetzt $u_l$ bearbeitet, werden alle anderen von $A_l$ aus (in $H$) erreichbaren Mengen $A_j$ betrachtet. Diese Mengen sind genau die, die einen nicht-leeren Schnitt mit $B_l$ haben. 

@@ -49,7 +49,7 @@ Bei $T$ handelt es sich um einen Binärbaum, dessen Blätter die Werte von $S$ i
 Für jeden inneren Knoten, also für jeden Knoten, der kein Blatt ist, wird zusätzlich das Intervall, in dem die Blattwerte des von ihm induzierten Teilbaumes liegen, gespeichert.
 Die Wurzel speichert also zum Beispiel das Intervall $(1, n)$ und das $i$-te Blatt das Intervall $(i, i)$.
 Da $T$ $n$ Blätter hat, erstellen wir insgesamt $O(n)$ Knoten. 
-Dabei müssen wir aber für die Bestimmung von $k$ jedes mal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. 
+Dabei müssen wir aber für die Bestimmung von $k$ jedes Mal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. 
 Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
 Betrachten wir jetzt zwei innere Knoten $p$ und $q$ von T. Seien $[i, j]$ und $[k, l]$ die Intervalle, die wir mit $p$ und $q$ gespeichert haben und 
 \[

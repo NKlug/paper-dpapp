@@ -1,17 +1,19 @@
 	Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geradensegmenten, die für $1 \leq i < n$ jeweils $p_i$ und $p_{i+1}$ verbinden. 
 	Bei den $p_i$ handelt es sich dabei um Punkte aus $\R^d$ (für $d \in \mathbb{N}$). Aufgrund der starken Ähnlichkeit zu Pfaden in (gerichteten) Graphen werden wir für Kantenzüge auch häufig Begriffe aus der Graphentheorie verwenden. 
 	Beispielsweise heißen die Punkte des Kantenzuges auch Knoten, die verbindenden Geraden auch (gerichtete) Kanten etc.
-	In anderen Vorlesungen und Fachbüchern werden und wurden die Begriffe Kantenzug und Pfad teilweise synonym verwendet, wir wollen diese hier aber - der besseren Verständlichkeit wegen -  klar unterscheiden.
+	In anderen Vorlesungen und Fachbüchern wurden und werden die Begriffe Kantenzug und Pfad teilweise synonym verwendet.
+	Wir wollen diese hier aber - der besseren Verständlichkeit wegen -  klar unterscheiden.
 
     In der Realität kann ein solcher Kantenzug mitunter eine hohe Zahl von Knoten besitzen, von denen die meisten für die Anwendung uninteressant sind. 
     Hier ist es vorteilhaft, diesen Kantenzug durch einen ähnlichen Kantenzug mit deutlich weniger Kanten (und somit auch Knoten) zu approximieren, wobei sich wichtige Parameter allerdings nicht stark ändern. 
     In der Fachliteratur werden dabei zahlreiche verschiedene Parameter aufgeführt, die bei der Approximation erhalten werden sollen, einige davon sind die Fläche \cite{bose}, die der Pfad einschließt und die Distanz bzw. die Länge des Pfades \cite{gudmundsson}. 
     
-    Ein Anwendungsszenario der Kantenzugapproximation liegt zum Beispiel bei der Erstellung und Vereinfachung von Karten. 
+    Ein Anwendungsszenario der Kantenzugapproximation liegt zum Beispiel in der Erstellung und Vereinfachung von Karten. 
     Dort trifft man ständig auf polygonale Kantenzüge im \mbox{zwei-,} selten auch dreidimensionalen Raum: Straßen, Küstenlinien, Höhenlinien, Stadtumrisse und Landesgrenzen sind nur einige Beispiele. 
-    Leider sind in den meisten Fällen nicht alle dieser Kantenzüge so einfach darzustellen wie beispielsweise die Grenze zwischen Libyen und Ägypten; betrachtet man die Weltkarte, fällt auf, dass die meisten Grenzen sogar sehr komplizierte Formen annehmen, die aus Tausenden, wenn nicht Zehntausenden, einzelnen Punkten bestehen.
+    Leider sind in den meisten Fällen nicht alle dieser Kantenzüge so einfach darzustellen wie beispielsweise die Grenze zwischen Libyen und Ägypten. 
+    Betrachtet man die Weltkarte, fällt auf, dass die meisten Grenzen sogar sehr komplizierte Formen annehmen, die aus tausenden, wenn nicht zehntausenden einzelnen Punkten bestehen.
     Möchte man nun eine Karte erstellen, ist klar, dass es im Allgemeinen nicht möglich und auch nicht wünschenswert ist, alle dieser Punkte darzustellen. 
-    Genau an dieser Stelle liegt eine Anwendung der Kantenzugapproximation: Die Landesgrenze bzw. die anderen oben aufgeführten Beispiele werden durch einen Kantenzug approximiert, der aus deutlich weniger Punkten besteht, ohne dass sich ein wichtiger Parameter ändert, wie zum Beispiel die Länge.
+    Genau hier liegt eine Anwendung der Kantenzugapproximation: Die Landesgrenze bzw. die anderen oben aufgeführten Beispiele werden durch einen Kantenzug approximiert, der aus deutlich weniger Punkten besteht, ohne dass sich ein wichtiger Parameter ändert, wie zum Beispiel die Länge.
     
     In dieser Arbeit soll es um Algorithmen gehen, die einen polygonalen Kantenzug unter ungefährer Einhaltung der Länge approximieren. 
     Dabei betrachten wir zunächst zwei exakte Algorithmen und später noch zwei approximative, die eine deutliche bessere Laufzeit aufweisen als die exakten. 
@@ -31,7 +33,8 @@
 	\begin{proof}
 		Die Strecke zwischen zwei Punkten in $\R^d$ ist immer die kürzeste Verbindung dieser beiden Punkte.
 	\end{proof}
-	Bis jetzt haben wir nur über distanzerhaltende Approximationen eines Kantenzugs geredet, ohne  festzulegen, was distanzerhaltend überhaupt bedeutet. Wir nennen eine Kante distanzerhaltend, wenn ihre Länge nur um einen bestimmten Faktor von der Länge des Pfade abweicht. Genauer:
+	Bis jetzt haben wir nur über distanzerhaltende Approximationen eines Kantenzugs geredet, ohne  festzulegen, was distanzerhaltend eigentlich bedeutet. 
+	Wir nennen eine Kante distanzerhaltend, wenn ihre Länge nur um einen bestimmten Faktor von der Länge des Kantenzugs abweicht. Genauer:
 	\begin{definition}[$t$-distanzerhaltend]
 		\label{def:t-dist}
 		Sind $p_i, p_j \in P$, dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_j) \leq t \cdot |p_ip_j|$.
