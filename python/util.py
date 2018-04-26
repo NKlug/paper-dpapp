@@ -1,5 +1,4 @@
 from scipy.spatial import distance
-
 from python.Edge import Edge
 
 
@@ -27,3 +26,4 @@ def delta(path, i, j):
         sum += euclidean_distance(path[i], path[i + 1])
         i += 1
     return sum
+
