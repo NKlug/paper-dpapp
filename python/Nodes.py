@@ -14,6 +14,10 @@ class TreeNode(object):
         self.right = right
         self.interval = interval
         self.name = name
+        # the corresponding nodes that are A nodes - this node is the B node
+        self.a_nodes = []
+        # the corresponding nodes that are B nodes - this node is the A node
+        self.b_nodes = []
 
     def to_string(self, level=0):
         result = ""
@@ -29,6 +33,10 @@ class TreeNode(object):
             result += "\n" + self.left.to_string(level + 1)
 
         return result
+
+    def print_wspd(self):
+        # TODO
+        pass
 
     def __repr__(self):
         name = self.name

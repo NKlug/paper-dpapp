@@ -1,11 +1,12 @@
 from python.Nodes import PathNode
 import python.split_tree as SplitTree
+import python.wspd as WSPD
 import python.util as util
 import matplotlib.pyplot as plt
 
 t = 1.2
 epsilon = 0.05
-
+s = (12 + 24 * (1 + epsilon/3) * t) / epsilon
 path = [
     PathNode('a', 0, 15),
     PathNode('b', 4, 12),
@@ -64,6 +65,8 @@ plot_edges(edges, 'orange')
 # plot_shortest_path(path)
 # plt.show()
 
-root = SplitTree.compute_split_tree(S, 0, n-1)
-print(root.to_string())
+print(S)
+T = SplitTree.compute_split_tree(S, 0, n-1)
+WSPD.compute_wspd(T, S, s)
+
 
