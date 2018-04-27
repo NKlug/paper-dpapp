@@ -1,23 +1,26 @@
-from python.Node import Node
-from python.util import get_t_distance_preserving_edges
+from python.Nodes import PathNode
+from python.split_tree import compute_split_tree
+import python.util as util
 import matplotlib.pyplot as plt
 
 t = 1.2
+epsilon = 0.05
 
 path = [
-    Node('a', 0, 15),
-    Node('b', 4, 12),
-    Node('c', 8, 13),
-    Node('d', 16, 12),
-    Node('e', 25, 24),
-    Node('f', 27, 19),
-    Node('g', 24, 13),
-    Node('h', 34, 13),
-    Node('i', 38, 0),
-    Node('j', 51, 2),
-    Node('k', 54, 16),
-    Node('l', 55, 16)
+    PathNode('a', 0, 15),
+    PathNode('b', 4, 12),
+    PathNode('c', 8, 13),
+    PathNode('d', 16, 12),
+    PathNode('e', 25, 24),
+    PathNode('f', 27, 19),
+    PathNode('g', 24, 13),
+    PathNode('h', 34, 13),
+    PathNode('i', 38, 0),
+    PathNode('j', 51, 2),
+    PathNode('k', 54, 16),
+    PathNode('l', 55, 16)
 ]
+n = len(path)
 
 
 def plot_path(path):
@@ -31,11 +34,10 @@ def plot_path(path):
     plt.grid(True)
 
 
-def plot_t_distance_preserving(path):
-    edges = get_t_distance_preserving_edges(path, t)
+def plot_edges(edges, color):
     for edge in edges:
         line = plt.plot([edge.head.x, edge.tail.x], [edge.head.y, edge.tail.y])
-        plt.setp(line, color='orange')
+        plt.setp(line, color=color)
 
 
 def plot_shortest_path(path):
@@ -45,14 +47,22 @@ def plot_shortest_path(path):
     plt.setp(line, color='red', linewidth=3)
 
 
+def print_edges(edges):
+    for e in edges:
+        print(e)
+
+
 # path = [Edge(nodes[i], nodes[i + 1]) for i in range(len(nodes) - 1)]
 
-edges = get_t_distance_preserving_edges(path, t)
-
-for e in edges:
-    print(e)
+edges = util.get_t_distance_preserving_edges(path, t)
+edges_epsilon = util.get_t_epsilon_distance_preserving_edges(path, t, epsilon)
+S = util.flatten_path(path)
 
 plot_path(path)
-plot_t_distance_preserving(path)
-plot_shortest_path(path)
-plt.show()
+plot_edges(edges_epsilon, 'green')
+plot_edges(edges, 'orange')
+# plot_shortest_path(path)
+# plt.show()
+
+root = compute_split_tree(S, 0, n-1)
+print(root)
