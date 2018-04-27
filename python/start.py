@@ -1,5 +1,5 @@
 from python.Nodes import PathNode
-from python.split_tree import compute_split_tree
+import python.split_tree as SplitTree
 import python.util as util
 import matplotlib.pyplot as plt
 
@@ -64,5 +64,6 @@ plot_edges(edges, 'orange')
 # plot_shortest_path(path)
 # plt.show()
 
-root = compute_split_tree(S, 0, n-1)
-print(root)
+root = SplitTree.compute_split_tree(S, 0, n-1)
+print(root.to_string())
+

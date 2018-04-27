@@ -18,3 +18,17 @@ def get_k_index(S, z):
     while z >= S[k+1]:
         k += 1
     return k
+
+
+def tree_to_list(T):
+    tree_list = []
+    recursive_tree_to_list(T, tree_list)
+    return tree_list
+
+
+def recursive_tree_to_list(node, tree_list):
+    tree_list.append(node)
+    if node.left is not None:
+        recursive_tree_to_list(node.left, tree_list)
+    if node.right is not None:
+        recursive_tree_to_list(node.right, tree_list)
