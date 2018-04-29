@@ -7,17 +7,17 @@
 			\begin{ALC@g}
 				\STATE \textbf{for each} innerer Knoten $u$ in $T$ \textbf{do}
 				\begin{ALC@g}
-					\STATE $v \coloneqq \text{ linkes Kind von } u$
-					\STATE $w \coloneqq \text{ rechtes Kind von } u$
-					\STATE \texttt{find\_pairs(v, w)}
+					\STATE $v \coloneqq \text{ linkes Kind von } u$;
+					\STATE $w \coloneqq \text{ rechtes Kind von } u$;
+					\STATE \texttt{find\_pairs(v, w)};
 				\end{ALC@g}
 			\end{ALC@g}
 			\STATE \}
 			\STATE \
 			\STATE \texttt{find\_pairs(v, w)} \{
 			\begin{ALC@g}
-				\IF{$S_u$ und $S_v$ sind in Bezug zu $s$ nicht wohl-separiert}
-					\STATE Seien $[i, j]$ und $[k, l]$ die Intervalle die mit $u$ bzw. $v$ gespeichert sind;
+				\IF{$S_v$ und $S_w$ sind bezüglich $s$ nicht wohl-separiert}
+					\STATE Seien $[i, j]$ und $[k, l]$ die Intervalle die mit $v$ bzw. $w$ gespeichert sind;
 						\IF{$S[j] - S[i] \leq S[l] - S[k]$}
 							\STATE $w_1 \coloneqq \text{ linkes Kind von } w $;
 							\STATE $w_2 \coloneqq \text{ rechtes Kind von } w $;
@@ -30,7 +30,7 @@
 							\STATE \texttt{find\_pairs(v\textsubscript{2}, w)};
 						\ENDIF
 				\ELSE
-					\STATE Speichere in $u$ und $v$, dass deren Blätter die Teilmengen $A$ und $B$ einer WSPD bilden;
+					\STATE Speichere in $v$ und $w$, dass deren Blätter die Teilmengen $A$ und $B$ einer WSPD bilden;
 				\ENDIF
 			\end{ALC@g}
 			

@@ -6,7 +6,7 @@
 	Eine solche Zahl $s$ nennen wir die \emph{Trennungsrate} der Mengen $A$ und $B$.
 \end{definition}
 
-Das folgende Lemma hält zwei wichtige Eigenschaften von zwei in Bezug zu $s$ wohl-separierten Mengen $A$ und $B$ fest.
+Das folgende Lemma hält zwei wichtige Eigenschaften von zwei bezüglich $s$ wohl-separierten Mengen $A$ und $B$ fest.
 \begin{lemma}
    	\label{lem:wellsep}
 	Seien $a, a' \in A$ und $b, b' \in B$. Dann gilt:
@@ -36,28 +36,29 @@ Das folgende Lemma hält zwei wichtige Eigenschaften von zwei in Bezug zu $s$ wo
 
 Die WSPD bildet eine wichtige Grundlage für die beiden Algorithmen, die wir im Folgenden betrachten werden. 
 Callahan und Kosaraju haben in \cite{callahan} gezeigt, dass man zu einer gegebenen Menge $L \subset \R^d$ der Größe $n$ eine WSPD  der Größe $m = O(s^dn)$ in $O(n\log n + s^dn)$ Zeit berechnen kann. 
-Dabei wird zunächst in $O(n \log n)$ ein sogenannter \emph{(fairer) Split-Tree} berechnet, aus dem dann in $O(s^dn)$ Zeit eine WSPD erstellt werden kann. 
-Wir werden sehen, dass es für unseren Anwendungsfall genügt, eine WSPD für Mengen von Punkten aus $\R$ zu erstellen. 
-Für diesen eindimensionalen Fall kann der faire Split-Tree mit Hilfe eines einfachen Algorithmus berechnet werden (Abb. \ref{fig:splittree}).
+Dabei wird zunächst in $O(n \log n)$ ein sogenannter \emph{(fairer) Split-Tree} berechnet. 
+Bei diesem handelt es sich um einen binären Baum, in dessen Blättern die Werte der Grundmenge $S$ in von links nach rechts aufsteigend sortierter Reihenfolge gespeichert sind. 
+Aus dem Split-Tree kann dann in $O(s^dn)$ Zeit eine WSPD erstellt werden. 
+Wir werden sehen, dass es für unsere Anwendung genügt, eine WSPD für Mengen von Punkten aus $\R$ zu erstellen. 
+Für diesen eindimensionalen Fall kann ein fairer Split-Tree mit Hilfe eines einfachen Algorithmus berechnet werden (Abb. \ref{fig:splittree}).
 
 \input{split_tree_algorithm}
 
 Sei $S$ nun eine endliche Teilmenge von $\R$ und $|S| = n$. 
 Wir können davon ausgehen, dass uns diese Menge sortiert in einem Array $S[1..n]$ vorliegt und werden später sehen, dass das bei unserem Algorithmus auch tatsächlich der Fall ist. 
 Sei $T$ der Split-Tree, der durch das Ausführen von \texttt{compute\_split\_tree(1, n)} entstanden ist.
-Bei $T$ handelt es sich um einen Binärbaum, dessen Blätter die Werte von $S$ in von links nach rechts aufsteigend sortierter Reihenfolge speichern. 
-Für jeden inneren Knoten, also für jeden Knoten, der kein Blatt ist, wird zusätzlich das Intervall, in dem die Blattwerte des von ihm induzierten Teilbaumes liegen, gespeichert.
-Die Wurzel speichert also zum Beispiel das Intervall $(1, n)$ und das $i$-te Blatt das Intervall $(i, i)$.
+Für jeden inneren Knoten $k$, also für jeden Knoten, der kein Blatt ist, wird in \texttt{compute\_split\_tree()} zusätzlich das kleinste Intervall der Indizes der Elemente gespeichert, die die Blätter des von $k$ induzierten Teilbaumes bilden.
+Die Wurzel speichert also zum Beispiel das Intervall $[1, n]$ und das $i$-te Blatt das Intervall $[i, i]$.
 Da $T$ $n$ Blätter hat, erstellen wir insgesamt $O(n)$ Knoten. 
 Dabei müssen wir aber für die Bestimmung von $k$ jedes Mal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. 
 Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
 Betrachten wir jetzt zwei innere Knoten $p$ und $q$ von T. Seien $[i, j]$ und $[k, l]$ die Intervalle, die wir mit $p$ und $q$ gespeichert haben und 
 \[
-R \coloneqq \max(S[i] - S[j], S[k] - S[l])
+R \coloneqq \max(S[j] - S[i], S[l] - S[k]).
 \]
 Nach Definition \ref{def:wellsep} sind die beiden Intervalle genau dann wohl-separiert, wenn 
 \[
-S[k] - S[j] \geq R \cdot s \text{ oder } S[i] - S[l] \geq R \cdot s 
+S[k] - S[j] \geq R \cdot s \text{ oder } S[i] - S[l] \geq R \cdot s.
 \]
 
 \input{wspd_algorithm}
@@ -65,15 +66,16 @@ S[k] - S[j] \geq R \cdot s \text{ oder } S[i] - S[l] \geq R \cdot s
 Der in Abbildung \ref{fig:wspd} dargestellte Algorithmus berechnet dann aus dem eben erstellten fairen Split-Tree $T$ eine WSPD.
 Betrachten wir diesen nun etwas genauer.
  
-Beim Aufruf von \texttt{compute\_wspd(T, s)} werden für jeden Knoten $k$ dessen Kindknoten $u$ und $v$ betrachtet, und dann \texttt{find\_pairs(u, v)} aufgerufen. 
-Da die Elemente von $S$ in den Blättern gespeichert sind, ist klar, dass der linke Kindknoten $u$ und der rechte $v$ disjunkte Teilmengen von $S$ repräsentieren. 
-Somit ist Forderung (1) der WSPD erfüllt. \texttt{find\_pairs(u, v)} überprüft, ob die mit $u$ und $v$ gespeicherten Intervalle $S_u$ und $S_v$ wohl-separiert sind; ist dies der Fall, speichern wir mit $u$, dass seine Blätter das Element $A_i$ einer WSPD bilden, und mit $v$, dass seine Kinder das Element $B_i$ darstellen. 
+Beim Aufruf von \texttt{compute\_wspd(T, s)} werden für jeden Knoten $k$ dessen Kindknoten $v$ und $w$ betrachtet, und dann \texttt{find\_pairs(v, w)} aufgerufen. 
+Da die Elemente von $S$ in den Blättern von $T$ gespeichert sind und jedes Element genau durch ein Blatt dargestellt wird, ist klar, dass der linke Kindknoten $v$ und der rechte $w$ disjunkte Teilmengen von $S$ repräsentieren. 
+Somit ist Forderung (1) der WSPD erfüllt. \texttt{find\_pairs(v, w)} überprüft, ob die mit $v$ und $w$ gespeicherten Intervalle $S_v$ und $S_w$ wohl-separiert sind; ist dies der Fall, speichern wir mit $v$, dass seine Blätter das Element $A_i$ einer WSPD bilden, und mit $w$, dass seine Kinder das Element $B_i$ darstellen. 
 Sind die Intervalle nicht wohl-separiert, steigen wir solange in Richtung des größeren Intervalls im Baum herab, bis wir auf zwei wohl-separierte Intervalle treffen. 
+Das ist spätestens dann der Fall, wenn wir zwei Blätter betrachten, denn dann ist $R = 0$.
 Wir sehen also, dass die erste und die dritte Forderung der Definition der WSPD durch den Algorithmus erfüllt werden. 
 Man kann auch zeigen, dass er die zweite erfüllt, was wir an dieser Stelle allerdings überspringen werden. 
 Interessierte können einen vollständigen Beweis auf Seite 72ff in \cite{callahan} nachlesen. Callahan und Kosaraju, die Autoren dieses Artikels, haben auch bewiesen, dass \texttt{compute\_wspd(T, s)} eine zu $T$ gehörende WSPD der Größe $O(sn)$ in $O(sn)$ Zeit berechnet. 
 Halten wir also fest:
 \begin{theorem}
 	\label{theo:wspdtime}
-	Sei $S \subset \R$ endlich und $n = |S|$. Dann kann in $O(n \log n + sn)$ Zeit ein Split-Tree $T$ und eine dazugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ der Größe $m = O(sn)$ berechnet werden.
+	Sei $S \subset \R$ endlich und $n = |S|$. Dann kann in $O(n \log n + sn)$ Zeit ein Split-Tree $T$ und eine dazugehörige WSPD $\{(A_i, B_i)\}_{1 \leq i \leq m}$ der Größe $m = O(sn)$ berechnet werden.
 \end{theorem}
