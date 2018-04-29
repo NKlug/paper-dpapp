@@ -1,15 +1,17 @@
- Nach dem wir jetzt einige Vorarbeit geleistet haben, werden wir in diesem Kapitel sehen, wie man das MVPS-Problem mit Hilfe einer WSPD bis auf ein $\epsilon$ genau approximieren kann - und dass (für festes $t$ und $\epsilon$) in $O(n\log n)$ Zeit.
+ Nachdem wir jetzt einige Vorarbeit geleistet haben, werden wir in diesem Kapitel sehen, wie man das MVPS-Problem mit Hilfe einer WSPD bis auf ein $\epsilon$ genau approximieren kann -- und das (für festes $t$ und $\epsilon$) in $O(n\log n)$ Zeit.
     
     \subsubsection*{Die Theorie}
     Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$. 
     Für unseren Anwendungsfall genügt es, eine eindimensionale Version $S = (x_1, x_2, \mathellipsis, x_n)$ dieses Kantenzugs zu betrachten. 
     Diese erhalten wir, indem wir $x_i = \delta(p_1, p_i)$ setzen (für alle $1 \leq i \leq n$).
-    Als nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{A_i, B_i\}_{1 \leq i \leq m}$ von $S$. Wegen Eigenschaft (3) der WSPD sind für alle $i$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
+    Als Nächstes berechnen wir für ein festes $s > 0$ zunächst den Split-Tree T und danach eine zugehörige WSPD $\{(A_i, B_i)\}_{1 \leq i \leq m}$ von $S$. 
+    Wegen Eigenschaft (3) der WSPD sind für alle $1 \leq i \leq m$ entweder alle Elemente in $A_i$ kleiner als die in $B_i$ oder umgekehrt. 
+    Wir werden o.B.d.A annehmen, dass alle Elemente, die in $A_i$ enthalten sind, kleiner sind als alle Elemente in $B_i$, da wir einfach bei der Erstellung der WSPD die beiden Mengen passend benennen.
     
     \begin{lemma}
     	\label{lem:stranget}
     	Seien $p, p', q, q' \in P$ und sei $i$ ein solcher Index, dass für $x = \delta(p_1, p)$, $x' = \delta(p_1, p')$, $y = \delta(p_1, q)$ und $y' = \delta(p_1, q')$ $x, x' \in A_i$ und $y, y' \in B_i$ sind. 
-    	Ist weiter $1 \leq t < \frac{s^2}{4s + 16}$ und ist das Tupel $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ gegeben ist durch 
+    	Ist weiter $1 \leq t < \frac{s^2}{4s + 16}$ und ist die Kante $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $t'$-distanzerhaltend, wobei
     	\[
     	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}.
     	\]
@@ -20,7 +22,7 @@
 	    	\delta(p', q') &= |x'y'| 
 	    	\\ &\leq (1 + \frac{4}{s})\cdot|xy| & \text{(Lemma \ref{lem:wellsep} (2))}
 	    	\\ &= (1 + \frac{4}{s})\cdot\delta(p, q)
-	    	\\ &\leq (1 + \frac{4}{s})t\cdot |pq| & \text{((p,q) ist $t$-distanzerhaltend)}
+	    	\\ &\leq (1 + \frac{4}{s})t\cdot |pq| & \text{($(p,q)$ ist $t$-distanzerhaltend)}
 	    	\\ &\leq (1 + \frac{4}{s})t\cdot (|pp'| + |p'q'| + |q'q|) & \text{(Dreiecksungleichung in $\R$)}
 	    	\\ &\leq (1 + \frac{4}{s})t\cdot (\delta(p,p') + |p'q'| + \delta(q', q)) & \text{(Lemma \ref{lem:triangle})}
 	    	\\ &= (1 + \frac{4}{s})t\cdot (|xx'| + |p'q'| + |yy'|)
@@ -28,7 +30,7 @@
 	    	\\ &= (1 + \frac{4}{s})t\cdot (\frac{4}{s}\cdot\delta(p',q') + |p'q'|)
 	    	\\ &= 4(1 + \frac{4}{s})\frac{t}{s}\cdot \delta(p',q') + (1 + \frac{4}{s})t\cdot|p'q'|
     	\end{align*}
-    	Also ist
+    	Damit ergibt sich die folgende Äquivalenzkette:
     	\begin{align*}
 	    	\delta(p', q') &\leq 4(1 + \frac{4}{s})\frac{t}{s}\cdot \delta(p',q') + (1 + \frac{4}{s})t\cdot|p'q'|
 	    	\\ \delta(p', q') \cdot (1 - 4(1 + \frac{4}{s})\frac{t}{s}) &\leq (1 + \frac{4}{s})t\cdot|p'q'| \tag*{\llap{\makebox[\linewidth][l]{$\Leftrightarrow$}}}
@@ -37,7 +39,24 @@
     \end{proof}
     
     Sei jetzt $0 < \epsilon < \frac{1}{3}$ und $1 \leq t$. Sei 
-    \[s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon}\]
+    \[
+    s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon}.
+    \]
+    
+    \begin{lemma}
+    	\label{lem:tsmallers}
+    	Durch diese Wahl von $s$ gilt $(1 + \epsilon) \cdot t < \frac{s^2}{4s + 16}$.
+    \end{lemma}
+    \begin{proof}
+    	\begin{align*}
+	    	\frac{s^2}{4s + 16} &= \frac{(12 + 24(1 + \frac{\epsilon}{3})\cdot t)^2}{\epsilon^2 \cdot (4 \cdot \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon} + 16)} & 
+	    	\\ &= \frac{(12 + 24(1 + \frac{\epsilon}{3})\cdot t)^2}{\epsilon \cdot 4 \cdot (12 + 24(1 + \frac{\epsilon}{3})\cdot t) + \epsilon^2 \cdot 16} &
+	    	\\ &> \frac{3 \cdot (12 + 24(1 + \frac{\epsilon}{3})\cdot t)^2}{4 \cdot (12 + 24(1 + \frac{\epsilon}{3})\cdot t) + \frac{16}{3}} & \text{($\epsilon < \frac{1}{3}$)}
+	    	\\ &> \frac{3 \cdot (12 + 24(1 + \frac{\epsilon}{3})\cdot t)^2}{5 \cdot (12 + 24(1 + \frac{\epsilon}{3})\cdot t)} & \text{($12 + 24(1 + \frac{\epsilon}{3})\cdot t > \frac{16}{3}$)}
+	    	\\ &> \frac{3}{5}\cdot (12 + 24 \cdot t) & \text{($\epsilon > 0$)}
+	    	\\ &> (1 + \frac{1}{3}) \cdot t \quad >\quad (1 + \epsilon) \cdot t
+    	\end{align*}
+    \end{proof}
     Durch diese Wahl von $s$ ist die Einschränkung $t < \frac{s^2}{4s + 16}$ aus Lemma \ref{lem:stranget} für alle $t \geq 1$ erfüllt.
     
     \begin{lemma}
