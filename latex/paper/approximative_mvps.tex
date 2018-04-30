@@ -109,15 +109,17 @@
     	\]
     \end{proof}
     
-    Als nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$ und zeigen dann, dass jede Approximation von $P$ einem Pfad in $H$ entspricht.
+    Seien nun für alle $1 \leq i \leq m$ $a_i$ und $b_i$ zwei beliebige, aber feste Elemente aus $A_i$ und $B_i$. 
+    Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$ gilt.
     
-    Seien dafür $a_i$ und $b_i$ zwei beliebige, aber feste Elemente aus $A_i$ und $B_i$ (für alle $1 \leq i \leq m$). 
-    Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. Wir nennen im Folgenden die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls jeweils $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon }{3})t$-distanzerhaltend ist.
+    Sind nun $x \in A_i$ und $y \in B_i$ und $x = \delta(p_1, p)$ und $y = \delta(p_1, q)$, so besagt Lemma \ref{lem:tepsilon} insbesondere, dass falls die Kante $(p, q)$ $t$-distanzerhaltend ist, $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist.
+    Der Einfachheit halber nennen wir die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist.
     
+    Als Nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$ und zeigen dann, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad in $H$ entspricht.
     Die Knoten von $H$ sind genau die $2m$ Mengen $A_i$ und $B_i$, und die Kanten sind wie folgt definiert:
     \begin{enumerate}
     	\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $x_n \in B_i$.
-    	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kannte, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
+    	\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
     \end{enumerate}
 
 	\begin{theorem}
@@ -125,7 +127,7 @@
 		Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält.
 	\end{theorem}
 	\begin{proof}
-		Wir werden nun induktiv $Q$ zu einem Pfad in $H$ konvertieren.
+		Wir werden nun induktiv $Q$ zu einem Pfad $R$ in $H$ konvertieren.
 		
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
 		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ gilt.
@@ -135,7 +137,7 @@
 		Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. 
 		Solch ein Index existiert nach Definition der WSPD und ist eindeutig. 
 		Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. 
-		Aus Lemma \ref{lem:tepsilon} (1) folgt dann, dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. 
+		Wie oben beobachtet folgt dann aus Lemma \ref{lem:tepsilon} (1), dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. 
 		Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. 
 		Also ist $(A_{i_l}, A_{i_{l+1}})$ eine Kante in $H$ und wir wählen $A_{i_{l+1}}$ als nächsten Knoten. 
 		Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ in $H$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
