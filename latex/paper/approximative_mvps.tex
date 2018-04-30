@@ -45,7 +45,7 @@
     
     \begin{lemma}
     	\label{lem:tsmallers}
-    	Durch diese Wahl von $s$ gilt $(1 + \epsilon) \cdot t < \frac{s^2}{4s + 16}$.
+    	Für ein solches $s$ gilt $(1 + \epsilon) \cdot t < \frac{s^2}{4s + 16}$.
     \end{lemma}
     \begin{proof}
     	\begin{align*}
@@ -57,7 +57,7 @@
 	    	\\ &> (1 + \frac{1}{3}) \cdot t \quad >\quad (1 + \epsilon) \cdot t
     	\end{align*}
     \end{proof}
-    Durch diese Wahl von $s$ ist die Einschränkung $t < \frac{s^2}{4s + 16}$ aus Lemma \ref{lem:stranget} für alle $t \geq 1$ erfüllt.
+    Insbesondere gilt also $(1 + \frac{\epsilon}{3})\cdot t < \frac{s^2}{4s + 16}$ und $t < \frac{s^2}{4s + 16}$.
     
     \begin{lemma}
     	\label{lem:tepsilon}
@@ -68,27 +68,29 @@
     	\end{enumerate}
     \end{lemma}
     \begin{proof}
-    	Zu 1. Sei $(p, q)$ $t$-distanzerhaltend. 
-    	Dann ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ in Lemma \ref{lem:stranget} gegeben ist. 
-    	Da die Einschränkung $1 \leq t < \frac{s^2}{4s + 16}$ aus selbigem Lemma immer noch gilt, ist $0 < s^2 - 4st - 16t$. 
+    	Zu 1. Sei $(p, q)$ $t$-distanzerhaltend. Da nach Lemma \ref{lem:tsmallers} $1 \leq t < \frac{s^2}{4s + 16}$ gilt, sind die Voraussetzungen von Lemma \ref{lem:stranget} erfüllt.
+    	Also ist $(p', q')$ $t'$-distanzerhaltend, wobei $t'$ in selbigem Lemma gegeben ist. 
+    	$t < \frac{s^2}{4s + 16}$ ist äquivalent zu $0 < s^2 - 4st - 16t$. 
     	Daraus folgt, dass $s \geq 4t \geq 4$ ist. Es ergibt sich damit und durch unsere spezielle Wahl von s 
     	\[
-    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}} 
+    	t' = \frac{(1+\frac{4}{s})\cdot t}{1 - 4(1 + \frac{4}{s})\cdot\frac{t}{s}}
+    	\stackrel{s \geq 4}{\leq} \frac{(1 + \frac{4}{s})t}{1 - 4(1 + \frac{4}{4})\cdot \frac{t}{s}}
     	\leq \frac{(1 + \frac{4}{s})t}{1 - 8 \frac{t}{s}} 
-    	= (1+ \frac{\epsilon}{3})t
+    	\stackrel{\text{Einsetzen}}{=} (1+ \frac{\epsilon}{3})t.
     	\]
     	
     	Zu 2. 
     	Sei $(p, q)$ $(1+ \frac{\epsilon}{3})t$-distanzerhaltend. 
-    	Dann ist $(p', q')$ $t''$-distanzerhaltend, wobei sich $t''$ aus Lemma \ref{lem:stranget} ergibt als 
+    	Nach Lemma \ref{lem:tsmallers} gilt $(1 + \frac{\epsilon}{3})t \leq \frac{s^2}{4s + 16}$ und wir können auch hier wieder Lemma \ref{lem:stranget} anwenden.
+    	Dieses besagt dann, dass $(p', q')$ $t''$-distanzerhaltend ist, wobei sich $t''$ ergibt als 
     	\[
-    	t'' = \frac{(1+\frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 4(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})\frac{t}{s}}
+    	t'' = \frac{(1+\frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 4(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})\frac{t}{s}}.
     	\]
-    	Da $1 < \epsilon < \frac{1}{3}$, ist
+    	Da $0 < \epsilon < \frac{1}{3}$, ist
     	\[
 	    	s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon} \geq \frac{4 (1 + \frac{\epsilon}{3})t}{\epsilon}
     		\geq\frac{4 (1 + \frac{\epsilon}{3})}{\epsilon}
-    		\geq\frac{4 (1 + \frac{\epsilon}{3})}{1 - \frac{\epsilon}{3}}
+    		\geq\frac{4 (1 + \frac{\epsilon}{3})}{1 - \frac{\epsilon}{3}}.
     		\]
     	Desweiteren ist 
     	\begin{align*}    	
@@ -96,12 +98,14 @@
 	    	&\Leftrightarrow \qquad s \cdot (2 - (1 + \frac{\epsilon}{3}))\enspace\geq\enspace 4 \cdot(1 + \frac{\epsilon}{3})
 	    	\\2s \enspace\geq\enspace 4 \cdot(1 + \frac{\epsilon}{3}) + s \cdot (1 + \frac{\epsilon}{3}) \qquad
 	    	&\Leftrightarrow \qquad 2 \enspace\geq\enspace (1 + \frac{4}{s})\cdot(1 + \frac{\epsilon}{3})
-	    	\tag*{\llap{\makebox[\linewidth][l]{$\Leftrightarrow$}}}
+	    	\tag*{\llap{\makebox[\linewidth][l]{$\Leftrightarrow$}}}.
     	\end{align*}
     	Also ist 
     	\[
-	    	t'' \enspace\leq\enspace \frac{(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 8 \frac{t}{s}}
-	    	\enspace=\enspace (1 + \frac{\epsilon}{3})^2\cdot t \enspace\leq\enspace (1 + \epsilon)\cdot t
+	    	t'' \enspace\leq\enspace 
+	    	\frac{(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 4 \cdot 2 \cdot \frac{t}{s}}
+	    	\enspace=\enspace \frac{(1 + \frac{4}{s})\cdot (1 + \frac{\epsilon}{3})t}{1 - 8 \frac{t}{s}}
+	    	\enspace\stackrel{\text{Einsetzen}}{=}\enspace (1 + \frac{\epsilon}{3})^2\cdot t \enspace\leq\enspace (1 + \epsilon)\cdot t.
     	\]
     \end{proof}
     
