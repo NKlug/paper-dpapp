@@ -2,22 +2,30 @@
 	
 Sei dazu $k$ die Knotenzahl und $P = (p_1, p_2, \mathellipsis, p_n)$ der Kantenzug, für die wir das MDPS-Problem lösen wollen. 
 Wie in Kapitel \ref{sec:exact} sei $t^* = \min\{t \geq 1\ |\ \kappa_t \leq k\}$ die Lösung des Problems. 
-Unser Algorithmus basiert im Wesentlichen auf dem folgenden Lemma.
+\begin{lemma}
+	\label{lem:tstaredge}
+	Eine $t^*$-distanzerhaltende Approximation $Q$ von $P$ mit höchstens $k$ Knoten muss eine Kante $(p, q)$ besitzen, die eine Abweichung von $t^*$ hat.
+\end{lemma}
+\begin{proof}
+	Gäbe es keine solche Kante, gäbe es also ein $t < t^*$, sodass $Q$ auch $t$-distanzerhaltend ist. Dann ist $Q$ aber eine $t$-distanzerhaltende Approximation von $P$ mit höchstens $k$ Knoten -- ein Widerspruch zur Wahl von $t^*$.
+\end{proof}
+Der Algorithmus zur approximativen Lösung des MDPS-Problems basiert im Wesentlichen auf dem folgenden Lemma.
 
 \begin{lemma}
 	\label{lem:tstar}
-	Sei $t \geq 1$, $0 < \epsilon < \frac{1}{3}$ und sei $Q$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation, die durch Satz \ref{theo:mvpstime} entstanden ist. Ist $k'$ die Anzahl der Knoten von $Q$, dann gilt:
+	Sei $t \geq 1$, $0 < \epsilon < \frac{1}{3}$ und sei $Q = (q_1, q_2, \mathellipsis, q_k)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation, die durch den Algorithmus von Satz \ref{theo:mvpstime} entstanden ist. 
+	Ist $k'$ die Anzahl der Knoten von $Q$, dann gilt:
 	\begin{enumerate}
-		\item Falls $k' \leq k$, dann ist $t^* \leq (1 + \epsilon) \cdot t$
-		\item Falls $k' > k$, dann ist $t^* > t$
+		\item Falls $k' \leq k$, dann ist $t^* \leq (1 + \epsilon) \cdot t$.
+		\item Falls $k' > k$, dann ist $t^* > t$.
 	\end{enumerate}
 \end{lemma}
 \begin{proof}
 	Zu 1. Sei $k' \leq k$. Sei $t'$ die exakte Abweichung des Kantenzugs $Q$ von $P$, also 
 	\[
-	\max\{\frac{\delta(p_i, p_{i+1})}{|p_ip_{i+1}|}\ |\ 1 \leq i < k\}
+	t' = \max\{\frac{\delta(q_i, q_{i+1})}{|q_iq_{i+1}|}\ |\ 1 \leq i < k\}.
 	\] 
-	Dann gilt auch $t' \leq (1 + \epsilon) \cdot t$. 
+	Nach Voraussetzung gilt auch $t' \leq (1 + \epsilon) \cdot t$. 
 	Aus Lemma \ref{lem:kappa} folgt damit, dass $\kappa_{(1 + \epsilon)t} \leq \kappa_{t'}$.
 	Da $\kappa_{t'}$ aber die Knotenzahl einer minimalen $t'$-distanzerhaltenden Approximation ist, muss $\kappa_{t'} \leq k'$ gelten. Zusammen mit der Annahme folgt dann $\kappa_{(1 + \epsilon)t} \leq k$. Wegen Lemma \ref{lem:kappa} muss dann aber $t^* \leq (1 + \epsilon) \cdot t$ gelten.
 	
@@ -50,42 +58,45 @@ Die Laufzeit für die Approximation von $t^*$ bei gegebenem Split-Tree $T$ ist d
 \[
 O(\sum_{i=1}^{\log \tau} (\frac{2^i}{\epsilon}\cdot n))
 = O(\frac{\tau}{\epsilon}\cdot n)
-= O(\frac{t^*}{\epsilon}\cdot n)
+= O(\frac{t^*}{\epsilon}\cdot n).
 \]
 
 \subsubsection*{Eine bessere Approximation von $\mathbf{t^*}$ mit Hilfe von binärer Suche}
 Bevor wir uns einem Algorithmus für eine bessere Approximation von $t^*$ als oben zuwenden, müssen wir zunächst ein dafür essentielles Lemma beweisen.
 
-Sei nun $S = (x_1, x_2, \mathellipsis, x_n)$ wie in Kapitel \ref{subsec:mvps} und $\{A_i, B_i\}_{1 \leq i \leq m}$ eine WSPD mit einer Trennungsrate von 
+Sei $S = (x_1, x_2, \mathellipsis, x_n)$ wie in Kapitel \ref{subsec:mvps} und $\{(A_i, B_i)\}_{1 \leq i \leq m}$ eine WSPD mit einer Trennungsrate von 
 \[
-s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon}
+s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon}.
 \]
 Seien für alle $1 \leq i \leq m$ $a_i$ und $b_i$ feste Elemente aus $A_i$ bzw. $B_i$ und $\alpha_i$ und $\beta_i$ die Knoten von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$ ist. 
-Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$, dann gilt:
+Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$. Dann gilt:
 \begin{lemma}
 	\label{lem:tstartj}
-	Es gibt ein $j$ mit $1 \leq j \leq m$ mit
+	Es gibt ein $j$ mit $1 \leq j \leq m$ und
 	\[
 		\frac{t_j}{1 + \epsilon} \leq t^* \leq (1 + \epsilon) \cdot t_j
 	\]
 \end{lemma}
 \begin{proof}
-	Wie wir gesehen haben, gibt es zwei Knoten $p$ und $q$, für die $t^* = \frac{\delta(p, q)}{|pq|}$. Sei $j$ der Index, sodass $\delta(p_1, p) \in A_j$ und $\delta(p_1, q) \in B_j$. Solch ein Index existiert nach Definition der WSPD. Da $(p, q)$ $t^*$-distanzerhaltend ist und wie im Beweis von Lemma \ref{lem:stranget} $t^* < \frac{s^2}{4s + 16}$, ist $s^2 > 4st^* + 16t^*$. 
-	Aus selbigem Lemma folgt dann, dass $(\alpha_j, \beta_j)$ $t'$-distanzerhaltend ist, wobei
+	Nach Lemma \ref{lem:tstaredge} gibt es zwei Knoten $p$ und $q$, für die $t^* = \frac{\delta(p, q)}{|pq|}$ gilt. Sei $j$ der Index, sodass $\delta(p_1, p) \in A_j$ und $\delta(p_1, q) \in B_j$. Solch ein Index existiert nach Definition der WSPD. Analog zum Beweis von Lemma \ref{lem:tsmallers} kann man errechnen, dass $t^* < \frac{s^2}{4s + 16}$ ist. Somit ist $s^2 > 4st^* + 16t^*$, insbesondere also $s > 4\cdot t^* \geq 4$. 
+	Durch Anwendung von Lemma \ref{lem:stranget} folgt dann, dass $(\alpha_j, \beta_j)$ $t'$-distanzerhaltend ist, wobei
 	\[
-	t' = \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 4(1 + \frac{4}{s})\frac{t^*}{s}}
+	t' = \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 4(1 + \frac{4}{s})\frac{t^*}{s}}.
 	\]
-	Da außerdem wieder $s \geq 4$, ist wegen unserer speziellen Wahl von $s$
+	Da wie gezeigt $s \geq 4$, ist
 	\[
-	t' \leq \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}
+	t' \leq  \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 4 \cdot (1 + \frac{4}{4}) \frac{t^*}{s}}
+	\leq \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}.
 	\]
-	Zusammen mit (\ref{eq:tau}) folgt daraus, dass 
+	Aus (\ref{eq:tau}) folgt, dass 
 	\[
 	s 
-	\enspace\geq\enspace \frac{4 + 8(1 + \epsilon)t^*}{\epsilon} 
-	\quad \Leftrightarrow \quad
+	\enspace\geq\enspace \frac{4 + 8(1 + \epsilon)t^*}{\epsilon}.
+	\]
+	Dies ist äquivalent zu
+	\[
 	\frac{(1 + \frac{4}{s})\cdot t^*}{1 - 8 \cdot \frac{t^*}{s}} 
-	\enspace\leq\enspace (1 + \epsilon)\cdot t^*
+	\enspace\leq\enspace (1 + \epsilon)\cdot t^*.
 	\]
 	Insgesamt ist damit
 	\[
@@ -98,20 +109,20 @@ Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$, dann gilt:
 	Somit haben wir die erste Ungleichung bewiesen.
 	
 	Nun zur zweiten. 
-	Wir wissen jetzt, dass $t_j \leq (1 + \epsilon) \cdot t^*$ ist.
-	Aus der Beobachtung im ersten Teil des Beweises folgt dann, dass $4st_j + 16t_j < s^2$, insbesondere ist damit wieder die Bedingung aus Lemma \ref{lem:stranget} erfüllt.
+	Wir wissen schon, dass $t_j \leq (1 + \epsilon) \cdot t^*$ ist.
+	Auch hier kann man analog zum Beweis von Lemma \ref{lem:tsmallers} errechnen, dass $4st_j + 16t_j < s^2$ ist. Damit ist wieder die Bedingung aus Lemma \ref{lem:stranget} erfüllt.
 	Selbigem Lemma entsprechend ist dann $(p, q)$ $t''$-distanzerhaltend, wobei sich $t''$ ergibt als
 	\[
-	t'' = \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 4 (1 + \frac{4}{s}) \cdot \frac{t_j}{s}}
+	t'' = \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 4 (1 + \frac{4}{s}) \cdot \frac{t_j}{s}}.
 	\]
 	Wie oben ist $s \geq 4$, sodass sich der Ausdruck zu 
 	\[
-	t'' = \frac{(1 + \frac{4}{s}\cdot t_j)}{1 - 8 \cdot \frac{t_j}{s}}
+	t'' = \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 8 \cdot \frac{t_j}{s}}
 	\]
 	vereinfacht.
-	Da mit (\ref{eq:tau}) $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$ gilt, ist des Weiteren
+	Aus dem ersten Teil des Beweises und (\ref{eq:tau}), folgt $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$. Somit ist
 	\[
-	s \geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}
+	s \geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}.
 	\]
 	Durch Einsetzen erhalten wir dann $t^* \leq t'' \leq (1 + \epsilon)\cdot t_j$.
 \end{proof}
