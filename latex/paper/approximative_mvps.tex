@@ -303,7 +303,7 @@
     Einer der wichtigen Schritte für die restlichen Knoten besteht darin, ein Element aus $A_{i_{l+1}} \cap B_{i_l}$ auszuwählen. 
     Da wir wissen, dass der Schnitt nicht leer ist und $A_{i_{l+1}}$ und $B_{i_l}$ durch Knoten des Split-Trees repräsentiert werden (nämlich $u_{i_{l+1}}$ und $v_{i_l}$), die wiederum die Blätter in ihrem jeweiligen Unterbaum zusammenfassen, muss entweder $A_{i_{l+1}}\subseteq B_{i_l}$ sein oder umgekehrt. 
     Also wählen wir zum Beispiel das Minimum $\mu$ des Intervalls, das mit $u_{i_{l+1}}$ gespeichert ist, und überprüfen, ob es im Intervall von $v_{i_l}$ liegt. 
-    Ist dass der Fall, liegt dieses im Schnitt und wir wählen den zu $\mu$ gehörenden Knoten als Nächsten. 
+    Ist das der Fall, liegt dieses im Schnitt und wir wählen den zu $\mu$ gehörenden Knoten als Nächsten. 
     Sonst ist $B_{i_l}\subset A_{i_{l+1}}$ und wir können das Minimum des Intervalls von $v_{i_l}$ wählen. 
     Dieses Vorgehen dauert für jede Kante $(A_{i_l}, A_{i_{l+1}})$ jeweils konstante Zeit. 
     Insgesamt kostet Teil 5 des Algorithmus also $O(\frac{t}{\epsilon}n)$ Zeit.
@@ -311,10 +311,10 @@
     
     \begin{theorem}
     	\label{theo:mvpstime}
-    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der minimalen t-distanzerhaltenden Approximationen von $P$.
-    	\begin{enumerate}
-    		\item Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
-    		\item Ist weiter für alle verschiedenen $p, q \in P$ $\frac{\delta(p,q)}{|pq|} \leq t$ oder $\frac{\delta(p,q)}{|pq|} > (1 + \epsilon)t$, dann ist $Q$ sogar eine $t$-distanzerhaltende Approximation von $P$ mit $\kappa$ Knoten.
-    	\end{enumerate}
+    	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\R^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der minimalen t-distanzerhaltenden Approximationen von $P$. Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
+%    	\begin{enumerate}
+%    		\item Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
+%    		\item Ist weiter für alle verschiedenen $p, q \in P$ $\frac{\delta(p,q)}{|pq|} \leq t$ oder $\frac{\delta(p,q)}{|pq|} > (1 + \epsilon)t$, dann ist $Q$ sogar eine $t$-distanzerhaltende Approximation von $P$ mit $\kappa$ Knoten.
+%    	\end{enumerate}
     	
     \end{theorem}
