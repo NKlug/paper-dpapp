@@ -112,7 +112,7 @@
     Seien nun für alle $1 \leq i \leq m$ $a_i$ und $b_i$ zwei beliebige, aber feste Elemente aus $A_i$ und $B_i$. 
     Seien weiter $\alpha_i$ und $\beta_i$ die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$ gilt.
     
-    Sind nun $x \in A_i$ und $y \in B_i$ und $x = \delta(p_1, p)$ und $y = \delta(p_1, q)$, so besagt Lemma \ref{lem:tepsilon} insbesondere, dass falls die Kante $(p, q)$ $t$-distanzerhaltend ist, $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist.
+    Sind nun $x \in A_i$ und $y \in B_i$ und $x = \delta(p_1, p)$ und $y = \delta(p_1, q)$, so besagt Lemma \ref{lem:tepsilon} insbesondere, dass falls die Kante $(p, q)$ $t$-distanzerhaltend ist, auch $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist.
     Der Einfachheit halber nennen wir die Tupel $(A_i, B_i)$ \emph{$(t, \epsilon)$-distanzerhaltend}, falls $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist.
     
     Als Nächstes konstruieren wir aus der WSPD einen gerichteten Graphen $H$ und zeigen dann, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad in $H$ entspricht.
@@ -130,42 +130,50 @@
 		Wir werden nun induktiv $Q$ zu einem Pfad $R$ in $H$ konvertieren.
 		
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. Da nach Bedingung ja $q_1 = p_1$ gilt, ist also auch $y_1 = x_1$.
-		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ gilt.
-		Dann hat der Pfad $R$ $A_{i_1}$ als ersten Knoten.
+		Sei weiter $i_1$ ein solcher Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ gilt (dieser existiert nach Definition der WSPD).
+		Dann wählen wir $A_{i_1}$ als ersten Knoten des Pfades $R$.
 		
 		Nehmen wir jetzt an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Kantenzug $(q_1, \mathellipsis, q_l)$ zu dem Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ von $R$ umgewandelt haben, sodass $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l}$. 
 		Wir wählen jetzt $i_{l+1}$ als den Index, für den $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$ ist. 
 		Solch ein Index existiert nach Definition der WSPD und ist eindeutig. 
-		Wir wissen, dass $(q_l, q_{l+1})$ $t$-distanzerhaltend ist und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $ liegt. 
+		Nach Annahme ist $(q_l, q_{l+1})$ $t$-distanzerhaltend und $y_l \in A_{i_l}$ und $y_{l+1} \in B_{i_l} $. 
 		Wie oben beobachtet folgt dann aus Lemma \ref{lem:tepsilon} (1), dass das Tupel $(A_i, B_i)$ $(t, \epsilon)$-distanzerhaltend ist. 
-		Des Weiteren ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. 
-		Also ist $(A_{i_l}, A_{i_{l+1}})$ eine Kante in $H$ und wir wählen $A_{i_{l+1}}$ als nächsten Knoten. 
+		Außerdem ist der Schnitt von $A_{i_{l+1}}$ mit $B_{i_l}$ nicht leer, da $y_{l+1}$ in beiden Mengen liegt. 
+		Diese beiden Eigenschaften sind hinreichend dafür, dass $(A_{i_l}, A_{i_{l+1}})$ eine Kante in $H$ ist. Deshalb können wir $A_{i_{l+1}}$ als nächsten Knoten von $R$ wählen.
 		Wir haben damit also $(q_1, \mathellipsis, q_l, q_{l+1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_l}, A_{i_{l+1}})$ in $H$ umgewandelt, sodass $y_{l+1} \in A_{i_{l+1}}$ und $y_{l+2} \in B_{i_{l+1}}$.
 		
 		Nehmen wir an, dass wir bereits $(q_1, q_2, \mathellipsis, q_{k-1})$ zu dem Pfad $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ umgewandelt haben, wobei $y_{k-1} \in A_{i_{k-1}}$ und $y_k \in B_{i_{k-1}}$. 
-		Es ist $y_k = \delta(p_1, q_k) = \delta(p_1, p_n) = x_n \in B_{i_{k-1}}$. 
-		Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen Lemma \ref{lem:tepsilon} (1) $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend und es folgt, dass $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$ ist. 
+		Nach Annahme ist $q_k = p_n$ und somit ist auch $y_k = x_n$. 
+		Insbesondere ist also $x_n$ ein Element von $B_{i_{k-1}}$.
+		Da die Kante $(q_{k-1}, q_k)$ $t$-distanzerhaltend ist, ist wieder wegen Lemma \ref{lem:tepsilon} (1) $(A_{i_{k-1}}, B_{i_{k-1}})$ $(t, \epsilon)$-distanzerhaltend. 
+		Also ist $(A_{i_{k-1}}, B_{i_{k-1}})$ eine Kante in $H$. 
 		Wir fügen $B_{i_{k-1}}$ zum Pfad hinzu, und erhalten als Gesamtergebnis $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$.
 	\end{proof}
 	
-	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad in $H$ entspricht, der dieselbe Zahl von Knoten hat. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil vom gewünschten $t$-Wert abweichen kann.
+	Wir haben also gezeigt, dass jede $t$-distanzerhaltende Approximation von $P$ einem Pfad in $H$ entspricht, der dieselbe Zahl von Knoten hat. Der nächste Satz zeigt, dass dies auch umgekehrt der Fall ist, unter der Einschränkung, dass die Approximation um einen kleinen Teil vom gewünschten $t$-Wert abweichen darf.
 	
 	\begin{theorem}
 		\label{theo:H2Approx}
 		Jeder Pfad $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
 	\end{theorem}
+	Für den Beweis wählen wir eine ähnliche Vorgehensweise wie beim Beweis von Satz \ref{theo:Approx2H}: Wir konvertieren den Pfad $R$ induktiv zu einer Approximation von $P$ und zeigen anschließend, dass diese auch wirklich $(1 + \epsilon)t$-distanzerhaltend ist.
 	\begin{proof}
 		Sei wieder $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
-		Da $x_1$ in $A_{i_1}$, können wir als ersten Knoten von $Q$ $q_1 = p_1$ wählen.
+		Da $x_1$ in $A_{i_1}$ liegt, können wir als ersten Knoten von $Q$ $q_1 = p_1$ wählen.
 		
 		Nehmen wir an, dass wir bereits für ein $l$ mit $1 \leq l < k-1$ den Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt haben, sodass $y_1\ (= x_1) \in A_{i_1}$ und für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$. 
-		Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y_{l+1} \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach der Konstruktion von $H$ nicht leer ist. Dann fügen wir das zu $y_{l+1}$ gehörende $q_{l+1}$ zum Kantenzug hinzu und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
+		Betrachten wir jetzt die Kante $(A_{i_l}, A_{i_{l+1}})$, gibt es ein $y \in A_{i_{l+1}} \cap B_{i_l}$, da der Schnitt nach Definition der Kanten von $H$ nicht leer sein kann. 
+		Dann wählen wir als $q_{l+1}$ den Knoten $\gamma$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
 		
-		Nehmen wir an, dass wir bereits $(A_{i_1}, \mathellipsis, A_{i_k-1})$ bereits zu $(q_1, \mathellipsis, q_{k-1})$ konvertiert haben. Nach Voraussetzung ist $x_n \in B_{k-1}$. Wir wählen dann $q_k = p_n$ und fügen $q_k$ zum Kantenzug $Q$ hinzu. 
-		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Kantenzug $Q$ mit gleich vielen Knoten umwandeln kann. 
+		Nehmen wir an, dass wir bereits $(A_{i_1}, \mathellipsis, A_{i_k-1})$ zu $(q_1, \mathellipsis, q_{k-1})$ konvertiert haben. Nach Voraussetzung ist $x_n \in B_{k-1}$. Wir wählen dann $q_k = p_n$ und fügen $q_k$ zum Kantenzug $Q$ hinzu. 
+		Insgesamt haben wir also gezeigt, wie man $R$ zu einem Kantenzug $Q = (q_1, q_1, \mathellipsis, q_k)$ mit gleich vielen Knoten umwandeln kann. 
 		
 		Jetzt bleibt zu zeigen, dass $Q$ auch tatsächlich $(1+\epsilon)t$-distanzerhaltend ist.
-		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. Die Kante $A_{i_j}$ und $B_{i_j}$ ist zudem $(t, \epsilon)$-distanzerhaltend. Mit Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Tupel $(a, b)$ mit $a \in A_{i_j}$ und $b \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(q_j, q_{j+1})$ $(1+\epsilon)t$-distanzerhaltend. Diese Eigenschaft gilt für alle aufeinanderfolgenden Knoten in $Q$, woraus folgt, dass der von uns konstruierte Kantenzug $Q$ eine $(1+\epsilon)t$-distanzerhaltende Approximation von $P$ ist.
+		Dazu betrachten wir ein $j$ mit $1 \leq j < k$. 
+		Nach unserer Konstruktion von $Q$ ist $y_j \in A_{i_j}$ und $y_{j+1} \in B_{i_j}$. 
+		Nach Voraussetzung ist die Kante $(A_{i_j}, B_{i_j})$ zudem $(t, \epsilon)$-distanzerhaltend.
+		Aus Lemma \ref{lem:tepsilon} (2) folgt dann, dass alle Kanten $(\alpha, \beta)$ mit $\delta(p_1, \alpha) \in A_{i_j}$ und $\delta(p_1, \beta) \in B_{i_{j+1}}$ $(1+\epsilon)t$-distanzerhaltend sind, insbesondere ist also die Kante $(q_j, q_{j+1})$ zwischen den zu $y_j$ und $y_{j+1}$ gehörigen Knoten $(1+\epsilon)t$-distanzerhaltend. 
+		Diese Eigenschaft gilt für alle $1 \leq j < k$, woraus folgt, dass der von uns konstruierte Kantenzug $Q$ eine $(1+\epsilon)t$-distanzerhaltende Approximation von $P$ ist.
 	\end{proof}
     
     Durch diese beiden Sätze wird schnell klar, was wir tun müssen, um eine $(1+\epsilon)t$-distanzerhaltende Approximation eines Pfades $P$ zu erhalten: 
