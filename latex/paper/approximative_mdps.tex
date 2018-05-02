@@ -85,46 +85,60 @@ Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$. Dann gilt:
 	\]
 	Da wie gezeigt $s \geq 4$, ist
 	\[
+	\label{eq:t'}
 	t' \leq  \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 4 \cdot (1 + \frac{4}{4}) \frac{t^*}{s}}
-	\leq \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}.
+	\leq \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}. \tag{1}
 	\]
 	Aus (\ref{eq:tau}) folgt, dass 
 	\[
-	s 
+	s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon} 
 	\enspace\geq\enspace \frac{4 + 8(1 + \epsilon)t^*}{\epsilon}.
 	\]
-	Dies ist äquivalent zu
+	Durch Umformen erhält man daraus
 	\[
+	\label{eq:st'}
 	\frac{(1 + \frac{4}{s})\cdot t^*}{1 - 8 \cdot \frac{t^*}{s}} 
-	\enspace\leq\enspace (1 + \epsilon)\cdot t^*.
+	\enspace\leq\enspace (1 + \epsilon)\cdot t^*. \tag{2}
 	\]
 	Insgesamt ist damit
 	\[
 	t_j 
 	\enspace = \enspace \frac{\delta(\alpha_j, \beta_j)}{|\alpha_j \beta_j|} 
 	\enspace\leq\enspace t' 
-	\enspace\leq\enspace \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}
-	\enspace\leq\enspace (1 + \epsilon)\cdot t^*
+	\enspace\stackrel{(\ref{eq:t'})}{\leq}\enspace \frac{(1 + \frac{4}{s}) \cdot t^*}{1 - 8\frac{t^*}{s}}
+	\enspace\stackrel{(\ref{eq:st'})}{\leq}\enspace (1 + \epsilon)\cdot t^*
 	\]
 	Somit haben wir die erste Ungleichung bewiesen.
 	
 	Nun zur zweiten. 
 	Wir wissen schon, dass $t_j \leq (1 + \epsilon) \cdot t^*$ ist.
-	Auch hier kann man analog zum Beweis von Lemma \ref{lem:tsmallers} errechnen, dass $4st_j + 16t_j < s^2$ ist. Damit ist wieder die Bedingung aus Lemma \ref{lem:stranget} erfüllt.
-	Selbigem Lemma entsprechend ist dann $(p, q)$ $t''$-distanzerhaltend, wobei sich $t''$ ergibt als
+	Auch hier kann man analog zum Beweis von Lemma \ref{lem:tsmallers} errechnen, dass $4st_j + 16t_j < s^2$ ist. Damit ist wieder die Bedingung aus Lemma \ref{lem:stranget} erfüllt. Da die Kante $(\alpha_j, \beta_j)$ $t_j$-distanzerhaltend ist, folgt aus selbigem Lemma, dass $(p, q)$ $t''$-distanzerhaltend, wobei sich $t''$ ergibt als
 	\[
 	t'' = \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 4 (1 + \frac{4}{s}) \cdot \frac{t_j}{s}}.
 	\]
 	Wie oben ist $s \geq 4$, sodass sich der Ausdruck zu 
 	\[
-	t'' = \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 8 \cdot \frac{t_j}{s}}
+	\label{eq:t''}
+	t'' \leq \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 4 (1 + \frac{4}{4}) \cdot \frac{t_j}{s}}
+	= \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 8 \cdot \frac{t_j}{s}} \tag{3}
 	\]
 	vereinfacht.
-	Aus dem ersten Teil des Beweises und (\ref{eq:tau}), folgt $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$. Somit ist
+	Aus dem ersten Teil des Beweises und aus (\ref{eq:tau}) folgt $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \tau$. Somit ist
 	\[
-	s \geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}.
+	s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon} 
+	\geq \frac{4 + 8 (1 + \epsilon) \cdot t_j}{\epsilon}. 
 	\]
-	Durch Einsetzen erhalten wir dann $t^* \leq t'' \leq (1 + \epsilon)\cdot t_j$.
+	Dies lässt sich umformen zu  
+	\[
+	\label{eq:stj}
+	\frac{(1 + \frac{4}{s})\cdot t_j}{1 - 8 \cdot \frac{t_j}{s}} \leq (1 + \epsilon) \cdot t_j. \tag{4}
+	\]
+	Insgesamt erhalten wir damit \[
+		t^* = \frac{\delta(p, q)}{|pq|} 
+		\leq t''
+		\stackrel{(\ref{eq:t''})}{\leq} \frac{(1 + \frac{4}{s})\cdot t_j}{1 - 8 \cdot \frac{t_j}{s}}
+		\stackrel{\text{(\ref{eq:stj})}}{\leq} (1 + \epsilon)\cdot t_j
+	\]
 \end{proof}
 
 Nun können wir uns dem eigentlichen Algorithmus zuwenden. Dieser lautet wie folgt:
