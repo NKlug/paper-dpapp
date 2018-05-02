@@ -144,47 +144,54 @@ Sei $t_i = \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$. Dann gilt:
 Nun können wir uns dem eigentlichen Algorithmus zuwenden. Dieser lautet wie folgt:
 
 \begin{description}
-	\item{\textbf{Schritt 1:}} Berechne $\tau$ wie oben als Approximation von $t^*$ bis auf einen Faktor von $2$.
-	\item{\textbf{Schritt 2:}} Erstelle die Liste der $t_i$ für $1 \leq i \leq m$. Setze $t_0 \coloneqq 1$ und sortiere die $t_i$ für $0 \leq i \leq m$.
-	\item{\textbf{Schritt 3:}} Entferne alle Duplikate und die Werte aus der Liste, die größer als $(1 + \epsilon)^2 \tau$ sind.
+	\item[Schritt 1:] Berechne $\tau$ wie oben als Approximation von $t^*$ bis auf einen Faktor von $2$
 	
-	Sei $L$ die übrigbleibende sortierte Liste $1 = t_0 < t_1 < \mathellipsis < t_{m'} \leq (1 + \epsilon)^2\cdot \tau$.
-	\item{\textbf{Schritt 4:}} Führe eine binäre Suche nach $t^*$ in $L$ durch.
+	\item[Schritt 2:] Berechne $S = (x_1, x_2, \mathellipsis, x_n)$ (wobei $x_i = \delta(p_1, p_i)$). 
+	Erstelle daraus den Split-Tree $T$ und eine WSPD $\{(A_i, B_i)\}_{1 \leq i \leq m}$ mit Trennungsrate $s = \frac{4 + 8(1 + \epsilon)^3 \cdot \tau}{\epsilon}$. 
+	Wähle für alle $1 \leq i \leq m$ $a_i$ und $b_i$ als feste Elemente aus $A_i$ bzw. $B_i$ und $\alpha_i$ und $\beta_i$ als die Elemente von $P$, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$ gilt.
+	
+	\item[Schritt 3:] Setze für $1 \leq i \leq m$ $t_i \coloneqq \frac{\delta(\alpha_i, \beta_i)}{|\alpha_i \beta_i|}$ und erstelle aus den $t_i$ eine Liste. Setze $t_0 \coloneqq 1$ und sortiere die $t_i$ für $0 \leq i \leq m$.
+	
+	\item[Schritt 4:] Entferne alle Duplikate und die Werte aus der Liste, die größer als $(1 + \epsilon)^2 \tau$ sind.
+	
+	Sei $L$ die übrigbleibende sortierte Liste der Größe $m'$, für die $1 = t_0 < t_1 < \mathellipsis < t_{m'} \leq (1 + \epsilon)^2\cdot \tau$ gilt.
+	
+	\item[Schritt 5:] Führe eine binäre Suche nach $t^*$ in $L$ durch.
 \end{description}
 
-Dass uns eine binäre Suche in $L$ tatsächlich einen geeigneten Wert zurückgibt, ist nicht sofort klar. Deshalb werden wir jetzt zeigen, dass die folgende Invariante während der gesamten Suche erhalten bleibt und die Gelegenheit nutzen, die Suche genauer zu beschreiben.
+Dass uns eine binäre Suche in $L$ tatsächlich einen geeigneten Wert zurückgibt, ist nicht sofort klar. Deshalb werden wir jetzt zeigen, dass die folgende Invariante während der gesamten Suche erhalten bleibt und die Gelegenheit nutzen, die Suche genauer zu beschreiben. Sei $l$ die untere Grenze des noch zu durchsuchenden Intervalls und $r$ die obere. Dann gilt:
 
-\begin{lemma}
+\begin{invariant}
 	\label{lem:invariantmdps}
 	$l$ und $r$ sind Zahlen mit $0 \leq l < r \leq m'$ und $t_l \leq t^* \leq (1 + \epsilon)\cdot t_r$.
-\end{lemma}
+\end{invariant}
 \begin{proof}
 	Wir unterscheiden drei Fälle:
 	\begin{description}[topsep=0mm, itemsep=0mm]
 		\item{Fall 1:} $l = 0$ und $r = m'$.
 		
 		Wir betrachten das $j$ aus Lemma \ref{lem:tstartj}. 
-		Da für dieses $j$ ja $t_j \leq (1 + \epsilon) \cdot t^* \leq (1 + \epsilon)^2 \cdot \tau$ gilt, kommt $t_j$ in $L$ vor. 
+		Da für dieses $j$ ja $t_j \leq (1 + \epsilon) \cdot t^* $ gilt und nach (\ref{eq:tau}) $(1 + \epsilon) \cdot t^*\leq (1 + \epsilon)^2 \cdot \tau$, kommt $t_j$ in $L$ vor. 
 		Jetzt gilt aber auch $t_l = 1 
 		\leq t^* 
 		\leq (1 + \epsilon) \cdot t_j 
 		\leq (1 + \epsilon) \cdot t_r 
-		= (1 + \epsilon)^2 \cdot \tau$, sodass in diesem Fall die Invariante erfüllt ist.
+		\leq (1 + \epsilon)^2 \cdot \tau$, sodass in diesem Fall die Invariante erfüllt ist.
 		
 		\item{Fall 2:} 
 		$l < r-1$.
 		
-		Wir wählen $h = \lfloor \frac{l + r}{2} \rfloor$. 
-		Zunächst berechnen wir die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$. 
-		Auf diese können wir Lemma \ref{lem:tstar} anwenden und überprüfen, ob $k' \leq k$ ist.
-		Ist dies der Fall, ist $t^* \leq (1 + \epsilon) \cdot t_h$. 
+		Angenommen die Invariante gilt. Dann wählen wir $h = \lfloor \frac{l + r}{2} \rfloor$. 
+		und berechnen die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$. 
+		Jetzt überprüfen wir, ob $k' \leq k$ ist und wenden Lemma \ref{lem:tstar} an.
+		Ist tatsächlich $k \leq k'$, ist $t^* \leq (1 + \epsilon) \cdot t_h$. 
 		Dann gilt aber $t_l \leq t^* \leq  (1 + \epsilon) \cdot t_h$ und wir können $r \coloneqq h$ setzen. 
 		Sonst ist $t_h < t^* \leq (1 + \epsilon)\cdot t_r$ und wir setzen $l \coloneqq h$.
 		
 		\item{Fall 3:} $l = r - 1$.
 		
-		Dann gilt zunächst $t_l \leq t^* \leq (1 + \epsilon)\cdot t_{l+1}$. 
-		Auch hier berechnen wir zunächst die zu einer $(1 + \epsilon)t_h$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$ und überprüfen, ob $k' \leq k$.
+		Dann gilt $t_l \leq t^* \leq (1 + \epsilon)\cdot t_{l+1}$. 
+		Auch hier berechnen wir zunächst die zu einer $(1 + \epsilon)t_l$-distanzerhaltenden Approximation gehörende Knotenzahl $k'$ und überprüfen, ob $k' \leq k$.
 		Ist dies der Fall, folgt aus Lemma \ref{lem:tstar}, dass $t^* \leq (1 + \epsilon)^2 \cdot t_l$ ist. 
 		Somit gilt $t_l \leq t^* \leq (1 + \epsilon)^2 \cdot t_l$ und wir geben $t_l$ zurück.
 		
@@ -202,18 +209,18 @@ Dass uns eine binäre Suche in $L$ tatsächlich einen geeigneten Wert zurückgib
 	\end{description}
 \end{proof}
 
-Lemma \ref{lem:invariantmdps} bestätigt uns also, dass uns die binäre Suche in $L$ einen solchen Wert $t$ zurückliefert, für den $t \leq t^* \leq (1 + \epsilon)^2 \cdot t$ gilt.
+Invariante \ref{lem:invariantmdps} bestätigt uns also, dass uns die binäre Suche in $L$ einen solchen Wert $t$ zurückliefert, für den $t \leq t^* \leq (1 + \epsilon)^2 \cdot t$ gilt.
 
 Betrachten wir nun noch die Laufzeit des Algorithmus.
-Zunächst berechnen wir zu einem gegebenen Kantenzug $P$ das Array $S$ in $O(n)$, und als nächstes daraus einen fairen Split-Tree $T$, was, wie wir gesehen haben, in $O(n \log n)$ möglich ist. 
+Zunächst berechnen wir zu einem gegebenen Kantenzug $P$ das Array $S$ in $O(n)$ Zeit, und als Nächstes daraus einen fairen Split-Tree $T$, was, wie wir gesehen haben, in $O(n \log n)$ Zeit möglich ist. 
 Die Berechnung von $\tau$ kostet uns dann nur noch $O(\frac{t^*}{\epsilon} \cdot n)$ Zeit. 
 Die WSPD, die als Nächstes bestimmt wird, hat eine Größe von $m = O(sn) = O(\frac{\tau}{\epsilon}n) = O(\frac{t^*}{\epsilon}n)$ und die Berechnung kostet dementsprechend auch $O(\frac{t^*}{\epsilon}n)$ Zeit. 
-Da außerdem $m \leq n^2$ ist, kann das Sortieren der $t_i$, die wir aus der WSPD erhalten, bekanntermaßen in $O(m \log m) = O(\frac{t^*}{\epsilon}n \cdot \log n)$ geschehen. 
-Das Aussortieren der unbrauchbaren Werte ist offensichtlich in Linearzeit zu bewerkstelligen. 
+Da außerdem $m \leq n^2$ ist, kann das Sortieren der $t_i$, die wir aus der WSPD erhalten, bekanntermaßen in $O(m \log m) = O(\frac{t^*}{\epsilon}n \cdot \log n)$ Zeit geschehen. 
+Das Aussortieren der unbrauchbaren Werte ist offensichtlich in Linearzeit in $m$ zu bewerkstelligen. 
 
-Die binärer Suche macht $O(\log m) = O(\log n)$ Iterationen. 
+Die binärer Suche macht $O(\log m') = O(\log m) = O(\log n)$ Iterationen. 
 In jeder dieser Iterationen führen wir mit gegebenem Split-Tree den im Beweis von Satz \ref{theo:mvpstime} angegebenen Algorithmus mit einer Eingabegröße $t_h \leq (1 + \epsilon)^2 \cdot \tau = O(t^*)$ aus. 
-Dies führt uns zu einer Laufzeit von $O(\frac{t^*}{\epsilon}n)$ pro Durchführung, und für die gesamte binäre Suche haben wir $O(\frac{t^*}{\epsilon}n \cdot \log n)$.
+Dies führt uns zu einer Laufzeit von $O(\frac{t^*}{\epsilon}n)$ pro Durchführung, und für die gesamte binäre Suche erhalten wir $O(\frac{t^*}{\epsilon}n \cdot \log n)$ Zeit.
 
 Nun können wir noch einen kleinen Trick anwenden: Verwenden wir im gesamten Algorithmus nicht $\epsilon$, sonder stattdessen $\frac{\epsilon}{3}$, erhalten wir als Ergebnis ein $t$ mit $t \leq t^* \leq (1 + \frac{\epsilon}{3})^2 \cdot t \leq (1 + \epsilon)\cdot t$. Das können wir festhalten:
 
