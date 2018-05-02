@@ -25,7 +25,8 @@
 	
 	Da $G_t$ maximal $O(n^2)$ Kanten enthält, gibt es eine endliche Zahl von $t$-Werten, die eine Approximation von $P$ exakt annehmen kann (das sind nämlich genau die Abweichungen der Kanten aus $G_t$ von $P$). 
 	Wir müssen also nur noch aus diesen Werten den geringsten Wert $t^*$ ermitteln, für den eine $t^*$-distanzerhaltende Approximation existiert, die gerade noch $k$ Knoten oder weniger hat. 
-	Dazu definieren wir zunächst $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$ für $1\leq i < j \leq n$ als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. 
+	Dazu definieren wir zunächst $t^*_{ij} \coloneqq\frac{\delta(p_i, p_j)}{|p_i p_j|}$ für $1\leq i < j \leq n$ als die Abweichung der Kante $(p_i, p_j)$ vom Pfad. 
+	Sei nun $M\coloneqq\{t^*_{ij}\ |\ 1\leq i < j \leq n\}$. 
 	Wir wissen, dass $t^* \in M$, da die gesuchte Approximation eine Kante mit maximalem $t$-Wert hat, und in $M$ gerade alle für diese Kante möglichen Werte enthalten sind. 
 	Aus Lemma \ref{lem:kappa} wissen wir außerdem, dass die $\kappa_t$ monoton fallen, wenn die $t$-Werte monoton wachsen. 
 	Sortieren wir jetzt $M$ zu $M'$, können wir in $M'$ nach $t^*$ suchen. Da $M$ $O(n^2)$ Elemente enthält, können wir $M$ bekanntermaßen (siehe \cite{hagerup}) in $O(n^2\log n^2)=O(n^2\log n)$ sortieren. 
