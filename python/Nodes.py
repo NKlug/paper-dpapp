@@ -21,14 +21,11 @@ class TreeNode(object):
 
     def to_string(self, level=0):
         result = ""
-        name = self.name
         if self.left is not None:
             result += self.right.to_string(level + 1) + "\n"
 
-        if isinstance(self.name, (float, int)):
-            name = int(self.name)
+        result += "\t" * level + self.adjusted_interval()
 
-        result += "\t" * level + repr(name)
         if self.right is not None:
             result += "\n" + self.left.to_string(level + 1)
 
@@ -38,8 +35,8 @@ class TreeNode(object):
         # TODO
         pass
 
+    def adjusted_interval(self):
+        return str((self.interval[0]+1, self.interval[1] + 1))
+
     def __repr__(self):
-        name = self.name
-        if isinstance(name, (float, int)):
-            name = int(name)
-        return str(name)
+        return str(self.interval)
