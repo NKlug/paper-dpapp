@@ -21,7 +21,8 @@
 \usepackage{graphicx}
 \usepackage[font=small]{caption}
 \usepackage[modulo]{lineno}
-%\usepackage{hyperref} % Makes citations clickable
+\usepackage{color}
+\usepackage[hidelinks]{hyperref} % Makes citations clickable
 
 
 \newcommand{\R}{\mathbb{R}}
@@ -29,6 +30,10 @@
 \renewcommand{\baselinestretch}{1.15} % line distance
 \renewcommand{\proofname}{\Beweis} % name proofs 'Beweis'
 \addto\captionsgerman{\renewcommand{\figurename}{Abb.}} % name figures 'Abb.' (change it for babel)
+
+%\hypersetup{
+%	colorlinks=false	
+%}
 
 \setitemize{itemsep=0mm} % itemize line distance
 \setenumerate{label=(\arabic*),itemsep=0mm} % enumerate labeling and line distance
@@ -47,7 +52,7 @@
 \date{Sommersemester 2018
 	\\ Universität Augsburg
 	\\ Seminar Algorithmen und Datenstrukturen
-	}
+}
 
 
 % Document
@@ -95,6 +100,6 @@
 	    \bibliographystyle{plain}
     
 	\end{linenumbers}
-
+	
 
 \end{document}
