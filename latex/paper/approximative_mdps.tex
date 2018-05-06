@@ -56,7 +56,7 @@ Bei gegebenem $T$ dauert die Lösung des MVPS-Problems für $t$ und $\epsilon$ m
 Im obigen Algorithmus wird Schritt 2 $O(\log \tau)$ mal ausgeführt, da $\tau$ ja bei jeder Iteration verdoppelt wird.
 Die Laufzeit für die Approximation von $t^*$ bei gegebenem Split-Tree $T$ ist damit die Folgende:
 \[
-O(\sum_{i=1}^{\log \tau} (\frac{2^i}{\epsilon}\cdot n))
+O(\sum_{i=1}^{\log_2 \tau} (\frac{2^i}{\epsilon}\cdot n))
 = O(\frac{\tau}{\epsilon}\cdot n)
 = O(\frac{t^*}{\epsilon}\cdot n).
 \]
