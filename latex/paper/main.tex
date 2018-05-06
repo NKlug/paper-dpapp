@@ -40,7 +40,6 @@
 \newtheorem{corollary}[theorem]{Korollar}
 \newtheorem{invariant}[theorem]{Invariante}
 
-\linenumbers
 
 % Headline
 \title{Distanzerhaltende Approximation von Kantenzügen}
@@ -61,43 +60,41 @@
         Diese Arbeit stellt exakte und approximative Algorithmen vor, um $Q$ so zu berechnen, dass $Q$ für festes $t$ die minimale Zahl von Knoten besitzt oder für eine feste Knotenzahl minimales $t$ hat.
     \end{abstract}
 
-    \section{Einführung und Definitionen}
-    \label{sec:intro}
-	\input{introduction}
-
-    \section{Exakte Algorithmen für MVPS und MDPS}
-    \label{sec:exact}
-    \input{exact_algorithms}
-    
-    \section{Approximative Algorithmen}
-    \label{sec:approximative}
-    
-    Die beiden approximativen Algorithmen, die wir betrachten werden, basieren auf der sogenannten Zerlegung in wohl-separierte Paare. Dabei werden im weitesten Sinne die Punkte des Kantenzugs in verschiedenen Mengen zusammengefasst, die bestimmte Eigenschaften haben. Da diese Zerlegung einen wesentlichen Teil beider Algorithmen ausmacht, werden wir sie zunächst genauer definieren und einen Algorithmus zu ihrer Berechnung angeben.
-
-    \subsection{Well-separated Pair Decomposition}
-    \label{subsec:wspd}
-    \input{wspd}
-    
-    \subsection{Algorithmus für das MVPS-Problem}
-    \label{subsec:mvps}
-	\input{approximative_mvps}
-    
-    \subsection{Algorithmus für das MDPS-Problem}
-    \label{subsec:mdps}
-	\input{approximative_mdps}
+	\begin{linenumbers}
+				
+	    \section{Einführung und Definitionen}
+	    \label{sec:intro}
+		\input{introduction}
 	
-	\section{Fazit}
-    \label{sec:fazit}
-	\input{conclusion}
-
-    \bibliography{main}
-    \bibliographystyle{plain}
+	    \section{Exakte Algorithmen für MVPS und MDPS}
+	    \label{sec:exact}
+	    \input{exact_algorithms}
+	    
+	    \section{Approximative Algorithmen}
+	    \label{sec:approximative}
+	    
+	    Die beiden approximativen Algorithmen, die wir betrachten werden, basieren auf der sogenannten Zerlegung in wohl-separierte Paare. Dabei werden im weitesten Sinne die Punkte des Kantenzugs in verschiedenen Mengen zusammengefasst, die bestimmte Eigenschaften haben. Da diese Zerlegung einen wesentlichen Teil beider Algorithmen ausmacht, werden wir sie zunächst genauer definieren und einen Algorithmus zu ihrer Berechnung angeben.
+	
+	    \subsection{Well-separated Pair Decomposition}
+	    \label{subsec:wspd}
+	    \input{wspd}
+	    
+	    \subsection{Algorithmus für das MVPS-Problem}
+	    \label{subsec:mvps}
+		\input{approximative_mvps}
+	    
+	    \subsection{Algorithmus für das MDPS-Problem}
+	    \label{subsec:mdps}
+		\input{approximative_mdps}
+		
+		\section{Fazit}
+	    \label{sec:fazit}
+		\input{conclusion}
+	
+	    \bibliography{main}
+	    \bibliographystyle{plain}
     
-    \begin{figure}
-		\makebox[\textwidth][c]{\includegraphics[width=1.1\textwidth]{split_tree}}
-		\caption{Fairer Split-Tree für die Menge $S=[0.0, 5.0, 9.1, 17.2, 32.2, 37.6, 44.3, 54.3, 67.9, 81.0, 95.4, 96.4, 141.5]$. Die Knoten des Baumes sind damit dem Intervall beschriftet, das mit ihnen gespeichert ist.}
-		\label{fig:splittree}
-    \end{figure}
+	\end{linenumbers}
 
 
 \end{document}

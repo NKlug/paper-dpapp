@@ -51,6 +51,13 @@ Für jeden inneren Knoten $k$, also für jeden Knoten, der kein Blatt ist, wird 
 Die Wurzel speichert also zum Beispiel das Intervall $[1, n]$ und das $i$-te Blatt das Intervall $[i, i]$.
 Da $T$ $n$ Blätter hat, erstellen wir insgesamt $O(n)$ Knoten. 
 Dabei müssen wir aber für die Bestimmung von $k$ jedes Mal eine Binärsuche durchführen, die $O(\log n)$ Zeit kostet. 
+
+\begin{figure}
+   	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{split_tree}}
+   	\caption{Fairer Split-Tree für die Menge $S=[0.0, 5.0, 9.1, 17.2, 32.2, 37.6, 44.3, 54.3, 67.9, 81.0, 95.4, 96.4, 141.5]$. Die Knoten des Baumes sind mit dem Intervall beschriftet, das mit ihnen gespeichert ist.}
+   	\label{fig:splittree}
+\end{figure}
+
 Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
 Betrachten wir jetzt zwei innere Knoten $p$ und $q$ von T. Seien $[i, j]$ und $[k, l]$ die Intervalle, die wir mit $p$ und $q$ gespeichert haben und 
 \[
