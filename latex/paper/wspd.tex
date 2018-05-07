@@ -37,7 +37,7 @@ Das folgende Lemma hält zwei wichtige Eigenschaften von zwei bezüglich $s$ woh
 Die WSPD bildet eine wichtige Grundlage für die beiden Algorithmen, die wir im Folgenden betrachten werden. 
 Callahan und Kosaraju haben in \cite{callahan} gezeigt, dass man zu einer gegebenen Menge $L \subset \R^d$ der Größe $n$ eine WSPD  der Größe $m = O(s^dn)$ in $O(n\log n + s^dn)$ Zeit berechnen kann. 
 Dabei wird zunächst in $O(n \log n)$ ein sogenannter \emph{(fairer) Split-Tree} berechnet. 
-Bei diesem handelt es sich um einen binären Baum, in dessen Blättern die Werte der Grundmenge $S$ in von links nach rechts aufsteigend sortierter Reihenfolge gespeichert sind. 
+Bei diesem handelt es sich um einen binären Baum, in dessen Blättern die Werte der Grundmenge $S$ in von links nach rechts aufsteigend sortierter Reihenfolge gespeichert sind (Abb. \ref{fig:splittreeex}). 
 Aus dem Split-Tree kann dann in $O(s^dn)$ Zeit eine WSPD erstellt werden. 
 Wir werden sehen, dass es für unsere Anwendung genügt, eine WSPD für Mengen von Punkten aus $\R$ zu erstellen. 
 Für diesen eindimensionalen Fall kann ein fairer Split-Tree mit Hilfe eines einfachen Algorithmus berechnet werden (Abb. \ref{fig:splittree}).
@@ -55,7 +55,7 @@ Dabei müssen wir aber für die Bestimmung von $k$ jedes Mal eine Binärsuche du
 \begin{figure}
    	\makebox[\textwidth][c]{\includegraphics[width=1\textwidth]{split_tree}}
    	\caption{Fairer Split-Tree für die Menge $S=[0.0, 5.0, 9.1, 17.2, 32.2, 37.6, 44.3, 54.3, 67.9, 81.0, 95.4, 96.4, 141.5]$. Die Knoten des Baumes sind mit dem Intervall beschriftet, das mit ihnen gespeichert ist.}
-   	\label{fig:splittree}
+   	\label{fig:splittreeex}
 \end{figure}
 
 Somit ergibt sich für das Erstellen von $T$ eine Gesamtlaufzeit von $O(n\log n)$.
