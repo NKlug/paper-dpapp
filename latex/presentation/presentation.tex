@@ -14,6 +14,7 @@
 
 
 \usetheme{CambridgeUS}
+\setbeamertemplate{enumerate items}[default]
 
 %\newtheorem{definition}{Definition}
 %\newtheorem{theorem}{Satz}
@@ -41,7 +42,7 @@
 			\includegraphics<3>[height=0.8\textheight]{maps_zoom3.png}
 			\includegraphics<4>[height=0.8\textheight]{maps_zoom4.png}
 
-			\caption{Grenze zwischen Deutschland und Österreich. Quelle: \emph{Google Maps}, erstellt am 8. Mai 2018, \href{https://www.google.de/maps/@47.5869372,11.6674982,9.06z}{https://www.google.de/maps/@47.5869372,11.6674982,9.06z}}
+			\caption{\tiny{Grenze zwischen Deutschland und Österreich. Quelle: \emph{Google Maps}, Stand 8. Mai 2018, \href{https://www.google.de/maps/@47.5869372,11.6674982,9.06z}{https://www.google.de/maps/@47.5869372,11.6674982,9.06z}}}
 		\end{figure}
 		
 	\end{frame}
@@ -64,7 +65,7 @@
 			\item<1-> $|p_ip_j|$ ist die euklidische Distanz zwischen $p_i$ und $p_j$.
 			\item<2->$\delta(p_i, p_j)~\coloneqq~\sum\limits_{k=i}^{j-1}{|p_kp_{k+1}|}$ ist die Distanz entlang des Pfades.
 		\end{itemize}
-		\onslide<3->\begin{definition}
+		\begin{definition}<3->
 			Seien $t \in \mathbb{R}$, $t \geq 1$ und $p_i, p_j \in P$. 
 			Dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_j) \leq t \cdot |p_ip_j|$.
 		\end{definition}
@@ -72,21 +73,37 @@
 	\end{frame}
 	
 	\begin{frame}
+		\centering
+		$(p_i, p_j)$ \emph{$t$-distanzerhaltend} $\Leftrightarrow$ $\delta(p_i, p_j) \leq t \cdot |p_ip_j|$.
+		\vspace{0.5cm}
 		\begin{figure}
 			\centering
 			\begin{subfigure}{.5\textwidth}
 				\centering
-				\includegraphics[width=.75\linewidth]{t_distance_preserving_edge.png}
+				\includegraphics[width=0.95\linewidth]{t_distance_preserving_edge_len.png}
 				\caption{$t$-distanzerhaltend}
 
 			\end{subfigure}%
 			\begin{subfigure}{.5\textwidth}
 				\centering
-				\includegraphics[width=.75\linewidth]{not_t_distance_preserving_edge.png}
+				\includegraphics[width=0.95\linewidth]{not_t_distance_preserving_edge_len.png}
 				\caption{nicht $t$-distanzerhaltend}
 			\end{subfigure}
-			\caption{ (nicht) $t$-distanzerhaltende Kanten für $t = 1.1$}
+			\caption{ (nicht) $t$-distanzerhaltende Kanten für $t = 1.2$}
 		\end{figure}
+	\end{frame}
+	
+	\begin{frame}{Definition $t$-distanzerhaltende Approximation}
+		\begin{definition}
+			Ein Kantenzug $Q = (p_{i_1}, p_{i_2}, \mathellipsis, p_{i_k})$ ist genau dann eine \emph{$t$-distanzerhaltende Approximation von $P = (p_1, p_2, \mathellipsis, p_n)$}, wenn beide der folgenden Bedingungen gelten.
+			\begin{enumerate}
+				\item $\displaystyle 1 = i_1 < i_2 < \mathellipsis < i_k = n$.
+				\item $\displaystyle \text{Für alle } 1 \leq l < k \text{ ist die Kante } (p_{i_l}, p_{i_{l+1}})$ des Kantenzugs $t$-distanzerhaltend.
+			\end{enumerate}
+		\end{definition}
+	\begin{figure}
+		\includegraphics[width=\textwidth]{approximation_example.png}
+	\end{figure}
 	\end{frame}
 	
 	\begin{frame}{Problemspezifikation}
@@ -96,7 +113,6 @@
 		\begin{definition}[Minimum-Dilation-Path-Simplification]
 			Liegt ein polygonaler Kantenzug $P$ und eine natürliche Zahl $k$ vor, soll der kleinste Wert $t$ bestimmt werden, für den eine $t$-distanzerhaltende Approximation von $P$ mit maximal $k$ Knoten existiert.
 		\end{definition}
-		
 
 	\end{frame}
 	
