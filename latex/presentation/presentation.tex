@@ -4,9 +4,24 @@
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{pdfpages}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage[font=footnotesize, justification=centering]{caption}
+\usepackage{subcaption}
+
 
 \usetheme{CambridgeUS}
 
+%\newtheorem{definition}{Definition}
+%\newtheorem{theorem}{Satz}
+%\newtheorem{lemma}{Lemma}
+
+\captionsetup{font=small, justification=centering}
+\graphicspath{{../../images/}}
+\addto\captionsgerman{\renewcommand{\figurename}{}} % name figures 'Abb.' (change it for babel)
 
 \title[Distanzerhaltende Approximation]{Distanzerhaltende Approximation von Kantenzügen}
 \author[N. Klug]{Nikolas Klug}
@@ -17,30 +32,75 @@
 \begin{document}
 	\frame{\titlepage}
 	
-	\begin{frame}{Einführung in die Problemstellung}
-		z.B. Google-maps bilder
+	\section{Einführung in die Problemstellung}
+	\begin{frame}
+
+		\begin{figure}
+			\includegraphics<1>[height=0.8\textheight]{maps_zoom1.png}
+			\includegraphics<2>[height=0.8\textheight]{maps_zoom2.png}
+			\includegraphics<3>[height=0.8\textheight]{maps_zoom3.png}
+			\includegraphics<4>[height=0.8\textheight]{maps_zoom4.png}
+
+			\caption{Grenze zwischen Deutschland und Österreich. Quelle: \emph{Google Maps}, erstellt am 8. Mai 2018, \href{https://www.google.de/maps/@47.5869372,11.6674982,9.06z}{https://www.google.de/maps/@47.5869372,11.6674982,9.06z}}
+		\end{figure}
 		
 	\end{frame}
 	
-	\begin{frame}{Beispiel Approximation}
-		Was soll das Ergebnis sein?
+	\begin{frame}{Definition Kantenzug}
+
+		\centering
+		\includegraphics[height=0.5\textheight]{raw_path.png}
 		
-		Bild aus Arbeit
-		
-		 + Ergebnis des Beispiels
+		\begin{definition}
+			Sei $n, d \in \mathbb{N}$ und für $1 \leq i \leq n$ $p_i \in \mathbb{R}^d$.
+			Ein \emph{(polygonaler) Kantenzug} $P = (p_1, p_2, \mathellipsis, p_n)$ ist eine Aneinanderreihung von Geradensegmenten, die für $1 \leq i < n$ jeweils die Punkte $p_i$ und $p_{i+1}$ verbinden. 
+
+		\end{definition}
 	\end{frame}
 	
-	\begin{frame}{Definition t-distanzerhaltend / t-distanzerhaltende Approximation}
-		\includepdf[pages={1}]{split_tree_example.pdf}
+	\begin{frame}{Definition $t$-distanzerhaltend}
+		Sei $P = (p_1, \mathellipsis, p_n)$ ein Kantenzug und $p_i, p_j \in P$.
+		\begin{itemize}
+			\item<1-> $|p_ip_j|$ ist die euklidische Distanz zwischen $p_i$ und $p_j$.
+			\item<2->$\delta(p_i, p_j)~\coloneqq~\sum\limits_{k=i}^{j-1}{|p_kp_{k+1}|}$ ist die Distanz entlang des Pfades.
+		\end{itemize}
+		\onslide<3->\begin{definition}
+			Seien $t \in \mathbb{R}$, $t \geq 1$ und $p_i, p_j \in P$. 
+			Dann ist die Kante $(p_i, p_j)$ genau dann \emph{$t$-distanzerhaltend}, wenn $\delta(p_i, p_j) \leq t \cdot |p_ip_j|$.
+		\end{definition}
 		
+	\end{frame}
+	
+	\begin{frame}
+		\begin{figure}
+			\centering
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.75\linewidth]{t_distance_preserving_edge.png}
+				\caption{$t$-distanzerhaltend}
+
+			\end{subfigure}%
+			\begin{subfigure}{.5\textwidth}
+				\centering
+				\includegraphics[width=.75\linewidth]{not_t_distance_preserving_edge.png}
+				\caption{nicht $t$-distanzerhaltend}
+			\end{subfigure}
+			\caption{ (nicht) $t$-distanzerhaltende Kanten für $t = 1.1$}
+		\end{figure}
 	\end{frame}
 	
 	\begin{frame}{Problemspezifikation}
-		Definition MVPS
+		\begin{definition}[Minimum-Vertex-Path-Simplification]
+			Liegt ein polygonaler Kantenzug $P$ und eine reelle Zahl $t \geq 1$ vor, soll eine kürzeste $t$-distanzerhaltende Approximation von $P$ berechnet werden.
+		\end{definition}
+		\begin{definition}[Minimum-Dilation-Path-Simplification]
+			Liegt ein polygonaler Kantenzug $P$ und eine natürliche Zahl $k$ vor, soll der kleinste Wert $t$ bestimmt werden, für den eine $t$-distanzerhaltende Approximation von $P$ mit maximal $k$ Knoten existiert.
+		\end{definition}
 		
-		Definition MDPS
+
 	\end{frame}
 	
+	\section{Exakte Algorithmen}
 	\begin{frame}{Exakter Algorithmus MVPS}
 		Konstruktion des Graphen
 		
