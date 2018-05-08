@@ -53,3 +53,4 @@ def get_all_dilations(path, S):
         for j in range(i + 2, len(path)):
             result.append(delta(i, j, S) / euclidean_distance(path[i], path[j]))
     return sorted(result)
+

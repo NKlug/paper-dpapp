@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 
 import python.plots as plots
 
-t = 1.1
+t = 1.2
 epsilon = 0.05
 s = (12 + 24 * (1 + epsilon / 3) * t) / epsilon
 path = [
@@ -26,14 +26,12 @@ path = [
 ]
 n = len(path)
 
-S = util.flatten_path(path)
 
-
-def plot_shortest_path(path):
-    x_list = [path[0].x, path[2].x, path[4].x, path[6].x, path[7].x, path[8].x, path[9].x, path[11].x]
-    y_list = [path[0].y, path[2].y, path[4].y, path[6].y, path[7].y, path[8].y, path[9].y, path[11].y]
+def plot_shortest_path(path, indices):
+    x_list = [path[i].x for i in indices]
+    y_list = [path[i].y for i in indices]
     line = plt.plot(x_list, y_list)
-    plt.setp(line, color='red', linewidth=3)
+    plt.setp(line, color='lightgreen', linewidth=2)
 
 
 def print_edges(edges):
@@ -41,16 +39,36 @@ def print_edges(edges):
         print(e)
 
 
-dil = util.get_all_dilations(path, S)
+def print_edge_lengths(path, S):
+    for i in range(len(path) - 1):
+        print("Edge between " + path[i].name + " and " + path[i + 1].name + ":\t" + str(S[i + 1] - S[i]))
 
+
+def plot_edge_lengths():
+    plots.plot_points(path, [0, 4], 'red')
+    plots.plot_text_on_edge(path[0], path[1], round(S[1], 1), (-1.5, -1.5))
+    plots.plot_text_on_edge(path[1], path[2], round(S[2] - S[1], 1), (0.15, -1))
+    plots.plot_text_on_edge(path[2], path[3], round(S[3] - S[2], 1), (0, -1.5))
+    plots.plot_text_on_edge(path[3], path[4], round(S[4] - S[3], 1), (0.8, -0.3))
+    plots.plot_text_on_edge(path[0], path[4], round(util.euclidean_distance(path[0], path[4]), 1), (-1, 1))
+
+
+S = util.flatten_path(path)
 edges = util.get_t_distance_preserving_edges(path, t, S)
-edges_epsilon = util.get_t_epsilon_distance_preserving_edges(path, t, epsilon, S)
+# edges_epsilon = util.get_t_epsilon_distance_preserving_edges(path, t, epsilon, S)
+
+# print_edge_lengths(path, S)
+# print("Euclidean:\t" + str(util.euclidean_distance(path[0], path[4])))
+# print("Euclidean*t:\t" + str(util.euclidean_distance(path[2], path[4])*1.1))
+# print("delta: \t" + str((S[4]-S[2])))
 
 plots.plot_path(path)
+
 # plots.plot_edges(edges_epsilon, 'green')
-plots.plot_edges(edges, 'orange')
-# plot_shortest_path(path)
-# plots.plot_points(path, [0, 4], 'red')
+# plots.plot_edges(edges, 'orange')
+plot_shortest_path(path, [0, 2, 4, 6, 7, 8, 9, 11, 12])
+
+
 plt.show()
 
 T = SplitTree.compute_split_tree(S, 0, n - 1)
