@@ -41,6 +41,8 @@ def print_edges(edges):
         print(e)
 
 
+dil = util.get_all_dilations(path, S)
+
 edges = util.get_t_distance_preserving_edges(path, t, S)
 edges_epsilon = util.get_t_epsilon_distance_preserving_edges(path, t, epsilon, S)
 
@@ -48,9 +50,9 @@ plots.plot_path(path)
 # plots.plot_edges(edges_epsilon, 'green')
 plots.plot_edges(edges, 'orange')
 # plot_shortest_path(path)
+# plots.plot_points(path, [0, 4], 'red')
 plt.show()
 
-print(S)
 T = SplitTree.compute_split_tree(S, 0, n - 1)
-print(T.to_string())
-# # WSPD.compute_wspd(T, S, s)
+# print(T.to_string())
+# WSPD.compute_wspd(T, S, s)
