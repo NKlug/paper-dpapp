@@ -2,6 +2,10 @@ from scipy.spatial import distance
 from python.Edge import Edge
 
 
+def get_path_edges(path):
+    return [Edge(path[i], path[i + 1]) for i in range(len(path) - 1)]
+
+
 def get_t_distance_preserving_edges(path, t, distances):
     result = []
     for i in range(len(path)):
@@ -53,4 +57,3 @@ def get_all_dilations(path, S):
         for j in range(i + 2, len(path)):
             result.append(delta(i, j, S) / euclidean_distance(path[i], path[j]))
     return sorted(result)
-

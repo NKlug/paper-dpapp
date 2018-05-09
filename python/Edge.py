@@ -1,5 +1,6 @@
 from scipy.spatial import distance
 
+
 class Edge(object):
 
     def __init__(self, tail, head):
@@ -12,3 +13,6 @@ class Edge(object):
 
     def __str__(self):
         return "(" + str(self.tail.name) + ", " + str(self.head.name) + ")"
+
+    def __repr__(self):
+        return str(self)

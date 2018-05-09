@@ -1,8 +1,10 @@
 from python.Nodes import PathNode
 import python.split_tree as SplitTree
 import python.wspd as WSPD
+import python.bfs as bfs
 import python.util as util
 import matplotlib.pyplot as plt
+import numpy as np
 
 import python.plots as plots
 
@@ -10,28 +12,28 @@ t = 1.2
 epsilon = 0.05
 s = (12 + 24 * (1 + epsilon / 3) * t) / epsilon
 path = [
-    PathNode('a', 0, 15),
-    PathNode('b', 4, 12),
-    PathNode('c', 8, 13),
-    PathNode('d', 16, 12),
-    PathNode('e', 25, 24),
-    PathNode('f', 27, 19),
-    PathNode('g', 24, 13),
-    PathNode('h', 34, 13),
-    PathNode('i', 38, 0),
-    PathNode('j', 51, 2),
-    PathNode('k', 54, 16),
-    PathNode('l', 55, 16),
-    PathNode('m', 100, 20)
+    PathNode(1, 0, 15),
+    PathNode(2, 4, 12),
+    PathNode(3, 8, 13),
+    PathNode(4, 16, 12),
+    PathNode(5, 25, 24),
+    PathNode(6, 27, 19),
+    PathNode(7, 24, 13),
+    PathNode(8, 34, 13),
+    PathNode(9, 38, 0),
+    PathNode(10, 51, 2),
+    PathNode(11, 54, 16),
+    PathNode(12, 55, 16),
+    PathNode(13, 100, 20)
 ]
 n = len(path)
 
 
-def plot_shortest_path(path, indices):
+def plot_approximation(path, indices):
     x_list = [path[i].x for i in indices]
     y_list = [path[i].y for i in indices]
     line = plt.plot(x_list, y_list)
-    plt.setp(line, color='lightgreen', linewidth=3)
+    plt.setp(line, color='green', linewidth=5)
 
 
 def print_edges(edges):
@@ -54,7 +56,10 @@ def plot_edge_lengths():
 
 
 S = util.flatten_path(path)
-edges = util.get_t_distance_preserving_edges(path, t, S)
+t_edges = util.get_t_distance_preserving_edges(path, t, S)
+all_edges = util.get_path_edges(path) + t_edges
+
+adjacency_list = bfs.create_adjacency_list(path, all_edges)
 # edges_epsilon = util.get_t_epsilon_distance_preserving_edges(path, t, epsilon, S)
 
 # print_edge_lengths(path, S)
@@ -62,13 +67,11 @@ edges = util.get_t_distance_preserving_edges(path, t, S)
 # print("Euclidean*t:\t" + str(util.euclidean_distance(path[2], path[4])*1.1))
 # print("delta: \t" + str((S[4]-S[2])))
 
+shortest_path = bfs.shortest_path(adjacency_list, 1, n)
 plots.plot_path(path, 5)
-
 # plots.plot_edges(edges_epsilon, 'green')
-plots.plot_edges(edges, 'orange')
-# plot_shortest_path(path, [0, 2, 4, 6, 7, 8, 9, 11, 12])
-
-
+plots.plot_edges(t_edges, 'orange')
+plot_approximation(path, np.array(shortest_path) - 1)
 plt.show()
 
 T = SplitTree.compute_split_tree(S, 0, n - 1)

@@ -17,7 +17,7 @@
 \setbeamertemplate{enumerate items}[default]
 
 %\newtheorem{definition}{Definition}
-%\newtheorem{theorem}{Satz}
+\newtheorem{thm}{Satz}
 %\newtheorem{lemma}{Lemma}
 
 \captionsetup{font=small, justification=centering}
@@ -50,7 +50,7 @@
 	\begin{frame}{Definition Kantenzug}
 
 		\centering
-		\includegraphics[height=0.5\textheight]{raw_path.png}
+		\includegraphics[height=0.6\textheight]{raw_path.png}
 		
 		\begin{definition}
 			Sei $n, d \in \mathbb{N}$ und für $1 \leq i \leq n$ $p_i \in \mathbb{R}^d$.
@@ -108,7 +108,7 @@
 	
 	\begin{frame}{Problemspezifikation}
 		\begin{definition}[Minimum-Vertex-Path-Simplification]
-			Liegt ein polygonaler Kantenzug $P$ und eine reelle Zahl $t \geq 1$ vor, soll eine kürzeste $t$-distanzerhaltende Approximation von $P$ berechnet werden.
+			Liegt ein polygonaler Kantenzug $P$ und eine reelle Zahl $t \geq 1$ vor, soll eine minimale $t$-distanzerhaltende Approximation von $P$ berechnet werden.
 		\end{definition}
 		\begin{definition}[Minimum-Dilation-Path-Simplification]
 			Liegt ein polygonaler Kantenzug $P$ und eine natürliche Zahl $k$ vor, soll der kleinste Wert $t$ bestimmt werden, für den eine $t$-distanzerhaltende Approximation von $P$ mit maximal $k$ Knoten existiert.
@@ -117,19 +117,49 @@
 	\end{frame}
 	
 	\section{Exakte Algorithmen}
-	\begin{frame}{Exakter Algorithmus MVPS}
-		Konstruktion des Graphen
-		
-		+ Bild von Beispiel
-		
+	\subsection{MVPS}
+	\begin{frame}{Exakter Algorithmus für das MVPS-Problem}
+		Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug und $t \geq 1$.
+		\begin{description}
+			\item[Schritt 1:]<1-> Konstruktion des Graphen $G_t = (V, E_t)$, wobei:
+			\begin{itemize}
+				\setlength{\itemindent}{-1.3cm}
+				\item $V = \{p_1, \mathellipsis, p_n\}$
+				\item $E_t = \{(p_i, p_j) \in V\times V|\ i < j\ \text{und}\ (p_i,p_j)\ \text{ist $t$-distanzerhaltend}\}$
+			\end{itemize}
+			\item[Schritt 2:]<3-> Bestimmen eines kürzesten Pfades in $G_t$ von $p_1$ nach $p_n$
+		\end{description}
+		\uncover<2->{
+			\begin{figure}
+				\begin{overprint}
+					\onslide<2-3>\includegraphics[width=\textwidth]{path_t_distance_preserving_edges_cropped.png}
+					\onslide<4->\includegraphics[width=\textwidth]{shortest_path_with_t_edges.png}
+				\end{overprint}
+				\begin{overprint}
+					\onslide<2-3>\caption{$G_t$ für $t = 1.2$}
+					\onslide<4->\caption{Kürzester Pfad in $G_t$}
+				\end{overprint}
+			\end{figure}}
 	\end{frame}
 	
-	\begin{frame}{Exakter Algorithmus MVPS}
-		Breitensuche zur Lösung des SSSP-Problems
-		
-		+ eingezeichneter kürzester Pfad im Beispiel
-		
-		Frage ans Publikum: Algorithmen zur Lösung des SSSP-Problems
+	\begin{frame}{Laufzeit}
+		\begin{columns}
+			\begin{column}{0.6\linewidth}
+				\begin{description}
+					\item[Schritt 1:]<1-> Konstruktion des Graphen $G_t$
+					\item[Schritt 2:]<2-> Breitensuche
+				\end{description}
+			\end{column}
+			\begin{column}{0.5\linewidth}
+				\begin{description}
+					\item[]<1-> $O(n^2)$
+					\item[]<2-> $O(n + m) = O(n^2)$
+				\end{description}
+			\end{column}
+		\end{columns}
+		\begin{thm}<3->
+			Das Minimum-Vertex-Path-Simplification Problem kann für Kantenzüge mit $n$ Knoten in $O(n^2)$ Zeit gelöst werden.
+		\end{thm}
 	\end{frame}
 	
 	\begin{frame}{Exakter Algorithmus MVPS}
