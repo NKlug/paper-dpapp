@@ -31,7 +31,7 @@ def plot_shortest_path(path, indices):
     x_list = [path[i].x for i in indices]
     y_list = [path[i].y for i in indices]
     line = plt.plot(x_list, y_list)
-    plt.setp(line, color='lightgreen', linewidth=2)
+    plt.setp(line, color='lightgreen', linewidth=3)
 
 
 def print_edges(edges):
@@ -62,11 +62,11 @@ edges = util.get_t_distance_preserving_edges(path, t, S)
 # print("Euclidean*t:\t" + str(util.euclidean_distance(path[2], path[4])*1.1))
 # print("delta: \t" + str((S[4]-S[2])))
 
-plots.plot_path(path)
+plots.plot_path(path, 5)
 
 # plots.plot_edges(edges_epsilon, 'green')
-# plots.plot_edges(edges, 'orange')
-plot_shortest_path(path, [0, 2, 4, 6, 7, 8, 9, 11, 12])
+plots.plot_edges(edges, 'orange')
+# plot_shortest_path(path, [0, 2, 4, 6, 7, 8, 9, 11, 12])
 
 
 plt.show()
