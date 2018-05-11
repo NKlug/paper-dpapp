@@ -20,6 +20,7 @@
 \newtheorem{thm}{Satz}
 %\newtheorem{lemma}{Lemma}
 
+\renewcommand{\proofname}{Beweis}
 \captionsetup{font=small, justification=centering}
 \graphicspath{{../../images/}}
 \addto\captionsgerman{\renewcommand{\figurename}{}} % name figures 'Abb.' (change it for babel)
@@ -121,7 +122,7 @@
 	\begin{frame}{Exakter Algorithmus für das MVPS-Problem}
 		Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug und $t \geq 1$.
 		\begin{description}
-			\item[Schritt 1:]<1-> Konstruktion des Graphen $G_t = (V, E_t)$, wobei:
+			\item[Schritt 1:]<1-> Konstruktion des gerichteten Graphen $G_t = (V, E_t)$, wobei:
 			\begin{itemize}
 				\setlength{\itemindent}{-1.3cm}
 				\item $V = \{p_1, \mathellipsis, p_n\}$
@@ -162,33 +163,73 @@
 		\end{thm}
 	\end{frame}
 	
-	\begin{frame}{Exakter Algorithmus MVPS}
-		Laufzeitbetrachtung und Satz
-	\end{frame}
-	
+	\subsection{MDPS}
 	\begin{frame}{Exakter Algorithmus MDPS}
-		kurze Wdh MVPS (evtl. grobe Definition)
+		Sei $P = (p_1, \mathellipsis, p_n)$ und $k$ die gewünschte Knotenzahl.
 		
-		Lemma: indirekte Proportionalität kappa und t
+		Sei $\kappa_t$ die Knotenzahl einer minimalen $t$-distanzerhaltenden Approximation von $P$.
 		
-		kurzer Beweis / Beweiserläuterung
-		
-		evtl. Frage ans Publikum, da einfach
+		\begin{lemma}
+			Sind $t, t' \in \mathbb{R}$ und $1 \leq t < t'$, dann ist $\kappa_t \geq \kappa_{t'}$.
+		\end{lemma}
+		\textit{Beweis.}
+			\begin{itemize}
+				\item[] Annahme: $\kappa_{t} < \kappa_{t'}$.
+				
+				\item[$\Leftrightarrow$]Eine minimale $t$-distanzerhaltende Approximation von $P$ hat echt weniger Knoten als eine minimale $t'$-distanzerhaltende. 
+				
+				\item[] Aber: Jede $t$-distanzerhaltende Approximation von $P$ ist auch eine $t'$-distanzerhaltende Approximation von $P$.
+				
+				Das ist ein Widerspruch.
+			\end{itemize}
+			
 	\end{frame}
 	
-	\begin{frame}{Exakter Algorithmus MDPS}
-		Bildung der Menge aller t-Werte (Größe $O(n^2)$)
-		
-		Binäre Suche möglich wegen Lemma
-		
+	\begin{frame}[t]{Exakter Algorithmus für das MDPS-Problem}
+			\begin{lemma}
+				Sind $t, t' \in \mathbb{R}$ und $1 \leq t < t'$, dann ist $\kappa_t \geq \kappa_{t'}$.
+			\end{lemma}
+			Sei $t^*$ die Lösung des Problems.
+			
+			$t^*_{ij} \coloneqq \frac{\delta(p_i, p_j)}{|p_ip_j|}$ heißt \emph{Abweichung} der Kante $(p_i, p_j)$ vom Kantenzug.
+		\begin{description}
+			\item[Schritt 1:]<1-> Berechnen von $M \coloneqq \{t^*_{ij}\ |\ 1\leq i < j \leq n\}$.
+			\item[Schritt 2:]<2-> Sortieren von $M$.
+			\item[Schritt 3:]<3-> Binäre Suche im $M$ nach $t^*$:
+			\begin{itemize}
+				\setlength{\itemindent}{-1.3cm}
+				\item Lösen des MVPS-Problems für den aktuellen $t$-Wert.
+				\item Sei $\kappa_t$ die Knotenzahl der Lösung. 
+				Falls $\kappa_t < k$, so ist $t > t^*$.
+				Sonst ist $\kappa_t \geq k$ und $t \leq t^*$.
+			\end{itemize}
+		\end{description}
 	\end{frame}
 	
-	\begin{frame}{Exakter Algorithmus MDPS}
-		Laufzeitbetrachtung
-		
-		+ evtl. Beispielergebnis
+	\begin{frame}{Laufzeit}
+		\begin{columns}[T]
+			\begin{column}{0.5\textwidth}
+				\begin{description}
+					\item[Schritt 1:]<1-> Berechnen von $M$.
+					\item[Schritt 2:]<2-> Sortieren von $M$.
+					\item[Schritt 3:]<3-> Binäre Suche.
+				\end{description}
+			\end{column}
+			\begin{column}{0.6\textwidth}
+				\begin{description}
+					\item[]<1-> $O(n^2)$
+					\item[]<2-> $O(n^2 \log n^2) = O(n^2 \log n)$
+					\item[]<3-> $O(n^2 \log n^2) = O(n^2 \log n)$
+				\end{description}
+			\end{column}
+		\end{columns}
+		\begin{thm}<3->
+			Das Minimum-Dilation-Path-Simplification Problem kann für Kantenzüge mit $n$ Knoten in $O(n^2 \log n)$ Zeit gelöst werden.
+		\end{thm}
 	\end{frame}
 	
+	\section{Approximativer Algorithmus}
+	\subsection{WSPD}
 	\begin{frame}{WSPD}
 		Definition Well-separated
 		
