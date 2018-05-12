@@ -33,7 +33,7 @@ def plot_approximation(path, indices):
     x_list = [path[i].x for i in indices]
     y_list = [path[i].y for i in indices]
     line = plt.plot(x_list, y_list)
-    plt.setp(line, color='green', linewidth=5)
+    plt.setp(line, color='green', linewidth=3)
 
 
 def print_edges(edges):
@@ -47,15 +47,16 @@ def print_edge_lengths(path, S):
 
 
 def plot_edge_lengths():
-    plots.plot_points(path, [0, 4], 'red')
+    plots.plot_points(path, [0, 3], 'green')
     plots.plot_text_on_edge(path[0], path[1], round(S[1], 1), (-1.5, -1.5))
     plots.plot_text_on_edge(path[1], path[2], round(S[2] - S[1], 1), (0.15, -1))
     plots.plot_text_on_edge(path[2], path[3], round(S[3] - S[2], 1), (0, -1.5))
     plots.plot_text_on_edge(path[3], path[4], round(S[4] - S[3], 1), (0.8, -0.3))
-    plots.plot_text_on_edge(path[0], path[4], round(util.euclidean_distance(path[0], path[4]), 1), (-1, 1))
+    plots.plot_text_on_edge(path[0], path[3], round(util.euclidean_distance(path[0], path[3]), 1), (-1, 1))
 
 
 S = util.flatten_path(path)
+print([round(s, 1) for s in S])
 t_edges = util.get_t_distance_preserving_edges(path, t, S)
 all_edges = util.get_path_edges(path) + t_edges
 
@@ -70,8 +71,10 @@ adjacency_list = bfs.create_adjacency_list(path, all_edges)
 shortest_path = bfs.shortest_path(adjacency_list, 1, n)
 plots.plot_path(path, 5)
 # plots.plot_edges(edges_epsilon, 'green')
-plots.plot_edges(t_edges, 'orange')
-plot_approximation(path, np.array(shortest_path) - 1)
+# plots.plot_edges(t_edges, 'orange')
+# plot_approximation(path, np.array(shortest_path) - 1)
+plot_approximation(path, [0, 2, 4, 6, 7, 8, 9, 11, 12])
+# plot_edge_lengths()
 plt.show()
 
 T = SplitTree.compute_split_tree(S, 0, n - 1)
