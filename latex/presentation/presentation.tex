@@ -4,7 +4,8 @@
 \usepackage[german]{babel}
 \usepackage[utf8]{inputenc}
 \usepackage{pdfpages}
-\usepackage{graphicx}
+\usepackage{color}
+\usepackage{graphicx, import}
 \usepackage{amsmath}
 \usepackage{amssymb}
 \usepackage{amsthm}
@@ -19,6 +20,10 @@
 %\newtheorem{definition}{Definition}
 \newtheorem{thm}{Satz}
 %\newtheorem{lemma}{Lemma}
+
+\makeatletter
+\def\input@path{{../../images/}}
+\makeatother
 
 \renewcommand{\proofname}{Beweis}
 \captionsetup{font=small, justification=centering}
@@ -102,9 +107,9 @@
 				\item $\displaystyle \text{Für alle } 1 \leq l < k \text{ ist die Kante } (p_{i_l}, p_{i_{l+1}})$ des Kantenzugs $t$-distanzerhaltend.
 			\end{enumerate}
 		\end{definition}
-	\begin{figure}
-		\includegraphics[width=\textwidth]{approximation_example.png}
-	\end{figure}
+		\begin{figure}
+			\includegraphics[width=\textwidth]{approximation_example.png}
+		\end{figure}
 	\end{frame}
 	
 	\begin{frame}{Problemspezifikation}
@@ -164,7 +169,7 @@
 	\end{frame}
 	
 	\subsection{MDPS}
-	\begin{frame}{Exakter Algorithmus MDPS}
+	\begin{frame}{Exakter Algorithmus für das MDPS-Problem}
 		Sei $P = (p_1, \mathellipsis, p_n)$ und $k$ die gewünschte Knotenzahl.
 		
 		Sei $\kappa_t$ die Knotenzahl einer minimalen $t$-distanzerhaltenden Approximation von $P$.
@@ -192,27 +197,28 @@
 			Sei $t^*$ die Lösung des Problems.
 			
 			$t^*_{ij} \coloneqq \frac{\delta(p_i, p_j)}{|p_ip_j|}$ heißt \emph{Abweichung} der Kante $(p_i, p_j)$ vom Kantenzug.
+			\vspace{10px}
 		\begin{description}
-			\item[Schritt 1:]<1-> Berechnen von $M \coloneqq \{t^*_{ij}\ |\ 1\leq i < j \leq n\}$.
-			\item[Schritt 2:]<2-> Sortieren von $M$.
+			\item[Schritt 1:]<1-> Berechnen von $M \coloneqq \{t^*_{ij}\ |\ 1\leq i < j \leq n\}$
+			\item[Schritt 2:]<2-> Sortieren von $M$
 			\item[Schritt 3:]<3-> Binäre Suche im $M$ nach $t^*$:
 			\begin{itemize}
 				\setlength{\itemindent}{-1.3cm}
 				\item Lösen des MVPS-Problems für den aktuellen $t$-Wert.
 				\item Sei $\kappa_t$ die Knotenzahl der Lösung. 
-				Falls $\kappa_t < k$, so ist $t > t^*$.
-				Sonst ist $\kappa_t \geq k$ und $t \leq t^*$.
+				Falls $\kappa_t \leq k$, so ist $t \geq t^*$.
+				Sonst ist $\kappa_t > k$ und somit $t < t^*$.
 			\end{itemize}
 		\end{description}
 	\end{frame}
 	
 	\begin{frame}{Laufzeit}
-		\begin{columns}[T]
+		\begin{columns}
 			\begin{column}{0.5\textwidth}
 				\begin{description}
-					\item[Schritt 1:]<1-> Berechnen von $M$.
-					\item[Schritt 2:]<2-> Sortieren von $M$.
-					\item[Schritt 3:]<3-> Binäre Suche.
+					\item[Schritt 1:]<1-> Berechnen von $M$
+					\item[Schritt 2:]<2-> Sortieren von $M$
+					\item[Schritt 3:]<3-> Binäre Suche
 				\end{description}
 			\end{column}
 			\begin{column}{0.6\textwidth}
@@ -228,17 +234,37 @@
 		\end{thm}
 	\end{frame}
 	
-	\section{Approximativer Algorithmus}
+	\section{Approximativer Algorithmus für das MVPS-Problem}
 	\subsection{WSPD}
-	\begin{frame}{WSPD}
-		Definition Well-separated
-		
-		+ Beispiel Bild
+	\begin{frame}{Definition wohl-separiert}
+		Seien $s > 0$ und $A$ und $B$ zwei endliche Mengen von Punkten in $\mathbb{R}^d$. 
+		\begin{definition}
+			$A$ und $B$ heißen \emph{wohl-separiert bezüglich $s$}, falls es zwei disjunkte Bälle $C_A$ und $C_B$ gibt, die denselben Radius $R$ haben, sodass $A \subseteq C_A$ und $B \subseteq C_B$ und die euklidische Distanz zwischen den Rändern von $C_A$ und $C_B$ mindestens $s\cdot R$ beträgt.
+		\end{definition}
+		\uncover<2-3>{\begin{figure}
+			\centering
+			\alt<2>{
+				\def\svgwidth{\textwidth}
+				\input{well_separated_2D.pdf_tex}
+			}{
+				\def\svgwidth{1.5\textwidth}
+				\small{\input{well_separated_1D.pdf_tex}}
+
+			}
+		\end{figure}}
 	\end{frame}
 	
-	\begin{frame}{WSPD}
-		Definition WSPD
-		
+	\begin{frame}{Definition WSPD}
+		\begin{definition}
+			\label{def:wspd}
+			Sei $S \subseteq \mathbb{R}^d$ und $s > 0$. 
+			Eine Menge $ \{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$ (im Folgenden auch $\{(A_i, B_i)\}_{1 \leq i \leq m}$) von Paaren von nicht-leeren Teilmengen von S ist genau dann eine \emph{Zerlegung in wohl-separierte Paare (engl. well-separated pair decomposition; WSPD)}, wenn für alle $1 \leq i \leq m$ gilt:
+%			\begin{enumerate}
+%				\item $A_i \cap B_i = \emptyset$.
+%				\item Für alle $p, q \in S$ gibt es genau einen Index $1 \leq j \leq m$, sodass entweder $p \in A_j$ und $q \in B_j$ oder $q \in A_j$ und $p \in B_j$.
+%				\item $A_i$ und $B_i$ sind bezüglich $s$ wohl-separiert.
+%			\end{enumerate}
+		\end{definition}
 		+ Beispiel Bild (zweidimensional und evtl. mit den Werten aus unserem Beispiel)
 	\end{frame}
 	
