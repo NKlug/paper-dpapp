@@ -337,32 +337,75 @@
 		\end{figure}
 	\end{frame}
 	
-	\begin{frame}{Konstruktion eines Graphen $H$}
+	\begin{frame}[t]{Konstruktion eines Graphen $H$}
+		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
+		
 		WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$
 		
+		\vspace{10px}
 		Konstruktion eines Graphen $H = (V, E)$:
 		\begin{itemize}
-			\item $V \coloneqq \{A_i| 1 \leq i \leq m\} \cup \{B_i| 1\leq i \leq m\}$
-			\item $E$
+			\item $V \coloneqq \{A_i\ |\ 1 \leq i \leq m\} \cup \{B_i\ |\ 1\leq i \leq m\}$
+			\item Kanten $E$:
+			\begin{enumerate}
+				\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $x_n \in B_i$.
+				\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
+			\end{enumerate}
 		\end{itemize}
-		Knoten: Elemente der WSPD
-		
-		Kanten: "?"
 	\end{frame}
 	
-	\begin{frame}{Approximativer Algorithmus WSPD}
-		Kanten:
+	\begin{frame}[t]{Approximation $\rightarrow$ $H$}
+		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
+		\begin{thm}
+			Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält.
+		\end{thm}
+		\textit{Beweis.} Induktive Konversion von $Q$ zu $R$.
 		
-		Definition
-		
-		+ Beispiele
+		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. 
+		\begin{itemize}
+			\item Da $q_1 = p_1$, ist $y_1 = x_1$.
+			Sei $i_1$ der Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ ist. 
+			
+			Dann wählen wir $A_{i_1}$ als ersten Knoten des Pfades $R$.
+		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}{Approximativer Algorithmus WSPD}
-		Satz: Jede Approximation entspricht einem Pfad in H
+	\begin{frame}
+		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
+		$y_i = \delta(p_1, q_i)$ 
 		
-		Beweisskizze
+		\begin{itemize}
+			\item asdf
+		\end{itemize}
+	
 	\end{frame}
+	
+	\begin{frame}{$H$ $\rightarrow$ Approximation}
+		\begin{thm}
+			Jeder Pfad $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
+		\end{thm}
+		\textit{Beweis.}
+		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
+		\begin{itemize}
+			\item $q_1 \coloneqq p_1$
+			\item Annahme: für ein $l$ mit $1 \leq l < k-1$ wurde der Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ bereits in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt, sodass für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$.  
+			Wir betrachten die Kante $(A_{i_l}, A_{i_{l+1}})$.
+			\begin{itemize}
+				\item Es gibt ein $y \in A_{i_{l+1}} \cap B_{i_l}$.
+				\item $q_{l+1}$ ist der Knoten, für den $y = \delta(p_1, q_{l+1})$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
+			\end{itemize}
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{itemize}
+			\item Annahme: $(A_{i_1}, \mathellipsis, A_{i_k-1})$ wurde bereits zu $(q_1, \mathellipsis, q_{k-1})$ umgewandelt haben. 
+			Nach Voraussetzung ist $x_n \in B_{k-1}$. 
+			
+			$\Rightarrow q_k \coloneqq p_n$. 
+		\end{itemize}
+	\end{frame}
+	
 	
 	\begin{frame}{Approximativer Algorithmus WSPD}
 		Satz: Jeder Pfad in H entspricht einer Approximation
