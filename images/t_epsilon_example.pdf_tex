@@ -1,6 +1,6 @@
 %% Creator: Inkscape inkscape 0.91, www.inkscape.org
 %% PDF/EPS/PS + LaTeX output extension by Johan Engelen, 2010
-%% Accompanies image file 'well_separated_1D.pdf' (pdf, eps, ps)
+%% Accompanies image file 't_epsilon_example.pdf' (pdf, eps, ps)
 %%
 %% To include the image in your LaTeX document, write
 %%   \input{<filename>.pdf_tex}
@@ -48,19 +48,21 @@
   \global\let\svgwidth\undefined%
   \global\let\svgscale\undefined%
   \makeatother%
-  \begin{picture}(1,0.24350796)%
-    \put(0,0){\includegraphics[width=\unitlength,page=1]{well_separated_1D.pdf}}%
-    \put(0.10995882,0.11273166){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$8$}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=2]{well_separated_1D.pdf}}%
-    \put(0.34122757,0.11273166){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$26$}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=3]{well_separated_1D.pdf}}%
-    \put(0.58256429,0.11192066){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$44$}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=4]{well_separated_1D.pdf}}%
-    \put(0.24633033,0.22143391){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$R=9$}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=5]{well_separated_1D.pdf}}%
-    \put(0.60457935,0.22087872){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$R=9$}}}%
-    \put(0.82102301,0.11180565){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$62$}}}%
-    \put(0,0){\includegraphics[width=\unitlength,page=6]{well_separated_1D.pdf}}%
-    \put(0.41481277,0.00604341){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\geq 1 \cdot R$}}}%
+  \begin{picture}(1,0.20806461)%
+    \put(0,0){\includegraphics[width=\unitlength,page=1]{t_epsilon_example.pdf}}%
+    \put(0.10995882,0.10068649){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$8$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=2]{t_epsilon_example.pdf}}%
+    \put(0.34122757,0.10068649){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$26$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=3]{t_epsilon_example.pdf}}%
+    \put(0.58256429,0.09987549){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$44$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=4]{t_epsilon_example.pdf}}%
+    \put(0.82102301,0.09976049){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$62$}}}%
+    \put(0,0){\includegraphics[width=\unitlength,page=5]{t_epsilon_example.pdf}}%
+    \put(0.22369754,0.00685204){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$A_i$}}}%
+    \put(0.70045238,0.00874768){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$B_i$}}}%
+    \put(0.1715673,0.18504271){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\rho$}}}%
+    \put(0.27582779,0.18599055){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\rho'$}}}%
+    \put(0.59808754,0.18599056){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\varphi$}}}%
+    \put(0.68244378,0.18599055){\color[rgb]{0,0,0}\makebox(0,0)[lb]{\smash{$\varphi'$}}}%
   \end{picture}%
 \endgroup%
