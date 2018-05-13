@@ -325,10 +325,10 @@
 		Sei $0 < \epsilon < \frac{1}{3} $ und $s = \frac{12 + 24(1 + \frac{\epsilon}{3})\cdot t}{\epsilon}$.
 		
 		\begin{lemma}
-	    	Seien $p, p', q, q' \in P$, sodass $\rho \coloneqq \delta(p_1, p) \in A_i$, $\rho' \coloneqq \delta(p_1, p') \in A_i$, $\varphi \coloneqq \delta(p_1, q) \in B_i$ und $\varphi' \coloneqq \delta(p_1, q') \in B_i$. Dann gilt
+	    	Seien $p, p', q, q' \in P$, sodass $\rho \coloneqq \delta(p_1, p) \in A_i$, $\rho' \coloneqq \delta(p_1, p') \in A_i$, $\varphi \coloneqq \delta(p_1, q) \in B_i$ und $\varphi' \coloneqq \delta(p_1, q') \in B_i$. Dann gilt:
 	    	\begin{enumerate}
-	    		\item Ist $(p, q)$ $t$-distanzerhaltend, dann ist $(p', q')$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
-	    		\item Ist $(p, q)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend, dann ist $(p', q')$ $(1 + \epsilon)t$-distanzerhaltend.
+	    		\item $(p, q)$ $t$-distanzerhaltend $\Rightarrow$ $(p', q')$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
+	    		\item $(p, q)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend $\Rightarrow$ $(p', q')$ $(1 + \epsilon)t$-distanzerhaltend.
 	    	\end{enumerate}
 		\end{lemma}
 		\begin{figure}
@@ -338,11 +338,19 @@
 	\end{frame}
 	
 	\begin{frame}[t]{Konstruktion eines Graphen $H$}
-		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
+		\begin{block}{}
+			\begin{itemize}
+				\item $S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
+				\item WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$
+			\end{itemize}
+		\end{block}
+		\begin{itemize}
+			\item Wahl von festen Elementen $a_i \in A_i$ und $b_i \in B_i$.
+			\item $\alpha_i$ und $\beta_i$ so, dass $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$.
+			\item $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend $\Leftrightarrow$ $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend
+		\end{itemize}
+
 		
-		WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$
-		
-		\vspace{10px}
 		Konstruktion eines Graphen $H = (V, E)$:
 		\begin{itemize}
 			\item $V \coloneqq \{A_i\ |\ 1 \leq i \leq m\} \cup \{B_i\ |\ 1\leq i \leq m\}$
@@ -382,23 +390,33 @@
 	
 	\begin{frame}{$H$ $\rightarrow$ Approximation}
 		\begin{thm}
-			Jeder Pfad $R = (A_{i_1}, \textellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
+			Jeder Pfad $R = (A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
 		\end{thm}
 		\textit{Beweis.}
 		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
 		\begin{itemize}
 			\item $q_1 \coloneqq p_1$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[t]
+		\begin{block}{Wiederholung}
+			\begin{itemize}
+				\item $y_i = \delta(p_1, q_i)$
+				\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
+			\end{itemize}
+		\end{block}
+		
+		
+		\vspace{10px}
+		\begin{itemize}
 			\item Annahme: für ein $l$ mit $1 \leq l < k-1$ wurde der Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ bereits in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt, sodass für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$.  
 			Wir betrachten die Kante $(A_{i_l}, A_{i_{l+1}})$.
 			\begin{itemize}
 				\item Es gibt ein $y \in A_{i_{l+1}} \cap B_{i_l}$.
-				\item $q_{l+1}$ ist der Knoten, für den $y = \delta(p_1, q_{l+1})$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
+				\item $q_{l+1}$ ist der Knoten $\gamma$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt 
+%				und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
 			\end{itemize}
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}
-		\begin{itemize}
 			\item Annahme: $(A_{i_1}, \mathellipsis, A_{i_k-1})$ wurde bereits zu $(q_1, \mathellipsis, q_{k-1})$ umgewandelt haben. 
 			Nach Voraussetzung ist $x_n \in B_{k-1}$. 
 			
@@ -407,7 +425,78 @@
 	\end{frame}
 	
 	
-	\begin{frame}{Approximativer Algorithmus WSPD}
-		Satz: Jeder Pfad in H entspricht einer Approximation
+	\begin{frame}{Algorithmus}
+		\begin{description}
+			\item[Schritt 1:] Berechnen von $S = (x_1, \mathellipsis, x_n)$ mit $x_i = \delta(p_1, p_i)$
+			\item[Schritt 2:] Berechnen des Split-Trees $T$ und einer WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. 
+%			Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
+			\item[Schritt 3:] Wählen von $a_i \in A_i$, $b_i \in B_i$, $\alpha_i$ und  $\beta_i$ die Knoten von $P$ sind, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. 
+			Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
+		\end{description}
+	\end{frame} 
+	
+	\begin{frame}[t]{Modifizierte Breitensuche}
+		Sei $k$ Knoten im Baum. 
+		
+		$d[k]$: Distanz von $k$ zum Startknoten
+		\begin{figure}
+			\begin{overprint}
+				\onslide<1>\includegraphics[width=\textwidth]{split_tree.png}
+				\onslide<2>\includegraphics[width=\textwidth]{bfs_step1.png}
+				\onslide<3>\includegraphics[width=\textwidth]{bfs_step2.png}
+				\onslide<4>\includegraphics[width=\textwidth]{bfs_step3.png}
+				\onslide<5>\includegraphics[width=\textwidth]{bfs_step4.png}
+				\onslide<6>\includegraphics[width=\textwidth]{bfs_step5.png}
+			\end{overprint}
+		\end{figure}
+		
+		\begin{overprint}
+			
+			\onslide<2> \centering Falls A-Knoten $k$, $d[k] = 0$
+			\onslide<4-5> \centering $d[A_j] = d[A_i] + 1$
+		\end{overprint}
+	\end{frame}
+	
+	\begin{frame}{Algorithmus}
+			\begin{description}
+				\item[Schritt 1:] Berechnen von $S = (x_1, \mathellipsis, x_n)$ mit $x_i = \delta(p_1, p_i)$
+				\item[Schritt 2:] Berechnen des Split-Trees $T$ und einer WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. 
+				%			Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
+				\item[Schritt 3:] Wählen von $a_i \in A_i$, $b_i \in B_i$, $\alpha_i$ und  $\beta_i$ die Knoten von $P$ sind, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. 
+				Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
+				\item<2->[Schritt 4:] Ausführen der modifizierte Breitensuche im Split-Tree $T$ durch.
+				\item<3->[Schritt 5:] Umwandeln des erhaltenen Pfades $(A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ zu einer Approximation von $P$
+			\end{description}
+	\end{frame}
+	
+	\begin{frame}{Laufzeit}
+		\centering
+		$s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$ $\Rightarrow$ $O(sn) = O(\frac{t}{\epsilon}n)$
+		\begin{columns}
+			\begin{column}{0.6\textwidth}
+				\begin{description}
+					\item[Schritt 1:]<1-> Berechnen von $S$
+					\item[Schritt 2:]<2-> Berechnen der WSPD
+					\item[Schritt 3:]<3-> Aussortieren der WSPD
+					\item[Schritt 4:]<4-> Modifizierte Breitensuche
+					\item[Schritt 5:]<5-> Umwandeln in Approximation
+				\end{description}
+			\end{column}
+			\begin{column}{0.6\textwidth}
+				\begin{description}
+					\item[]<1-> $O(n)$
+					\item[]<2-> $O(n \log n + \frac{t}{\epsilon}n)$
+					\item[]<3-> $O(\frac{t}{\epsilon}n)$
+					\item[]<4-> $O(\frac{t}{\epsilon}n)$
+					\item[]<5-> $O(\frac{t}{\epsilon}n)$
+				\end{description}
+			\end{column}
+		\end{columns}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{thm}
+		   	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\mathbb{R}^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der minimalen t-distanzerhaltenden Approximationen von $P$. Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
+		\end{thm}
 	\end{frame}
 \end{document}
