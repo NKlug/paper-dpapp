@@ -176,10 +176,10 @@
 		
 		Sei $\kappa_t$ die Knotenzahl einer minimalen $t$-distanzerhaltenden Approximation von $P$.
 		
-		\begin{lemma}
+		\onslide<2->\begin{lemma}
 			Sind $t, t' \in \mathbb{R}$ und $1 \leq t < t'$, dann ist $\kappa_t \geq \kappa_{t'}$.
 		\end{lemma}
-		\textit{Beweis.}
+		\onslide<3->{\textit{Beweis.}
 			\begin{itemize}
 				\item[] Annahme: $\kappa_{t} < \kappa_{t'}$.
 				
@@ -189,7 +189,7 @@
 				
 				Das ist ein Widerspruch.
 			\end{itemize}
-			
+		}
 	\end{frame}
 	
 	\begin{frame}[t]{Exakter Algorithmus für das MDPS-Problem}
@@ -277,8 +277,10 @@
 			\centering
 			\includegraphics[width=0.8\textwidth]{raw_path_cropped.png}
 		\end{figure}
-		\[\Downarrow\]
-		\[S = [0, 5.0, 9.1, 17.2, 32.2, 37.6, 44.3, 54.3, 67.9, 81.0, 95.4, 96.4, 141.5]\]
+		\onslide<2->{
+			\[\Downarrow\]
+			\[S = [0, 5.0, 9.1, 17.2, 32.2, 37.6, 44.3, 54.3, 67.9, 81.0, 95.4, 96.4, 141.5]\]
+		}
 	\end{frame}
 	
 	\begin{frame}{WSPD - Algorithmus für unsere Anwendung}
@@ -305,14 +307,13 @@
 				\onslide<1>\includegraphics[width=\textwidth]{split_tree.png}
 				\onslide<2->\includegraphics[width=\textwidth]{split_tree_2_wspd.png}
 			\end{overprint}
-			\onslide<2->\[
-			R = \max(S[5]-S[1], S[12]-S[10]) = \max(32.2 - 0, 96.4 - 81) = 15.4
-			\]
-			\[
-			S[10]- S[5] = 81 - 32.2 = 48.8 \geq 3 \cdot R = 3 \cdot 15.4
-			\]
+%			\[
+%			R = \max(S[5]-S[1], S[12]-S[10]) = \max(32.2 - 0, 96.4 - 81) = 15.4
+%			\]
+%			\[
+%			S[10]- S[5] = 81 - 32.2 = 48.8 \geq 3 \cdot R = 3 \cdot 15.4
+%			\]
 		\end{figure}
-
 	\end{frame}
 
 	\begin{frame}{Laufzeit}
@@ -345,16 +346,16 @@
 			\end{itemize}
 		\end{block}
 		\begin{itemize}
-			\item Wahl von festen Elementen $a_i \in A_i$ und $b_i \in B_i$.
-			\item $\alpha_i$ und $\beta_i$ so, dass $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$.
-			\item $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend $\Leftrightarrow$ $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend
+			\item<1-> Wahl von festen Elementen $a_i \in A_i$ und $b_i \in B_i$.
+			\item<1-> $\alpha_i$ und $\beta_i$ so, dass $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$.
+			\item<2-> $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend $\Leftrightarrow$ $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend
 		\end{itemize}
 
 		
-		Konstruktion eines Graphen $H = (V, E)$:
+		\onslide<3->Konstruktion eines Graphen $H = (V, E)$:
 		\begin{itemize}
-			\item $V \coloneqq \{A_i\ |\ 1 \leq i \leq m\} \cup \{B_i\ |\ 1\leq i \leq m\}$
-			\item Kanten $E$:
+			\item<3-> $V \coloneqq \{A_i\ |\ 1 \leq i \leq m\} \cup \{B_i\ |\ 1\leq i \leq m\}$
+			\item<4-> Kanten $E$:
 			\begin{enumerate}
 				\item Für alle $1 \leq i \leq m$ ist $(A_i, B_i)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $x_n \in B_i$.
 				\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
@@ -362,31 +363,36 @@
 		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}[t]{Approximation $\rightarrow$ $H$}
+	\begin{frame}{Approximation $\rightarrow$ $H$}
 		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
 		\begin{thm}
 			Jede $t$-distanzerhaltende Approximation $Q = (q_1, q_2, \mathellipsis, q_k)$ von $P$ entspricht einem Pfad $R$ der Länge $k$ in H von einer Menge $A_i$, die $x_1$ enthält, zu einer Menge $B_j$, die $x_n$ enthält.
 		\end{thm}
-		\textit{Beweis.} Induktive Konversion von $Q$ zu $R$.
+		\textit{Beweis.} Siehe Aufsatz.
 		
-		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. 
-		\begin{itemize}
-			\item Da $q_1 = p_1$, ist $y_1 = x_1$.
-			Sei $i_1$ der Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ ist. 
-			
-			Dann wählen wir $A_{i_1}$ als ersten Knoten des Pfades $R$.
-		\end{itemize}
+		\vspace{5px}
+		Ergebnis: Pfad $R = (A_{i_1}, A_{i_2}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ mit $q_j \in B_{i_{j-1}} \cap A_{i_j}$ für $1 < j < k$
+		
+%		Induktive Konversion von $Q$ zu $R$.
+%		
+%		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt. 
+%		\begin{itemize}
+%			\item Da $q_1 = p_1$, ist $y_1 = x_1$.
+%			Sei $i_1$ der Index, für den $y_1 \in A_{i_1}$ und $y_2 \in B_{i_1}$ ist. 
+%			
+%			Dann wählen wir $A_{i_1}$ als ersten Knoten des Pfades $R$.
+%		\end{itemize}
 	\end{frame}
 	
-	\begin{frame}
-		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
-		$y_i = \delta(p_1, q_i)$ 
-		
-		\begin{itemize}
-			\item asdf
-		\end{itemize}
-	
-	\end{frame}
+%	\begin{frame}
+%		$S = \{x_1, x_2, \mathellipsis, x_n\}$ mit $x_i = \delta(p_1, p_n)$
+%		$y_i = \delta(p_1, q_i)$ 
+%		
+%		\begin{itemize}
+%			\item 
+%		\end{itemize}
+%	
+%	\end{frame}
 	
 	\begin{frame}{$H$ $\rightarrow$ Approximation}
 		\begin{thm}
@@ -410,14 +416,14 @@
 		
 		\vspace{10px}
 		\begin{itemize}
-			\item Annahme: für ein $l$ mit $1 \leq l < k-1$ wurde der Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ bereits in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt, sodass für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$.  
+			\item<2-> Annahme: für ein $l$ mit $1 \leq l < k-1$ wurde der Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ bereits in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt, sodass für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$.  
 			Wir betrachten die Kante $(A_{i_l}, A_{i_{l+1}})$.
 			\begin{itemize}
 				\item Es gibt ein $y \in A_{i_{l+1}} \cap B_{i_l}$.
 				\item $q_{l+1}$ ist der Knoten $\gamma$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt 
 %				und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
 			\end{itemize}
-			\item Annahme: $(A_{i_1}, \mathellipsis, A_{i_k-1})$ wurde bereits zu $(q_1, \mathellipsis, q_{k-1})$ umgewandelt haben. 
+			\item<3-> Annahme: $(A_{i_1}, \mathellipsis, A_{i_k-1})$ wurde bereits zu $(q_1, \mathellipsis, q_{k-1})$ umgewandelt haben. 
 			Nach Voraussetzung ist $x_n \in B_{k-1}$. 
 			
 			$\Rightarrow q_k \coloneqq p_n$. 
@@ -430,16 +436,16 @@
 			\item[Noch zu zeigen: ] $Q$ ist $(1 + \epsilon)t$-distanzerhaltend.
 		\end{description}
 		
-		Sei $1 \leq i < k$.
+		Sei $1 \leq j < k$.
 		
 		\begin{itemize}
-			\item $(q_i, q_{i+1})$ ist durch Umwandlung aus $(A_i, A_{i+1})$ entstanden, wobei $q_i \in A_i$ und $q_{i+1} \in B_i\ (\cap\ A_{i+1})$.
+			\item<2-> $(q_j, q_{j+1})$ ist durch Umwandlung aus $(A_{i_j}, A_{i_{j+1}})$ entstanden, wobei $q_i \in A_{i_j}$ und $q_{i+1} \in B_{i_j}\ (\cap\ A_{i_{j+1}})$.
 			
-			\item Nach Konstruktion von $H$: $(A_i, B_i)$ ist $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
+			\item<3-> Nach Konstruktion von $H$: $(A_{i_j}, B_{i_j})$ ist $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
 			
-			\item Also ist $(\alpha_i, \beta_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
+			\item<4-> Also ist $(\alpha_{i_j}, \beta_{i_j})$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
 			
-			\item $\stackrel{Lemma}{\Rightarrow}$ $(q_i, q_{i+1})$ ist $(1 + \epsilon)t$-distanzerhaltend.
+			\item<5-> $\stackrel{Lemma}{\Rightarrow}$ $(q_j, q_{j+1})$ ist $(1 + \epsilon)t$-distanzerhaltend.
 		\end{itemize}
 		
 	\end{frame}
@@ -447,10 +453,10 @@
 	\subsection{Algorithmus}
 	\begin{frame}{Algorithmus}
 		\begin{description}
-			\item[Schritt 1:] Berechnen von $S = (x_1, \mathellipsis, x_n)$ mit $x_i = \delta(p_1, p_i)$
-			\item[Schritt 2:] Berechnen des Split-Trees $T$ und einer WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. 
+			\item<1->[Schritt 1:] Berechnen von $S = (x_1, \mathellipsis, x_n)$ mit $x_i = \delta(p_1, p_i)$
+			\item<2->[Schritt 2:] Berechnen des Split-Trees $T$ und einer WSPD $\{(A_1, B_1), (A_2, B_2), \mathellipsis, (A_m, B_m)\}$ mit der Trennungsrate $s = \frac{12 + 24(1 + \frac{\epsilon}{3})t}{\epsilon}$. 
 %			Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
-			\item[Schritt 3:] Wählen von $a_i \in A_i$, $b_i \in B_i$, $\alpha_i$ und  $\beta_i$ die Knoten von $P$ sind, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. 
+			\item<3->[Schritt 3:] Wählen von $a_i \in A_i$, $b_i \in B_i$, $\alpha_i$ und  $\beta_i$ die Knoten von $P$ sind, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. 
 			Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
 		\end{description}
 	\end{frame} 
