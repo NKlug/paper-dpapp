@@ -371,7 +371,7 @@
 		\textit{Beweis.} Siehe Aufsatz.
 		
 		\vspace{5px}
-		Ergebnis: Pfad $R = (A_{i_1}, A_{i_2}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ mit $q_j \in B_{i_{j-1}} \cap A_{i_j}$ für $1 < j < k$
+		Ergebnis: Pfad $R = (A_{i_1}, A_{i_2}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ mit $\delta(p_1, q_j) \in B_{i_{j-1}} \cap A_{i_j}$ für $1 < j < k$
 		
 %		Induktive Konversion von $Q$ zu $R$.
 %		
@@ -398,57 +398,13 @@
 		\begin{thm}
 			Jeder Pfad $R = (A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
 		\end{thm}
-		\textit{Beweis.}
-		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
-		\begin{itemize}
-			\item $q_1 \coloneqq p_1$
-		\end{itemize}
+		\textit{Beweis.} Siehe Aufsatz.
+		
+		\vspace{5px}
+		Ergebnis: $(1 + \epsilon)t$-distanzerhaltender Kantenzug $Q = (q_1, q_2, \mathellipsis, q_k)$ mit $q_1 = p_1$ und $q_k = p_n$.
 	\end{frame}
 	
-	\begin{frame}[t]
-		\begin{block}{Wiederholung}
-			\begin{itemize}
-				\item $y_i = \delta(p_1, q_i)$
-				\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
-			\end{itemize}
-		\end{block}
-		
-		
-		\vspace{10px}
-		\begin{itemize}
-			\item<2-> Annahme: für ein $l$ mit $1 \leq l < k-1$ wurde der Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ bereits in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt, sodass für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$.  
-			Wir betrachten die Kante $(A_{i_l}, A_{i_{l+1}})$.
-			\begin{itemize}
-				\item Es gibt ein $y \in A_{i_{l+1}} \cap B_{i_l}$.
-				\item $q_{l+1}$ ist der Knoten $\gamma$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt 
-%				und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
-			\end{itemize}
-			\item<3-> Annahme: $(A_{i_1}, \mathellipsis, A_{i_k-1})$ wurde bereits zu $(q_1, \mathellipsis, q_{k-1})$ umgewandelt haben. 
-			Nach Voraussetzung ist $x_n \in B_{k-1}$. 
-			
-			$\Rightarrow q_k \coloneqq p_n$. 
-		\end{itemize}
-	\end{frame}
-	
-	\begin{frame}
-		\begin{description}
-			\item[Bereits gezeigt: ] Umwandlung in Kantenzug $Q = (q_1, q_2, \mathellipsis, q_k)$.
-			\item[Noch zu zeigen: ] $Q$ ist $(1 + \epsilon)t$-distanzerhaltend.
-		\end{description}
-		
-		Sei $1 \leq j < k$.
-		
-		\begin{itemize}
-			\item<2-> $(q_j, q_{j+1})$ ist durch Umwandlung aus $(A_{i_j}, A_{i_{j+1}})$ entstanden, wobei $q_i \in A_{i_j}$ und $q_{i+1} \in B_{i_j}\ (\cap\ A_{i_{j+1}})$.
-			
-			\item<3-> Nach Konstruktion von $H$: $(A_{i_j}, B_{i_j})$ ist $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
-			
-			\item<4-> Also ist $(\alpha_{i_j}, \beta_{i_j})$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
-			
-			\item<5-> $\stackrel{Lemma}{\Rightarrow}$ $(q_j, q_{j+1})$ ist $(1 + \epsilon)t$-distanzerhaltend.
-		\end{itemize}
-		
-	\end{frame}
+
 	
 	\subsection{Algorithmus}
 	\begin{frame}{Algorithmus}
@@ -527,5 +483,62 @@
 		\begin{thm}
 		   	Sei $P = (p_1, p_2, \mathellipsis, p_n)$ ein Kantenzug in $\mathbb{R}^d$, sei $t \geq 1$ und $0 < \epsilon < \frac{1}{3}$ und sei $\kappa$ die Knotenzahl der minimalen t-distanzerhaltenden Approximationen von $P$. Dann können wir in $O(n \log n + \frac{t}{\epsilon}n)$ eine $(1 + \epsilon)t$-distanzerhaltende Approximation $Q$ von $P$ mit maximal $\kappa$ Knoten berechnen.
 		\end{thm}
+	\end{frame}
+	
+	
+	\begin{frame}{$H$ $\rightarrow$ Approximation}
+		\begin{thm}
+			Jeder Pfad $R = (A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ in $H$ mit $x_1 \in A_{i_1}$ und $x_n \in B_{i_{k-1}}$ entspricht einer $(1+\epsilon)t$-distanzerhaltenden Approximation $Q$ von $P$, die $k$ Knoten besitzt.
+		\end{thm}
+		\textit{Beweis.}
+		Sei $y_i$ das Element der Menge $S$, für das $y_i = \delta(p_1, q_i)$ gilt.
+		\begin{itemize}
+			\item $q_1 \coloneqq p_1$
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}[t]
+		\begin{block}{Wiederholung}
+			\begin{itemize}
+				\item $y_i = \delta(p_1, q_i)$
+				\item Für alle $1\leq i < j \leq m$ ist $(A_i, A_j)$ genau dann eine Kante, wenn $(A_i, B_i)$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend ist und $A_j \cap B_i \neq \emptyset$.
+			\end{itemize}
+		\end{block}
+		
+		
+		\vspace{10px}
+		\begin{itemize}
+			\item<2-> Annahme: für ein $l$ mit $1 \leq l < k-1$ wurde der Teilpfad $(A_{i_1}, \mathellipsis, A_{i_l})$ bereits in den Kantenzug $(q_1, \mathellipsis, q_l)$ umgewandelt, sodass für alle $1 < j \leq l$ $y_j \in A_{i_j} \cap B_{i_{j-1}}$.  
+			Wir betrachten die Kante $(A_{i_l}, A_{i_{l+1}})$.
+			\begin{itemize}
+				\item Es gibt ein $y \in A_{i_{l+1}} \cap B_{i_l}$.
+				\item $q_{l+1}$ ist der Knoten $\gamma$ von $P$, für den $y = \delta(p_1, \gamma)$ gilt 
+				%				und erhalten $(q_1, \mathellipsis, q_l, q_{l+1})$.
+			\end{itemize}
+			\item<3-> Annahme: $(A_{i_1}, \mathellipsis, A_{i_{k-1}})$ wurde bereits zu $(q_1, \mathellipsis, q_{k-1})$ umgewandelt haben. 
+			Nach Voraussetzung ist $x_n \in B_{i_{k-1}}$. 
+			
+			$\Rightarrow q_k \coloneqq p_n$. 
+		\end{itemize}
+	\end{frame}
+	
+	\begin{frame}
+		\begin{description}
+			\item[Bereits gezeigt: ] Umwandlung in Kantenzug $Q = (q_1, q_2, \mathellipsis, q_k)$.
+			\item[Noch zu zeigen: ] $Q$ ist $(1 + \epsilon)t$-distanzerhaltend.
+		\end{description}
+		
+		Sei $1 \leq j < k$.
+		
+		\begin{itemize}
+			\item<2-> $(q_j, q_{j+1})$ ist durch Umwandlung aus $(A_{i_j}, A_{i_{j+1}})$ entstanden, wobei $\delta(p_1, q_i) \in A_{i_j}$ und $\delta(p_1, q_{i+1}) \in B_{i_j}\ (\cap\ A_{i_{j+1}})$.
+			
+			\item<3-> Nach Konstruktion von $H$: $(A_{i_j}, B_{i_j})$ ist $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
+			
+			\item<4-> Also ist $(\alpha_{i_j}, \beta_{i_j})$ $(1 + \frac{\epsilon}{3})t$-distanzerhaltend.
+			
+			\item<5-> $\stackrel{Lemma}{\Rightarrow}$ $(q_j, q_{j+1})$ ist $(1 + \epsilon)t$-distanzerhaltend.
+		\end{itemize}
+		
 	\end{frame}
 \end{document}
