@@ -193,11 +193,11 @@
 		\end{lemma}
 		\onslide<3->{\textit{Beweis.}
 			\begin{itemize}
-				\item[] Annahme: $\kappa_{t} < \kappa_{t'}$.
+				\item<3->[] Annahme: $\kappa_{t} < \kappa_{t'}$.
 				
-				\item[$\Leftrightarrow$]Eine minimale $t$-distanzerhaltende Approximation von $P$ hat echt weniger Knoten als eine minimale $t'$-distanzerhaltende. 
+				\item<4->[$\Leftrightarrow$]Eine minimale $t$-distanzerhaltende Approximation von $P$ hat echt weniger Knoten als eine minimale $t'$-distanzerhaltende. 
 				
-				\item[] Aber: Jede $t$-distanzerhaltende Approximation von $P$ ist auch eine $t'$-distanzerhaltende Approximation von $P$.
+				\item<5->[] Aber: Jede $t$-distanzerhaltende Approximation von $P$ ist auch eine $t'$-distanzerhaltende Approximation von $P$.
 				
 				Das ist ein Widerspruch.
 			\end{itemize}
@@ -446,10 +446,10 @@
 		
 		\begin{overprint}
 			
-			\onslide<2> \centering Falls A-Knoten $k$, $d[k] = 0$
-			\onslide<5> \centering$d[A_j] = d[A_i] + 1$
+			\onslide<2> \centering Falls A-Knoten $k$, $d[k] = 0$ und füge $k$ zur Warteschlange hinzu
+			\onslide<5> \centering$d[k'] = d[k] + 1$
 				
-				\centering Füge $A_j$ zur Warteschlange hinzu
+				\centering Füge $k'$ zur Warteschlange hinzu
 			
 		\end{overprint}
 	\end{frame}
@@ -461,8 +461,8 @@
 				%			Nehme wieder o.B.d.A. an, dass für alle $1 \leq i \leq m'$ alle Elemente aus $A_i$ kleiner sind als alle aus $B_i$.
 				\item[Schritt 3:] Wählen von $a_i \in A_i$, $b_i \in B_i$, $\alpha_i$ und  $\beta_i$ die Knoten von $P$ sind, für die $a_i = \delta(p_1, \alpha_i)$ und $b_i = \delta(p_1, \beta_i)$. 
 				Falls $(\alpha_i, \beta_i)$ nicht $(1+\frac{\epsilon}{3})t$-distanzerhaltend ist, verwirf das korrespondierende Tupel $(A_i, B_i)$, ansonsten behalte es.
-				\item<2->[Schritt 4:] Ausführen der modifizierte Breitensuche im Split-Tree $T$ durch.
-				\item<3->[Schritt 5:] Umwandeln des erhaltenen Pfades $(A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ zu einer Approximation von $P$
+				\item<2->[Schritt 4:] Ausführen der modifizierte Breitensuche im Split-Tree $T$.
+				\item<3->[Schritt 5:] Umwandeln des erhaltenen Pfades $(A_{i_1}, \mathellipsis, A_{i_{k-1}}, B_{i_{k-1}})$ zu einer Approximation von $P$.
 			\end{description}
 	\end{frame}
 	
